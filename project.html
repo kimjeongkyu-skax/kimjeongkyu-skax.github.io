@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project | Kim Jeongkyu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261122n">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="index.html#home"><span class="mark">KJ</span><b>Kim<em>Jeongkyu</em>_</b></a>
+      <nav id="menu">
+        <a href="index.html#projects" id="back-top"></a>
+      </nav>
+      <div class="nav-right">
+        <button class="flag" id="lang-ko" data-lang="ko" aria-label="한국어" aria-pressed="true">
+          <svg viewBox="0 0 36 24" width="30" height="20" aria-hidden="true"><rect x=".5" y=".5" width="35" height="23" rx="2" fill="#fff" stroke="#b9c2cc"/><circle cx="18" cy="12" r="4.5" fill="#0047a0"/><path d="M13.5 12a4.5 4.5 0 0 1 9 0a2.25 2.25 0 0 1-4.5 0a2.25 2.25 0 0 0-4.5 0z" fill="#cd2e3a"/></svg>
+        </button>
+        <button class="flag" id="lang-en" data-lang="en" aria-label="English" aria-pressed="false">
+          <svg viewBox="0 0 36 24" width="30" height="20" aria-hidden="true"><rect x=".5" y=".5" width="35" height="23" rx="2" fill="#fff" stroke="#b9c2cc"/><g fill="#b22234"><rect y="0" width="36" height="1.85"/><rect y="3.7" width="36" height="1.85"/><rect y="7.4" width="36" height="1.85"/><rect y="11.1" width="36" height="1.85"/><rect y="14.8" width="36" height="1.85"/><rect y="18.5" width="36" height="1.85"/></g><rect width="14.4" height="12.9" fill="#3c3b6e"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap project-page">
+    <a class="back-link" id="back" href="index.html#projects"></a>
+    <article id="project" class="panel"></article>
+    <div class="project-pager" id="pager"></div>
+  </main>
+
+  <script src="portfolio-data.js?v=20261122n" defer></script>
+  <script src="project.js?v=20261122n" defer></script>
+</body>
+</html>

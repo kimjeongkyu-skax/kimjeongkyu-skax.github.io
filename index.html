@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>김정규 | AI, AX 엔지니어링 포트폴리오</title>
+  <meta name="description" content="바이오 데이터 파이프라인, 운영 검증, AWS 기반 AI Gateway 구축 경험을 담은 김정규의 포트폴리오입니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261122n">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#home"><span class="mark">KJ</span><b>Kim<em>Jeongkyu</em>_</b></a>
+      <nav id="menu">
+        <a href="#home" class="on" data-i18n="nav.home">Home</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#about" data-i18n="nav.about">About Me</a>
+        <a href="assets/resume.pdf" target="_blank" rel="noopener" data-i18n="nav.cv">Resume</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button class="flag" id="lang-ko" data-lang="ko" aria-label="한국어" aria-pressed="true">
+          <svg viewBox="0 0 36 24" width="30" height="20" aria-hidden="true">
+            <rect x=".5" y=".5" width="35" height="23" rx="2" fill="#fff" stroke="#b9c2cc"/>
+            <circle cx="18" cy="12" r="4.5" fill="#0047a0"/>
+            <path d="M13.5 12a4.5 4.5 0 0 1 9 0a2.25 2.25 0 0 1-4.5 0a2.25 2.25 0 0 0-4.5 0z" fill="#cd2e3a"/>
+            <g fill="#111">
+              <g transform="translate(7.5 5.5) rotate(-33.7)"><rect x="-2.5" y="-1.4" width="5" height=".8"/><rect x="-2.5" y="-.4" width="5" height=".8"/><rect x="-2.5" y=".6" width="5" height=".8"/></g>
+              <g transform="translate(28.5 5.5) rotate(33.7)"><rect x="-2.5" y="-1.4" width="5" height=".8"/><rect x="-2.5" y="-.4" width="5" height=".8"/><rect x="-2.5" y=".6" width="5" height=".8"/></g>
+              <g transform="translate(7.5 18.5) rotate(33.7)"><rect x="-2.5" y="-1.4" width="5" height=".8"/><rect x="-2.5" y="-.4" width="5" height=".8"/><rect x="-2.5" y=".6" width="5" height=".8"/></g>
+              <g transform="translate(28.5 18.5) rotate(-33.7)"><rect x="-2.5" y="-1.4" width="5" height=".8"/><rect x="-2.5" y="-.4" width="5" height=".8"/><rect x="-2.5" y=".6" width="5" height=".8"/></g>
+            </g>
+          </svg>
+        </button>
+        <button class="flag" id="lang-en" data-lang="en" aria-label="English" aria-pressed="false">
+          <svg viewBox="0 0 36 24" width="30" height="20" aria-hidden="true">
+            <rect x=".5" y=".5" width="35" height="23" rx="2" fill="#fff" stroke="#b9c2cc"/>
+            <g fill="#b22234">
+              <rect y="0" width="36" height="1.85"/><rect y="3.7" width="36" height="1.85"/><rect y="7.4" width="36" height="1.85"/>
+              <rect y="11.1" width="36" height="1.85"/><rect y="14.8" width="36" height="1.85"/><rect y="18.5" width="36" height="1.85"/>
+              <rect y="22.15" width="36" height="1.85"/>
+            </g>
+            <rect width="14.4" height="12.9" fill="#3c3b6e"/>
+            <g fill="#fff">
+              <circle cx="2.4" cy="2.2" r=".6"/><circle cx="5.4" cy="2.2" r=".6"/><circle cx="8.4" cy="2.2" r=".6"/><circle cx="11.4" cy="2.2" r=".6"/>
+              <circle cx="3.9" cy="4.8" r=".6"/><circle cx="6.9" cy="4.8" r=".6"/><circle cx="9.9" cy="4.8" r=".6"/>
+              <circle cx="2.4" cy="7.4" r=".6"/><circle cx="5.4" cy="7.4" r=".6"/><circle cx="8.4" cy="7.4" r=".6"/><circle cx="11.4" cy="7.4" r=".6"/>
+              <circle cx="3.9" cy="10" r=".6"/><circle cx="6.9" cy="10" r=".6"/><circle cx="9.9" cy="10" r=".6"/>
+            </g>
+          </svg>
+        </button>
+              <button class="burger" id="burger" aria-label="메뉴" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="cord-wrap">
+    <svg class="cord" id="cord" viewBox="0 0 80 300" role="button" tabindex="0" aria-label="Pull the cord">
+      <path id="rope" d="M40 0 L40 176"/>
+      <circle class="anchor" cx="40" cy="0" r="4"/>
+      <g class="knob" id="knob" transform="translate(40 176)">
+        <rect class="hit" x="-16" y="-6" width="32" height="50"/>
+        <circle class="ring" cx="0" cy="3.5" r="3.5"/>
+        <rect class="grip" x="-7" y="8" width="14" height="28" rx="7"/>
+        <rect class="band" x="-7" y="19" width="14" height="1.6"/>
+        <rect class="band" x="-7" y="23" width="14" height="1.6"/>
+        <rect class="shine" x="-4" y="12" width="2.4" height="9" rx="1.2"/>
+      </g>
+    </svg>
+    <span data-i18n="cord">Pull the<br>cord!</span>
+  </div>
+
+  <main class="wrap">
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <span class="chip"><i></i><span data-i18n="hero.chip">AI ENGINEERING, DATA ENGINEERING</span></span>
+        <h1 data-i18n="hero.name">김정규</h1>
+        <h2 class="sub" data-i18n="hero.title">복잡한 현장의 문제를 이해하고, 기술로 해결하는 엔지니어.</h2>
+        <p class="lead" data-i18n="hero.lead">컴퓨터공학 석사로 5년 이상 바이오 데이터 파이프라인과 백엔드 시스템을 개발하고 운영해 왔습니다. AWS 기반 AI Gateway 구축 경험을 바탕으로 AI Agent와 기업 업무 자동화로 전문성을 확장하고 있습니다.</p>
+        <ul class="tags"><li>AI Engineering</li><li>Data Pipeline</li><li>Backend</li><li>AWS</li><li>Bioinformatics</li><li>Enterprise Automation</li></ul>
+        <aside class="highlight" aria-labelledby="exp-title">
+          <span class="hl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg></span>
+          <div><b id="exp-title" data-i18n="hero.hlTitle">약 5년의 경력</b><p data-i18n="hero.hlText">바이오 데이터 파이프라인과 백엔드 시스템 개발 및 운영</p></div>
+        </aside>
+        <div class="cta">
+          <a class="btn primary" href="#about" data-i18n="hero.know">About me</a>
+          <a class="btn soft" href="assets/resume.pdf" target="_blank" rel="noopener" data-i18n="hero.cv">Download CV ↗</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="term">
+          <div class="term-bar"><span class="term-lights" aria-hidden="true"><i class="r"></i><i class="y"></i><i class="g"></i></span><span class="term-user">kimjeongkyu@python:~$ python3 whoami.py</span><span class="term-status" aria-hidden="true"></span></div>
+          <div class="py-greeting"><code><span class="py-fn">print</span>(<wbr><span class="py-str">"Hello, World!"</span>)</code></div>
+        </div>
+        <div class="photo"><img src="assets/profile.png" alt="김정규 프로필 사진" width="315" height="492"></div>
+        <aside class="float-card"><span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M13.4 1.8 5.7 12.4h5.1l-.7 9.8 8.2-12h-5.2l.3-8.4Z"/></svg></span><div><b data-i18n="hero.focus">Data &amp; AI Engineering</b><small data-i18n="hero.focusSub">Data Pipeline, AWS, AI Agent</small></div></aside>
+      </div>
+    </section>
+
+    <section id="projects">
+      <span class="chip"><i></i><span data-i18n="proj.chip">SELECTED WORK</span></span>
+      <h2 class="title" data-i18n="proj.title">What I Build</h2>
+      <div class="grid" id="projectGrid">
+        <article class="card"><h3>AWS 기반 AI Gateway 및 거버넌스</h3><p>기업 내 LLM과 AI 개발 도구의 사용 환경을 AWS에서 구축했습니다.</p>
+      <div class="card-foot"><details><summary>프로젝트 상세</summary><dl class="definitions"><div><dt>문제</dt><dd>사내 AI 도구를 도입하면서 사용 환경과 비용을 함께 관리해야 했습니다.</dd></div><div><dt>담당 범위</dt><dd>AI Gateway 구축, 사용 환경 통합 관리, 비용 통제 및 Claude Code 도입을 담당했습니다.</dd></div><div><dt>구현 및 해결</dt><dd>AWS 기반 게이트웨이를 구성하고 챗봇과 협업형 AI의 사내 활용을 검토했습니다.</dd></div><div><dt>결과</dt><dd>사내 AI 도구의 사용과 비용을 관리할 수 있는 환경을 마련했습니다.</dd></div><div><dt>SK AX 직무 연결</dt><dd>기업용 Agent 도입에 필요한 LLM 접근 환경과 비용 관리의 기반입니다.</dd></div></dl></details></div></article><article class="card"><h3>액체생검 및 조직생검 분석 파이프라인</h3><p>유전체 데이터를 처리하고 분석 결과를 생성하는 실무 파이프라인을 개발했습니다.</p>
+      <div class="card-foot"><details><summary>프로젝트 상세</summary><dl class="definitions"><div><dt>문제</dt><dd>여러 분석 단계를 운영하면서 결과의 정합성과 시스템 안정성을 유지해야 했습니다.</dd></div><div><dt>담당 범위</dt><dd>분석 모듈 개발 및 유지보수, 결과 데이터 구조 설계, 운영 오류 분석을 담당했습니다.</dd></div><div><dt>구현 및 해결</dt><dd>액체생검과 조직생검 데이터를 처리하는 분석 흐름을 개발하고 운영 중 발생하는 오류에 대응했습니다.</dd></div><div><dt>검증</dt><dd>분석 결과 데이터의 정합성과 품질을 확인했습니다.</dd></div><div><dt>SK AX 직무 연결</dt><dd>복잡한 업무를 단계별로 구조화한 경험은 Agent 워크플로와 도구 설계에 적용할 수 있습니다.</dd></div></dl></details></div></article><article class="card"><h3>이노크라스 B2B WGS 파이프라인 검증</h3><p>소속 회사의 B2B 프로젝트로 이노크라스에 파견되어 WGS 파이프라인을 개발하고 검증했습니다.</p>
+      <div class="card-foot"><details><summary>프로젝트 상세</summary><dl class="definitions"><div><dt>문제</dt><dd>서로 다른 분석 모듈과 시스템의 결과가 어느 지점에서 달라지는지 확인해야 했습니다.</dd></div><div><dt>담당 범위</dt><dd>WGS 분석 파이프라인의 개발과 개선, 협력사 시스템과의 결과 비교를 담당했습니다.</dd></div><div><dt>구현 및 해결</dt><dd>TCGA 데이터를 활용하고 기존 분석 모듈과 파이프라인의 문제점을 검토했습니다.</dd></div><div><dt>검증</dt><dd>Broad Institute 관련 분석 결과와 모듈, 이노크라스 측 시스템의 출력을 교차 비교했습니다.</dd></div><div><dt>결과</dt><dd>모듈 간 결과 차이와 파이프라인의 개선 지점을 파악했습니다.</dd></div><div><dt>SK AX 직무 연결</dt><dd>서로 다른 도구의 결과를 비교한 경험은 Agent 도구 연동과 출력 검증에 이어집니다.</dd></div></dl></details></div></article><article class="card"><h3>일본 병원 파견 및 현장 운영</h3><p>2023~2024년경 일본 현지 병원과 협업하며 분석 시스템 운영을 지원했습니다.</p>
+      <div class="card-foot"><details><summary>프로젝트 상세</summary><dl class="definitions"><div><dt>문제</dt><dd>실제 고객 환경에서 발생하는 문제를 분석하고 현장 요구사항에 대응해야 했습니다.</dd></div><div><dt>담당 범위</dt><dd>운영 지원, 시스템 테스트와 검증, 현장 문제 대응에 참여했습니다.</dd></div><div><dt>검증</dt><dd>실제 운영 환경에서 시스템 동작을 반복적으로 점검했습니다.</dd></div><div><dt>SK AX 직무 연결</dt><dd>고객 환경에서 얻은 운영 경험을 기업용 AI 도입 후 장애 대응과 안정화에 적용할 수 있습니다.</dd></div></dl></details></div></article><article class="card"><h3>CAP PT 관련 파이프라인 및 환경 검증</h3><p>CAP PT 관련 검증 과정에서 분석 파이프라인과 데이터, 서버 환경을 점검했습니다.</p>
+      <div class="card-foot"><details><summary>프로젝트 상세</summary><dl class="definitions"><div><dt>문제</dt><dd>분석 결과를 검토하려면 입력 데이터와 운영 환경, 처리 과정도 함께 확인해야 했습니다.</dd></div><div><dt>담당 범위</dt><dd>분석 파이프라인 개발, 데이터 정보와 LOD 분석 결과, 서버 환경 검증을 담당했습니다.</dd></div><div><dt>검증</dt><dd>데이터와 LOD 결과를 검토하고 분석 흐름의 정상 동작을 확인했습니다.</dd></div><div><dt>SK AX 직무 연결</dt><dd>입력, 결과, 환경을 함께 검증한 방식은 AI 시스템의 품질 평가와 회귀 검증 설계에 활용할 수 있습니다.</dd></div></dl></details></div></article><article class="card"><h3>강북삼성병원 MNP 결과 저장 오류 해결</h3><p>유전체 분석 결과 저장 오류의 원인을 추적하고 데이터베이스 스키마를 수정했습니다.</p>
+      <div class="card-foot"><details><summary>프로젝트 상세</summary><dl class="definitions"><div><dt>문제</dt><dd>일부 MNP 변이 표현을 저장하는 과정에서 오류가 발생했습니다.</dd></div><div><dt>담당 범위</dt><dd>오류 원인을 분석하고 실제 데이터 길이를 고려해 스키마를 개선했습니다.</dd></div><div><dt>구현 및 해결</dt><dd>기존 VARCHAR(50) 제약을 확인하고 컬럼을 VARCHAR(200)으로 변경했습니다.</dd></div><div><dt>결과</dt><dd>긴 변이 표현을 저장할 수 있도록 컬럼의 길이 제한을 완화했습니다.</dd></div><div><dt>SK AX 직무 연결</dt><dd>도구나 시스템을 연동할 때 실제 데이터의 범위와 저장 계약을 검토하는 역량을 보여줍니다.</dd></div></dl></details></div></article>
+      </div>
+      <dialog id="projectDialog" class="project-dialog panel" aria-labelledby="projectTitle">
+        <form method="dialog" class="dialog-head">
+          <h3 id="projectTitle"></h3>
+          <button class="btn soft" data-i18n="project.close" autofocus>닫기</button>
+        </form>
+        <dl class="definitions" id="projectDetail"></dl>
+      </dialog>
+    </section>
+
+    <section id="skills">
+      <div class="skills-head">
+        <div>
+          <span class="chip"><i></i><span data-i18n="skills.chip">TECHNICAL STACK &amp; TOOLING</span></span>
+          <h2 class="title" data-i18n="skills.title">Technologies I Work With</h2>
+        </div>
+        <p class="note-r" data-i18n="skills.note">프로젝트에서 사용한 기술들입니다.</p>
+      </div>
+      <div class="skills-ctrl">
+        <div class="filters" id="filters"></div>
+        <div class="ctrl">
+          <span class="auto"><i></i><span id="autoLabel">Auto-scroll on</span></span>
+          <button class="sq" id="prev" aria-label="이전">‹</button>
+          <button class="sq" id="next" aria-label="다음">›</button>
+          <button class="sq wide" id="pause">❚❚ Pause</button>
+        </div>
+      </div>
+      <p class="hint" data-i18n="skills.hint">화살표, 키보드, 스와이프, 마우스 드래그로 넘겨볼 수 있습니다.</p>
+      <div class="track-wrap"><div class="track" id="track">
+        <div class="skill"><small>AI & LLM 엔지니어링, 직접 구현</small><h3>AI Gateway</h3><p>AWS 기반 AI 사용 환경 구축과 비용 관리</p></div><div class="skill"><small>AI & LLM 엔지니어링, 학습 및 검토</small><h3>LLM, RAG, AI Agent</h3><p>Tool Calling, MCP, LLMOps, LangChain 및 LangGraph 학습 및 검토</p></div><div class="skill"><small>데이터 엔지니어링, 실무 개발, 운영</small><h3>ETL, Data Pipeline</h3><p>파이프라인 개발, 외부 시스템 연계, 데이터 정합성 검증</p></div><div class="skill"><small>백엔드 엔지니어링, 실무 개발, 운영</small><h3>SQL, Schema Design</h3><p>분석 결과 저장 구조 설계 및 컬럼 제약 개선</p></div><div class="skill"><small>클라우드 & 인프라, 실무 개발, 운영</small><h3>AWS</h3><p>클라우드 환경 구축 및 서비스 운영</p></div><div class="skill"><small>바이오인포매틱스, 실무 개발, 운영</small><h3>Bioinformatics</h3><p>액체생검, 조직생검, WGS 분석 파이프라인 개발</p></div><div class="skill"><small>품질 & 운영, 실무 개발, 운영</small><h3>Validation, Troubleshooting</h3><p>분석 교차 검증, CAP PT 관련 기술 검증, 병원 현장 운영</p></div>
+      </div></div>
+    </section>
+
+    <section id="about">
+      <span class="chip"><i></i><span data-i18n="about.chip">EXPERIENCE &amp; EDUCATION</span></span>
+      <h2 class="title" data-i18n="about.title">Professional Milestones</h2>
+      <p class="about-summary" data-i18n="about.summary">파이프라인 개발과 검증, 외부 기관 연동, 병원 현장 운영과 AWS 기반 AI 도구 도입을 경험했습니다.</p>
+      <div class="filters" id="tabs">
+        <button class="active" data-f="all" aria-pressed="true" data-i18n="tab.all">All</button>
+        <button data-f="exp" aria-pressed="false" data-i18n="tab.exp">Experience</button>
+        <button data-f="edu" aria-pressed="false" data-i18n="tab.edu">Education</button>
+        <button data-f="pub" aria-pressed="false" data-i18n="tab.pub">International Papers</button>
+        <button data-f="conf" aria-pressed="false" data-i18n="tab.conf">Conferences</button>
+        <button data-f="award" aria-pressed="false" data-i18n="tab.award">Awards</button>
+      </div>
+      <ol class="timeline" id="timeline">
+        <li><div class="tl-top"><span class="k">경력</span><span>2023~2024년경</span></div>
+     <h3>일본 현지 병원</h3><strong>해외 파견</strong><p>운영 지원, 시스템 테스트와 검증, 현장 문제 대응에 참여했습니다.</p></li><li><div class="tl-top"><span class="k">경력</span></div>
+     <h3>이노크라스</h3><strong>B2B 프로젝트 파견</strong><p>WGS 분석 파이프라인의 개발과 개선, 협력사 시스템과의 결과 비교를 담당했습니다.</p></li><li><div class="tl-top"><span class="k">학력</span></div>
+     <h3>컴퓨터공학 석사</h3><p>영어 Intermediate</p></li>
+      </ol>
+    </section>
+
+    <section id="contact">
+      <span class="chip"><i></i><span data-i18n="contact.chip">GET IN TOUCH</span></span>
+      <h2 class="title" data-i18n="contact.title">Contact</h2>
+      <div class="contact-grid">
+        <aside class="side">
+          <div class="panel">
+            <h3 data-i18n="direct">Direct Channels</h3>
+            <p class="side-sub" data-i18n="direct.sub">Email me or visit my professional profiles.</p>
+            <a class="row" href="mailto:regular4950@naver.com">
+              <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg></span>
+              <span class="txt"><b data-i18n="ch.email">Email</b><small data-i18n="ch.emailSub">Write me a message</small></span>
+              <span class="arr">↗</span>
+            </a>
+            <a class="row" href="https://www.linkedin.com/in/jkkim1009" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.5H3zM9.75 9.75h3.83v1.57h.06c.53-1 1.84-2.07 3.78-2.07 4.04 0 4.78 2.66 4.78 6.12v5.88h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4z"/></svg></span>
+              <span class="txt"><b>LinkedIn</b><small data-i18n="ch.inSub">Open profile</small></span>
+              <span class="arr">↗</span>
+            </a>
+          </div>
+          <div class="panel">
+            <h3 data-i18n="domains">Focus Areas</h3>
+            <ul class="hash"><li>#Python</li><li>#Linux</li><li>#Docker</li><li>#AWS</li><li>#AI</li><li>#LangGraph</li><li>#DataPipeline</li></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <nav aria-label="Footer"><a href="#home" data-i18n="nav.home">Home</a><a href="#projects" data-i18n="nav.projects">Projects</a><a href="#skills" data-i18n="nav.skills">Skills</a><a href="#about" data-i18n="nav.about">About Me</a><a href="#contact" data-i18n="nav.contact">Contact</a></nav>
+    <p data-i18n="foot">© 2026 Kim Jeongkyu</p>
+  </footer>
+  <a href="#home" class="totop" aria-label="맨 위로">↑</a>
+  <script src="portfolio-data.js?v=20261122n" defer></script>
+  <script src="script.js?v=20261122n" defer></script>
+</body>
+</html>
