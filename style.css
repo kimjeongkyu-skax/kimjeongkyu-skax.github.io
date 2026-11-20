@@ -284,7 +284,7 @@ footer nav { flex-wrap: wrap; padding-inline: 1rem; }
 .project-gallery::-webkit-scrollbar{display:none}
 .project-gallery.dragging{cursor:grabbing;scroll-snap-type:none}
 .project-gallery:not(:has(img)){display:none}
-.project-gallery img{flex:0 0 100%;width:100%;scroll-snap-align:start;aspect-ratio:534/320;height:auto;object-fit:contain;background:transparent;border-radius:12px;border:1px solid var(--line);display:block;-webkit-user-drag:none;user-select:none}
+.project-gallery img{flex:0 0 100%;width:100%;scroll-snap-align:start;aspect-ratio:1140/711;height:auto;object-fit:contain;background:transparent;border-radius:12px;border:1px solid var(--line);display:block;-webkit-user-drag:none;user-select:none}
 
 /* dispatch sub-sections inside an employer card */
 .tl-sub{margin-top:22px;padding-top:6px;border-top:2px solid var(--line)}
@@ -376,3 +376,7 @@ footer{text-align:left;padding:28px 20px}
 .gallery-caption[hidden]{display:none}
 .gallery-count{position:absolute;top:10px;left:10px;z-index:2;padding:3px 10px;border-radius:999px;background:rgba(10,20,35,.72);color:#fff;font-size:.8rem;font-weight:600;letter-spacing:.02em;pointer-events:none}
 .gallery-count[hidden]{display:none}
+/* 번호는 사진 위쪽 바깥, 화살표는 넓은 화면에서 사진 좌우 바깥에 둬서 그림을 가리지 않는다 */
+.gallery-wrap{margin-top:40px}
+.gallery-count{top:-28px;left:2px;padding:0;background:none;color:var(--muted);font-size:.9rem}
+@media (min-width:760px){.g-prev{left:-56px}.g-next{right:-56px}}

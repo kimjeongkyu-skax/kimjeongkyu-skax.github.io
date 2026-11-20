@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261123m';
+const ASSET_V = '20261123q';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -480,33 +480,45 @@ const portfolioProjects = [
       en: "Sep. – Dec. 2022"
     },
     overview: {
-      ko: "병원별 설치 환경에 대응하는 자동 배포 스크립트로 약 7일 걸리던 배포와 테스트를 30~40분으로 줄였습니다.",
-      en: "Cut deployment and testing from about 7 days to 30–40 minutes with automated deployment scripts for each hospital environment."
+      ko: "병원별 설치 환경에 대응하는 자동 배포 스크립트를 단독으로 개발해, 6단계로 나뉜 설치 절차를 원라인 설치로 간소화하고 약 7일 걸리던 배포와 테스트를 30~40분으로 줄였습니다.",
+      en: "Independently developed automated deployment scripts for each hospital environment, simplifying a 6-step installation into a one-line install and cutting deployment and testing from about 7 days to 30–40 minutes."
     },
     role: {
       ko: [
-        "병원별 설치 환경에 대응하는 자동 배포 스크립트 개발",
+        "병원별 설치 환경(CentOS, Ubuntu)에 대응하는 자동 배포 스크립트를 단독으로 설계 및 개발",
+        "포트 개방, 라이선스 파일 교체, DB dump 생성, WAR 파일 교체 등 6단계로 나뉜 설치 절차를 원라인 설치로 간소화",
         "Ubuntu 및 Docker 기반 실행 환경 표준화",
         "On-premise 및 Air-gapped 환경에 대응하는 설치 절차 구성",
-        "배포 및 테스트 프로세스 SOP 작성"
+        "구축 및 실행 방법 SOP와 폴더 구조(Folder tree) 문서 작성"
       ],
       en: [
-        "Developed automated deployment scripts for each hospital installation environment",
+        "Independently designed and developed automated deployment scripts for each hospital environment (CentOS, Ubuntu)",
+        "Simplified a 6-step installation (port opening, license file replacement, DB dump creation, WAR file replacement, etc.) into a one-line install",
         "Standardized the Ubuntu and Docker-based execution environment",
         "Defined installation procedures for on-premise and air-gapped sites",
-        "Wrote SOPs for the deployment and testing process"
+        "Wrote the build-and-run SOP and the folder-structure (folder tree) documentation"
       ]
     },
     outcome: {
       ko: [
         "기존 약 7일 소요 배포 및 테스트 작업을 30~40분으로 단축",
-        "설치 환경 차이로 인한 반복 작업 감소"
+        "6단계 설치 절차를 원라인 설치로 간소화",
+        "설치 환경 차이로 인한 반복 작업 감소",
+        "구축 및 실행 SOP 문서화로 설치 절차 표준화"
       ],
       en: [
         "Reduced deployment and testing from about 7 days to 30–40 minutes",
-        "Reduced repeated work caused by installation-environment differences"
+        "Simplified the 6-step installation into a one-line install",
+        "Reduced repeated work caused by installation-environment differences",
+        "Standardized the installation procedure by documenting it in a build-and-run SOP"
       ]
     },
+    gallery: [
+      { ko: "6단계 설치 절차를 원라인 설치로 간소화 · 초기 설치 화면", en: "Simplifying a 6-step installation into a one-line install · Initial installer screen" },
+      { ko: "최종 설치 화면 (원라인 설치)", en: "Final installer screen (one-line install)" },
+      { ko: "SOP 표지", en: "SOP cover" },
+      { ko: "SOP 내용: 설치 폴더 구성 요소 정리", en: "SOP content: installation folder components" }
+    ],
     tools: [
       "CentOS",
       "Ubuntu",
@@ -583,19 +595,19 @@ const portfolioProjects = [
       en: "Apr. 2024 – Nov. 2025"
     },
     overview: {
-      ko: "CAP 실사 대비 분석 시스템 점검과 문서 준비, PT 시료 분석 및 기술 검증을 수행했습니다.",
-      en: "Prepared the analysis system and documents for CAP inspection and performed PT sample analysis and technical verification."
+      ko: "CAP 실사 대비 분석 시스템 점검과 문서 준비, PT 분석 및 기술 검증을 수행했습니다.",
+      en: "Prepared the analysis system and documents for CAP inspection and performed PT analysis and technical verification."
     },
     role: {
       ko: [
         "CAP 실사 대비 분석 시스템 점검, 증빙 문서 준비 및 실사 대응",
-        "CAP PT 시료 분석 및 결과 제출",
+        "CAP PT 분석 및 결과지 제출",
         "분석 파이프라인, 데이터, 결과 및 서버 환경 검증",
         "Software SOP, 형상관리 문서 작성 및 LOD 관련 결과 검증"
       ],
       en: [
         "Checked the analysis system, prepared evidence documents, and handled the CAP inspection",
-        "Analyzed CAP PT samples and submitted results",
+        "Performed CAP PT analysis and submitted result reports",
         "Verified the analysis pipeline, data, results, and server environment",
         "Wrote software SOPs and configuration-management documents and verified LOD-related results"
       ]
@@ -603,11 +615,11 @@ const portfolioProjects = [
     outcome: {
       ko: [
         "CAP 실사 대응을 위한 분석 시스템 및 문서 준비",
-        "숙련도 평가 시료 분석 및 결과 제출, 기술적 검증 수행"
+        "숙련도 평가 분석 및 결과지 제출, 기술적 검증 수행"
       ],
       en: [
         "Prepared the analysis system and documents for CAP inspection",
-        "Analyzed proficiency-testing samples, submitted results, and performed technical verification"
+        "Performed proficiency-testing analysis, submitted result reports, and performed technical verification"
       ]
     },
     tools: [
