@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261122n">
+  <link rel="stylesheet" href="style.css?v=20261122v">
 </head>
 <body>
   <header class="nav">
@@ -59,6 +59,18 @@
   </header>
 
   <div class="cord-wrap">
+    <svg class="lamp" id="lamp" viewBox="0 0 80 64" width="80" height="64" aria-hidden="true">
+      <defs>
+        <radialGradient id="lampGlow"><stop offset="0" stop-color="#ffd666" stop-opacity=".6"/><stop offset="1" stop-color="#ffd666" stop-opacity="0"/></radialGradient>
+        <linearGradient id="lampCone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd666" stop-opacity=".30"/><stop offset="1" stop-color="#ffd666" stop-opacity="0"/></linearGradient>
+      </defs>
+      <path class="cone" d="M33 44 L-14 230 L94 230 L47 44 Z" fill="url(#lampCone)"/>
+      <circle class="glow" cx="40" cy="42" r="38" fill="url(#lampGlow)"/>
+      <rect x="33" y="0" width="14" height="3" rx="1.5" class="lamp-mount"/>
+      <line x1="40" y1="3" x2="40" y2="17" class="lamp-wire"/>
+      <ellipse class="bulb" cx="40" cy="39" rx="6.5" ry="5.5"/>
+      <path class="shade" d="M22 38 Q24 19 40 16 Q56 19 58 38 Z"/>
+    </svg>
     <svg class="cord" id="cord" viewBox="0 0 80 300" role="button" tabindex="0" aria-label="Pull the cord">
       <path id="rope" d="M40 0 L40 176"/>
       <circle class="anchor" cx="40" cy="0" r="4"/>
@@ -166,8 +178,8 @@
     </section>
 
     <section id="contact">
-      <span class="chip"><i></i><span data-i18n="contact.chip">GET IN TOUCH</span></span>
-      <h2 class="title" data-i18n="contact.title">Contact</h2>
+      <span class="chip"><i></i><span data-i18n="contact.chip">CONTACT</span></span>
+      <h2 class="title" data-i18n="contact.title">Let’s talk</h2>
       <div class="contact-grid">
         <aside class="side">
           <div class="panel">
@@ -198,7 +210,7 @@
     <p data-i18n="foot">© 2026 Kim Jeongkyu</p>
   </footer>
   <a href="#home" class="totop" aria-label="맨 위로">↑</a>
-  <script src="portfolio-data.js?v=20261122n" defer></script>
-  <script src="script.js?v=20261122n" defer></script>
+  <script src="portfolio-data.js?v=20261122v" defer></script>
+  <script src="script.js?v=20261122v" defer></script>
 </body>
 </html>

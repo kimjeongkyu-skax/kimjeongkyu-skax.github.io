@@ -26,7 +26,7 @@ const I18N = {
     'about.summary': '연구 및 분석 업무에서 요구하는 데이터 품질을 운영 시스템에 반영해 왔습니다. 파이프라인 개발과 결과 검증부터 외부 기관 연동, 병원 현장 장애 대응, AWS 기반 AI 도구 도입까지 경험했습니다.',
     'about.chip': '경력 & 학력', 'about.title': '주요 이력',
     'tab.all': '전체', 'tab.exp': '경력', 'tab.edu': '학력', 'kind.exp': '경력', 'kind.edu': '학력', 'tab.pub': '해외 논문', 'kind.pub': '해외 논문', 'tab.award': '수상', 'kind.award': '수상', 'tab.conf': '학술대회', 'kind.conf': '학술대회 논문 및 발표',
-    'contact.chip': '연락하기', 'contact.title': '연락',
+    'contact.chip': '연락처', 'contact.title': '함께 이야기해 보세요',
     'form.title': '메시지 보내기', 'form.req': '모든 항목은 필수입니다.',
     'f.name': '이름', 'f.nameHelp': '어떻게 불러 드리면 될까요?',
     'f.email': '이메일', 'f.emailHelp': '답장을 보낼 주소로 사용합니다.',
@@ -61,7 +61,7 @@ const I18N = {
     'about.summary': 'I have built systems that meet the data quality needs of research and analysis. My work spans pipeline development, output validation, integration with external partners, hospital-site troubleshooting, and AI tool adoption on AWS.',
     'about.chip': 'EXPERIENCE & EDUCATION', 'about.title': 'Professional Milestones',
     'tab.all': 'All', 'tab.exp': 'Experience', 'tab.edu': 'Education', 'kind.exp': 'Experience', 'kind.edu': 'Education', 'tab.pub': 'International Papers', 'kind.pub': 'International paper', 'tab.award': 'Awards', 'kind.award': 'Award', 'tab.conf': 'Conferences', 'kind.conf': 'Conference paper',
-    'contact.chip': 'GET IN TOUCH', 'contact.title': 'Contact',
+    'contact.chip': 'CONTACT', 'contact.title': 'Let’s talk',
     'form.title': 'Send a message', 'form.req': 'All fields are required.',
     'f.name': 'Name', 'f.nameHelp': 'How should I address you?',
     'f.email': 'Email', 'f.emailHelp': "I'll use this address to reply.",
@@ -302,9 +302,14 @@ const drawTl = () => {
       ? `<div class="tl-org"><img class="tl-logo" src="assets/orgs/${m.logo}" alt="" onerror="this.remove()"><h3>${pick(m.org)}</h3></div>`
       : `<h3>${pick(m.org)}</h3>`;
     const role = m.role ? `<p class="tl-role">${pick(m.role)}</p>` : '';
-    const projects = (m.projects || []).map((id) => portfolioProjects.find((p) => p.id === id)).filter(Boolean).map((p) =>
+    const projHtml = (ids) => (ids || []).map((id) => portfolioProjects.find((p) => p.id === id)).filter(Boolean).map((p) =>
       `<section class="tl-project"><h4>${pick(p.title)}</h4><div class="tl-project-row">${projectImg(p.id)}<div class="tl-project-copy"><p>${pick(p.overview)}</p>${p.tools && p.tools.length ? `<ul class="tags">${p.tools.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}<a class="btn soft" href="project.html?id=${p.id}">${tr('proj.details')} ↗</a></div></div></section>`).join('');
-    return `<li><article class="tl-card">${head}${name}${role}${m.text ? `<div class="tl-body"><p>${pick(m.text)}</p></div>` : ''}${projects ? `<div class="tl-projects">${projects}</div>` : ''}</article></li>`;
+    const projects = projHtml(m.projects);
+    const subs = (m.children || []).map((c) => {
+      const logo = c.logo ? `<img class="tl-logo tl-logo-sm" src="assets/orgs/${c.logo}" alt="" onerror="this.remove()">` : '';
+      return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary>${projHtml(c.projects)}</details>`;
+    }).join('');
+    return `<li><article class="tl-card">${head}${name}${role}${m.text ? `<div class="tl-body"><p>${pick(m.text)}</p></div>` : ''}${projects || subs ? `<div class="tl-projects">${projects}${subs}</div>` : ''}</article></li>`;
   }).join('');
 };
 $('#tabs').addEventListener('click', (e) => {

@@ -282,3 +282,33 @@ footer nav { flex-wrap: wrap; padding-inline: 1rem; }
 .project-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:24px}
 .project-gallery:not(:has(img)){display:none}
 .project-gallery img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+
+/* dispatch sub-sections inside an employer card */
+.tl-sub{margin-top:22px;padding-top:6px;border-top:2px solid var(--line)}
+.tl-sub-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:16px}
+.tl-logo-sm{height:40px;min-width:40px}
+.tl-sub-title{flex:1;min-width:200px}
+.tl-sub-title h4{margin:0;font-size:1.2rem;color:var(--ink)}
+.tl-sub-title .tl-role{margin:2px 0 0}
+.tl-sub-head time{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+
+/* toggle behaviour for dispatch sections */
+.tl-sub-head{cursor:pointer;list-style:none;padding-bottom:16px}
+.tl-sub-head::-webkit-details-marker{display:none}
+.tl-sub-head:hover .tl-sub-title h4{color:var(--accent)}
+.tl-chev{width:10px;height:10px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);transition:transform .25s;margin:0 6px 4px 4px}
+.tl-sub[open]>.tl-sub-head .tl-chev{transform:rotate(-135deg);margin-bottom:-4px}
+.tl-sub[open]>.tl-sub-head{padding-bottom:4px}
+
+/* lamp above the cord: lights up in dark mode */
+.lamp{display:block;overflow:visible;margin-bottom:-12px;pointer-events:none}
+.lamp-mount{fill:var(--muted)}
+.lamp-wire{stroke:var(--muted);stroke-width:1.6}
+.lamp .shade{fill:var(--accent);stroke:var(--dark);stroke-width:1}
+.lamp .bulb{fill:#c4ced9;stroke:var(--muted);stroke-width:1;transition:fill .5s,filter .5s}
+.lamp .glow,.lamp .cone{opacity:0;transition:opacity .6s}
+:root[data-theme=dark] .lamp .bulb{fill:#ffe28a;stroke:#ffd666;filter:drop-shadow(0 0 6px #ffd666)}
+:root[data-theme=dark] .lamp .glow,:root[data-theme=dark] .lamp .cone{opacity:1}
+@media (prefers-reduced-motion:reduce){.lamp .bulb,.lamp .glow,.lamp .cone{transition:none}}
+
+.cord-wrap{z-index:25}

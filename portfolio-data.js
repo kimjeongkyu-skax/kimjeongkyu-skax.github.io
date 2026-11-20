@@ -15,369 +15,672 @@ const projectImg = (id, name = 'cover', exts = 'png,webp,svg', hide = '') =>
   `<img src="assets/projects/${id}/${name}.jpg" alt="" loading="lazy" data-id="${id}" data-name="${name}" data-exts="${exts}" ${hide ? 'data-hide="1"' : ''} onerror="imgFallback(this)">`;
 const portfolioProjects = [
   {
-    id: 'b2b-analysis',
-    title: locale('국내 B2B 고객사 분석 시스템 개선 및 솔루션 개발', 'Domestic B2B customer analysis system improvement and solution development'),
-    client: locale('이노크라스 (국내 B2B 고객사) / 데이터 분석 플랫폼, 솔루션 엔지니어링', 'Inocras (domestic B2B customer) / Data analysis platform, solution engineering'),
-    period: locale('진행 중', 'In progress'),
-    overview: locale('기존 분석 시스템의 문제를 분석하고 비용과 실행 속도를 개선하는 솔루션을 개발합니다.', 'Analyzing problems in an existing analysis system and developing a solution that improves cost and execution speed.'),
-    role: locale([
-      '기존 분석 시스템의 처리 구조 및 운영 환경 파악',
-      '기존 시스템에서 해결되지 않은 문제의 원인 분석과 개선 방향 검토',
-      '분석 처리 비용 최적화 및 실행 속도 개선 업무',
-      '가상화 기반 분석 모듈 구성 및 개발',
-      '분석 결과와 시각화 데이터를 활용한 결과 차이 검증',
-      '고객사 담당자와 기술적 문제 및 개선 방향 논의',
-    ], [
-      'Reviewed the processing structure and operating environment of the existing analysis system',
-      'Analyzed root causes of unresolved problems and evaluated improvement directions',
-      'Worked on optimizing analysis processing cost and improving execution speed',
-      'Configured and developed a virtualization-based analysis module',
-      'Verified result differences using analysis results and visualization data',
-      'Discussed technical issues and improvement directions with customer contacts',
-    ]),
-    outcome: locale([
-      '현장 분석에 기반한 개선 방향 구체화 및 솔루션 개선 진행 중',
-      '비용 및 성능 개선 결과의 최종 수치는 추후 확인 필요',
-    ], [
-      'Improvement direction defined from on-site analysis; solution improvement in progress',
-      'Final cost and performance figures to be confirmed',
-    ]),
-    tools: ['Linux', 'Data Pipeline', 'Virtualization', 'Performance Optimization', 'Troubleshooting', 'System Integration'],
+    id: "b2b-analysis",
+    title: {
+      ko: "국내 이노크라스 분석 시스템 개선 및 솔루션 개발",
+      en: "Inocras (domestic) analysis system improvement and solution development"
+    },
+    client: {
+      ko: "국내 이노크라스 / 바이오 임상 진단 분석",
+      en: "Inocras (domestic) / Bio clinical diagnostic analysis"
+    },
+    period: {
+      ko: "2026.10 ~ 현재 (국내 파견)",
+      en: "Oct. 2026 – present (domestic assignment)"
+    },
+    overview: {
+      ko: "기존 분석 시스템의 문제를 분석하고 비용과 실행 속도를 개선하는 솔루션을 개발합니다.",
+      en: "Analyzing problems in an existing analysis system and developing a solution that improves cost and execution speed."
+    },
+    role: {
+      ko: [
+        "기존 분석 시스템의 처리 구조 및 운영 환경 파악",
+        "기존 시스템에서 해결되지 않은 문제의 원인 분석과 개선 방향 검토",
+        "분석 처리 비용 최적화 및 모듈 단위 실행 속도 개선 업무",
+        "가상화 기반 분석 모듈 환경 구성 및 개발",
+        "분석 결과와 시각화 데이터를 활용한 결과 차이 검증",
+        "고객사 국내 담당자 및 미국 지사와의 합동 회의를 통해 기술적 문제와 개선 방향 협의"
+      ],
+      en: [
+        "Reviewed the processing structure and operating environment of the existing analysis system",
+        "Analyzed root causes of unresolved problems and evaluated improvement directions",
+        "Worked on optimizing analysis processing cost and improving per-module execution speed",
+        "Configured and developed a virtualization-based analysis module environment",
+        "Verified result differences using analysis results and visualization data",
+        "Discussed technical issues and improvement directions in joint meetings with the domestic customer contacts and the US office"
+      ]
+    },
+    outcome: {
+      ko: [
+        "현장 분석에 기반한 개선 방향 구체화 및 솔루션 개선 진행 중",
+        "비용 및 성능 개선 결과의 최종 수치는 추후 확인 필요"
+      ],
+      en: [
+        "Improvement direction defined from on-site analysis; solution improvement in progress",
+        "Final cost and performance figures to be confirmed"
+      ]
+    },
+    tools: [
+      "Linux",
+      "Singularity",
+      "Docker",
+      "Python",
+      "Snakemake"
+    ]
   },
   {
-    id: 'nai-gateway',
+    id: "nai-gateway",
     featured: true,
-    title: locale('nAI-Gateway 구축 및 전사 적용 PoC', 'nAI-Gateway build and company-wide PoC'),
-    client: locale('농심데이터시스템 내부 / Enterprise AI, LLM Gateway, AI Governance', 'Nongshim Data System (internal) / Enterprise AI, LLM gateway, AI governance'),
-    period: locale('진행 중', 'In progress'),
-    overview: locale('LiteLLM과 AWS 기반으로 사내 생성형 AI 사용 환경과 접근, 비용 관리 기능을 구축했습니다.', 'Built an internal generative-AI environment on LiteLLM and AWS with access control and cost management.'),
-    role: locale([
-      '생성형 AI 활용을 위한 Gateway 아키텍처 설계 및 PoC 수행',
-      'Claude Code, Cowork, Chatbot 등의 사용자별 서비스 제공 방안 검토',
-      'LiteLLM 기반 LLM API 통합과 AWS 환경 구성',
-      '별도 사용자 및 관리자 포털 아키텍처 제안',
-      '사내 이메일 OTP 인증과 관리자 가입 승인 기능 구현',
-      '사내망 접근 제한 등 서비스 접근 통제 기능 구성',
-      '사용자, 팀, 모델별 API Key, 접근 권한, 예산 및 사용 비용 관리 기능 연계',
-      '외부 접근 포털과 API Key 발급 및 회수, 클라이언트 설치 안내 기능 구현',
-    ], [
-      'Designed the gateway architecture for generative AI use and ran the PoC',
-      'Evaluated per-user service options such as Claude Code, Cowork, and chatbots',
-      'Integrated LLM APIs with LiteLLM and configured the AWS environment',
-      'Proposed separate user and administrator portal architectures',
-      'Implemented internal email OTP authentication and administrator sign-up approval',
-      'Configured access control such as internal-network restrictions',
-      'Connected API keys, permissions, budgets, and usage-cost management per user, team, and model',
-      'Implemented an external-access portal with API key issuance and revocation and client setup guides',
-    ]),
-    outcome: locale([
-      'Gateway 및 관리 포털의 주요 기능 구현',
-      '일부 사내 사용자 대상 PoC 진행 및 기능, 운영, 비용 구조 검증',
-      '외부 고객 제공을 고려한 솔루션 고도화 진행 중',
-    ], [
-      'Implemented the main features of the gateway and admin portal',
-      'Ran a PoC with internal users and validated features, operations, and cost structure',
-      'Advancing the solution for external customer delivery',
-    ]),
-    tools: ['AWS', 'LiteLLM', 'LLM API', 'Authentication', 'Access Control', 'AI Governance', 'Cost Management'],
+    title: {
+      ko: "nAI-Gateway 구축 및 전사 적용 PoC",
+      en: "nAI-Gateway build and company-wide PoC"
+    },
+    client: {
+      ko: "농심데이터시스템 및 농심 내부 / 기업 IT",
+      en: "Nongshim Data System and Nongshim (internal) / Enterprise IT"
+    },
+    period: {
+      ko: "2026.06 ~ 현재",
+      en: "Jun. 2026 – present"
+    },
+    overview: {
+      ko: "LiteLLM과 Amazon Bedrock 기반으로 사내 생성형 AI 사용 환경과 접근, 비용 관리 기능을 구축했습니다.",
+      en: "Built an internal generative-AI environment on LiteLLM and Amazon Bedrock with access control and cost management."
+    },
+    role: {
+      ko: [
+        "생성형 AI 활용을 위한 Gateway 아키텍처 설계 및 PoC 수행",
+        "Claude Code, Cowork, Chatbot 등의 사용자별 서비스 제공 방안 검토",
+        "AWS IAM 인증을 활용한 LiteLLM–Amazon Bedrock 연동 및 서비스 환경 구성",
+        "별도 사용자 및 관리자 포털 아키텍처 제안과 개발",
+        "사내 이메일 OTP 인증과 관리자 가입 승인 기능 구현",
+        "PoC 사용자의 시간 단위 및 일별 사용량 모니터링, 비용 최적화 테스트 및 주요 기능 테스트",
+        "사용자 및 팀별 접근 권한, 예산, 사용 비용을 조회하는 관리자 모니터링 기능 구현",
+        "외부 접근 포털과 승인 검토 규칙 기획"
+      ],
+      en: [
+        "Designed the gateway architecture for generative AI use and ran the PoC",
+        "Evaluated per-user service options such as Claude Code, Cowork, and chatbots",
+        "Integrated LiteLLM with Amazon Bedrock using AWS IAM authentication and configured the service environment",
+        "Proposed and developed separate user and administrator portal architectures",
+        "Implemented internal email OTP authentication and administrator sign-up approval",
+        "Monitored hourly and daily usage of PoC users and ran cost-optimization and key-feature tests",
+        "Implemented administrator monitoring of permissions, budgets, and usage cost per user and team",
+        "Planned the external-access portal and its approval review rules"
+      ]
+    },
+    outcome: {
+      ko: [
+        "Gateway 및 관리 포털의 주요 기능 구현",
+        "일부 사내 사용자 대상 PoC 진행 및 기능, 운영, 비용 구조 검증",
+        "외부 고객 제공을 고려한 솔루션 고도화 진행 중"
+      ],
+      en: [
+        "Implemented the main features of the gateway and admin portal",
+        "Ran a PoC with internal users and validated features, operations, and cost structure",
+        "Advancing the solution for external customer delivery"
+      ]
+    },
+    tools: [
+      "AWS",
+      "Amazon Bedrock",
+      "IAM",
+      "LiteLLM",
+      "Docker",
+      "SQLite",
+      "TypeScript",
+      "HTML",
+      "CSS",
+      "Gmail SMTP"
+    ]
   },
   {
-    id: 'ai-re',
+    id: "ai-re",
     featured: true,
-    title: locale('AI-RE 연구 환경 플랫폼 기획 및 AWS 아키텍처 설계', 'AI-RE research environment platform planning and AWS architecture design'),
-    client: locale('연구기관, 바이오, 의료 / Research Platform, AI Governance', 'Research institutes, bio, healthcare / Research platform, AI governance'),
-    period: locale('KHF 2026 발표', 'Presented at KHF 2026'),
-    overview: locale('B2B 공동연구 플랫폼을 기획하고 AWS 인프라와 AI Gateway 연계 구조를 설계했습니다.', 'Planned a B2B joint-research platform and designed its AWS infrastructure and AI gateway integration.'),
-    role: locale([
-      'Bioinformatics Community 초기 아이디어 기획 및 연구환경 벤치마킹',
-      '임원회의 및 사업 방향 검토를 통해 B2B 공동연구 플랫폼으로 기획 구체화',
-      '연구자별 독립 분석 환경, 프로젝트 권한, 데이터 반입 및 반출 승인 구조 기획',
-      'AWS 기반 인프라 아키텍처 및 Scientist AI Agent, AI Gateway 연계 구조 설계',
-      'KHF 2026 기술 발표 및 고객 대응',
-    ], [
-      'Planned the initial Bioinformatics Community idea and benchmarked research environments',
-      'Refined it into a B2B joint-research platform through executive meetings and business review',
-      'Planned per-researcher isolated analysis environments, project permissions, and data in/out approval flows',
-      'Designed the AWS infrastructure architecture and its integration with the Scientist AI Agent and AI Gateway',
-      'Gave a technical presentation at KHF 2026 and handled customer inquiries',
-    ]),
-    outcome: locale([
-      '연구 운영 관리, AI Governance, 클라우드 연구 환경의 주요 기능 정의',
-      'KHF 2026 발표와 고객 대응을 통해 팀 기준 리드 82건 확보에 기여 (이전 4개년 평균 9건)',
-      '리드 수는 개인 단독 실적이 아닌 팀 기준',
-    ], [
-      'Defined the main features of research operations management, AI governance, and the cloud research environment',
-      'Contributed to 82 team leads from the KHF 2026 presentation and customer handling (previous 4-year average: 9)',
-      'Lead count is a team figure, not an individual result',
-    ]),
-    tools: ['AI Solution Planning', 'Requirements Analysis', 'AWS Architecture', 'AI Governance', 'Technical Presentation'],
+    title: {
+      ko: "AI-RE 연구 환경 플랫폼 기획 및 AWS 아키텍처 설계",
+      en: "AI-RE research environment platform planning and AWS architecture design"
+    },
+    client: {
+      ko: "연구기관 / 바이오 / 의료 연구",
+      en: "Research institutes / Bio / Medical research"
+    },
+    period: {
+      ko: "2026.01 ~ 2026.08 (KHF 2026 발표)",
+      en: "Jan. – Aug. 2026 (presented at KHF 2026)"
+    },
+    overview: {
+      ko: "B2B 공동연구 플랫폼을 기획하고 AWS 인프라와 AI Gateway 연계 구조를 설계했습니다.",
+      en: "Planned a B2B joint-research platform and designed its AWS infrastructure and AI gateway integration."
+    },
+    role: {
+      ko: [
+        "Bioinformatics Community 초기 아이디어 기획 및 연구환경 벤치마킹",
+        "임원회의 및 사업 방향 검토를 통해 B2B 공동연구 플랫폼으로 기획 구체화",
+        "연구자별 독립 분석 환경, 프로젝트 권한, 데이터 반입 및 반출 승인 구조 기획",
+        "AWS 기반 인프라 아키텍처 및 Scientist AI Agent, AI Gateway 연계 구조 설계",
+        "KHF 2026 기술 발표 및 고객 대응"
+      ],
+      en: [
+        "Planned the initial Bioinformatics Community idea and benchmarked research environments",
+        "Refined it into a B2B joint-research platform through executive meetings and business review",
+        "Planned per-researcher isolated analysis environments, project permissions, and data in/out approval flows",
+        "Designed the AWS infrastructure architecture and its integration with the Scientist AI Agent and AI Gateway",
+        "Gave a technical presentation at KHF 2026 and handled customer inquiries"
+      ]
+    },
+    outcome: {
+      ko: [
+        "연구 운영 관리, AI Governance, 클라우드 연구 환경의 주요 기능 정의",
+        "KHF 2026 발표와 고객 대응을 통해 팀 기준 리드 82건 확보에 기여 (이전 4개년 평균 9건)",
+        "리드 수는 개인 단독 실적이 아닌 팀 기준"
+      ],
+      en: [
+        "Defined the main features of research operations management, AI governance, and the cloud research environment",
+        "Contributed to 82 team leads from the KHF 2026 presentation and customer handling (previous 4-year average: 9)",
+        "Lead count is a team figure, not an individual result"
+      ]
+    },
+    tools: [
+      "AWS Architecture",
+      "AI Governance",
+      "Requirements Analysis",
+      "Technical Presentation"
+    ]
   },
   {
-    id: 'rag-chatbot',
+    id: "rag-chatbot",
     featured: true,
-    title: locale('사내 규정문서 기반 RAG 챗봇 개발 및 배포', 'Internal policy-document RAG chatbot development and deployment'),
-    client: locale('농심데이터시스템 내부 / Enterprise AI, RAG, Document Search', 'Nongshim Data System (internal) / Enterprise AI, RAG, document search'),
-    period: null,
-    overview: locale('LibreChat에 자체 Agent 서비스를 연동해 규정 검색과 근거 문서 확인이 가능한 챗봇을 배포했습니다.', 'Deployed a chatbot with policy search and source-document viewing by connecting a custom agent service to LibreChat.'),
-    role: locale([
-      'LibreChat에 FastAPI 기반 자체 Agent 서비스 연동',
-      'LangChain과 LangGraph 활용 질의 처리 흐름 개발',
-      '일반 대화는 Haiku, 규정 검색 및 재정렬은 Sonnet을 활용하는 모델 분기 구성',
-      'Sonnet 기반 리랭킹으로 문서 후보 최대 3개 제시 및 사용자 선택 흐름 구현',
-      'PDF 페이지 미리보기 및 인용 구간 강조 UI 구현',
-      '사내 배포 후 기능 개선과 사용 비용 모니터링',
-    ], [
-      'Connected a FastAPI-based custom agent service to LibreChat',
-      'Built the query-handling flow with LangChain and LangGraph',
-      'Configured model routing: Haiku for general chat, Sonnet for policy search and reranking',
-      'Implemented Sonnet-based reranking that offers up to 3 candidate documents for the user to choose',
-      'Built a PDF page preview with highlighted cited passages',
-      'Improved features and monitored usage cost after internal deployment',
-    ]),
-    outcome: locale([
-      '저비용 모델 분기를 고려한 질의 처리 구조 구현',
-      '근거 문서를 확인할 수 있는 검색 UI 개발 및 서비스 배포',
-    ], [
-      'Implemented a query-handling structure with low-cost model routing',
-      'Developed and deployed a search UI that lets users check source documents',
-    ]),
-    tools: ['Python', 'FastAPI', 'LangChain', 'LangGraph', 'LibreChat', 'RAG', 'LLM API', 'UI/UX'],
+    title: {
+      ko: "사내 규정문서 기반 RAG 챗봇 개발 및 배포",
+      en: "Internal policy-document RAG chatbot development and deployment"
+    },
+    client: {
+      ko: "농심데이터시스템 내부 / 기업 IT",
+      en: "Nongshim Data System (internal) / Enterprise IT"
+    },
+    period: {
+      ko: "2026.08 ~ 현재",
+      en: "Aug. 2026 – present"
+    },
+    overview: {
+      ko: "LibreChat에 자체 Agent 서비스를 연동해 규정 검색과 근거 문서 확인이 가능한 챗봇을 배포했습니다.",
+      en: "Deployed a chatbot with policy search and source-document viewing by connecting a custom agent service to LibreChat."
+    },
+    role: {
+      ko: [
+        "LibreChat에 FastAPI 기반 자체 Agent 서비스 연동",
+        "LangGraph를 활용한 질의 처리 흐름 개발",
+        "일반 대화에는 Haiku, 규정 검색 및 결과 재정렬에는 Sonnet을 적용하는 모델 분기 구조 구현",
+        "Sonnet 기반 리랭킹으로 관련 규정문서 후보 최대 3개를 제시하고 사용자가 선택하는 흐름 구현",
+        "PDF 페이지 미리보기 및 인용 구간 강조 UI 구현",
+        "사내 배포 후 기능 개선과 사용 비용 모니터링"
+      ],
+      en: [
+        "Connected a FastAPI-based custom agent service to LibreChat",
+        "Built the query-handling flow with LangGraph",
+        "Implemented model routing: Haiku for general chat, Sonnet for policy search and reranking",
+        "Implemented Sonnet-based reranking that offers up to 3 candidate policy documents for the user to choose",
+        "Built a PDF page preview with highlighted cited passages",
+        "Improved features and monitored usage cost after internal deployment"
+      ]
+    },
+    outcome: {
+      ko: [
+        "저비용 모델 분기를 고려한 질의 처리 구조 구현",
+        "근거 문서를 확인할 수 있는 검색 UI 개발 및 서비스 배포"
+      ],
+      en: [
+        "Implemented a query-handling structure with low-cost model routing",
+        "Developed and deployed a search UI that lets users check source documents"
+      ]
+    },
+    tools: [
+      "Python",
+      "FastAPI",
+      "LangGraph",
+      "LibreChat",
+      "pgvector",
+      "Amazon Titan Text Embeddings"
+    ]
   },
   {
-    id: 'cgn-aacr',
+    id: "cgn-aacr",
     featured: true,
-    title: locale('미국 이노크라스 CGN AI 플랫폼 개발 및 AACR 데모', 'Inocras US CGN AI platform development and AACR demo'),
-    client: locale('미국 이노크라스 / B2B, AI Agent, Bioinformatics', 'Inocras US / B2B, AI agent, bioinformatics'),
-    period: locale('2026.04 (AACR 2026, 개발 약 1개월)', 'Apr. 2026 (AACR 2026, about 1 month of development)'),
-    overview: locale('WGS 코호트 데이터 기반 생성형 AI 연구지원 데모를 약 1개월 만에 개발해 AACR 2026에서 활용했습니다.', 'Developed a WGS-cohort generative-AI research-support demo in about a month, used at AACR 2026.'),
-    role: locale([
-      'WGS 코호트 데이터 기반 생성형 AI 연구지원 데모 개발 및 미국 현장 기술 지원',
-      '당시 Claude 기반 Agent의 전문 분석 절차 수행 문제 검토',
-      'Claude Code Skills를 도입하여 도메인 지식과 작업별 지침 구성',
-      'LibreChat 기반 Agent Scientist UI 개선',
-      'AWS 개발 및 운영 서버 아키텍처 설계',
-      '고객 요구사항에 따른 기능 개선과 데모 안정화',
-    ], [
-      'Developed a generative-AI research-support demo on WGS cohort data and gave on-site technical support in the US',
-      'Investigated why the Claude-based agent struggled with specialized analysis procedures',
-      'Introduced Claude Code Skills to encode domain knowledge and task-specific instructions',
-      'Improved the LibreChat-based Agent Scientist UI',
-      'Designed the AWS development and production server architecture',
-      'Improved features per customer requirements and stabilized the demo',
-    ]),
-    outcome: locale([
-      '약 1개월 내 AACR 2026 컨퍼런스에서 활용할 데모 완성',
-      '연구자 사용 환경을 고려한 UI 및 Agent 작업 지침 개선',
-    ], [
-      'Completed a demo within about a month for the AACR 2026 conference',
-      'Improved the UI and agent task instructions for researchers',
-    ]),
-    tools: ['Claude Code Skills', 'Bedrock', 'LibreChat', 'AWS', 'Python', 'Docker', 'LLM', 'UI/UX'],
+    title: {
+      ko: "미국 이노크라스 AI 플랫폼 개발 및 AACR 학회 데모 지원",
+      en: "Inocras US AI platform development and AACR conference demo support"
+    },
+    client: {
+      ko: "미국 이노크라스 / 바이오 유전체 연구",
+      en: "Inocras US / Bio genomics research"
+    },
+    period: {
+      ko: "2026.04 (미국 파견 및 AACR 데모)",
+      en: "Apr. 2026 (US assignment and AACR demo)"
+    },
+    overview: {
+      ko: "WGS 코호트 데이터 기반 생성형 AI 연구지원 데모를 약 1개월 만에 개발해 AACR 2026에서 활용했습니다.",
+      en: "Developed a WGS-cohort generative-AI research-support demo in about a month, used at AACR 2026."
+    },
+    role: {
+      ko: [
+        "WGS 코호트 데이터 기반 생성형 AI 연구지원 데모 개발 및 미국 현장 기술 지원",
+        "당시 Claude 기반 Agent의 전문 분석 절차 수행 문제 검토",
+        "Claude Code Skills를 도입하여 도메인 지식과 작업별 지침 구성",
+        "LibreChat 기반 Agent Scientist UI 개선",
+        "AWS 개발 및 운영 서버 아키텍처 설계",
+        "고객 요구사항에 따른 기능 개선과 데모 안정화"
+      ],
+      en: [
+        "Developed a generative-AI research-support demo on WGS cohort data and gave on-site technical support in the US",
+        "Investigated why the Claude-based agent struggled with specialized analysis procedures",
+        "Introduced Claude Code Skills to encode domain knowledge and task-specific instructions",
+        "Improved the LibreChat-based Agent Scientist UI",
+        "Designed the AWS development and production server architecture",
+        "Improved features per customer requirements and stabilized the demo"
+      ]
+    },
+    outcome: {
+      ko: [
+        "약 1개월 내 AACR 2026 컨퍼런스에서 활용할 데모 완성",
+        "연구자 사용 환경을 고려한 UI 및 Agent 작업 지침 개선"
+      ],
+      en: [
+        "Completed a demo within about a month for the AACR 2026 conference",
+        "Improved the UI and agent task instructions for researchers"
+      ]
+    },
+    tools: [
+      "Python",
+      "AWS",
+      "Docker",
+      "LiteLLM",
+      "LibreChat",
+      "Claude Code Skills"
+    ]
   },
   {
-    id: 'spatial',
-    title: locale('제약사 공간전사체 분석 자동화 및 LLM 연계 PoC', 'Pharma spatial transcriptomics analysis automation and LLM PoC'),
-    client: locale('제약사 고객 / Single-cell, Visium, Spatial Transcriptomics', 'Pharma customer / Single-cell, Visium, spatial transcriptomics'),
-    period: null,
-    overview: locale('개별 분석 작업을 Script 기반 자동화 Workflow로 전환하고 LLM 모듈 연계를 검증했습니다.', 'Turned individual analyses into a script-based automated workflow and validated an LLM module integration.'),
-    role: locale([
-      'Single-cell, Visium 기반 End-to-End 분석 파이프라인 개발',
-      'RStudio와 Jupyter 중심의 개별 분석을 Script 기반 자동화 Workflow로 전환',
-      'Public Data 분석부터 결과 및 보고서 생성까지 자동화',
-      '실험자도 분석을 수행할 수 있도록 사용 방식 단순화',
-      'Ollama 기반 LLM 모듈을 분석 Workflow에 연계한 PoC 수행',
-    ], [
-      'Developed end-to-end analysis pipelines for single-cell and Visium data',
-      'Converted RStudio/Jupyter-centered individual analyses into a script-based automated workflow',
-      'Automated everything from public-data analysis to result and report generation',
-      'Simplified usage so that experimenters can run analyses themselves',
-      'Ran a PoC integrating an Ollama-based LLM module into the workflow',
-    ]),
-    outcome: locale([
-      '분석 소요 시간 기존 2~3일에서 12시간 이내로 단축',
-      '실행 환경 표준화 및 사용자별 Local 환경 의존성 감소',
-    ], [
-      'Cut analysis time from 2–3 days to within 12 hours',
-      'Standardized the execution environment and reduced dependence on per-user local setups',
-    ]),
-    tools: ['Single-cell', 'Visium', 'Snakemake', 'Streamlit', 'LLM'],
+    id: "spatial",
+    title: {
+      ko: "제약사 공간전사체 분석 자동화 및 LLM 연계 PoC",
+      en: "Pharma spatial transcriptomics analysis automation and LLM PoC"
+    },
+    client: {
+      ko: "삼성바이오에피스 / 제약 / 바이오 연구",
+      en: "Samsung Bioepis / Pharma / Bio research"
+    },
+    period: {
+      ko: "2025.07 ~ 2025.11",
+      en: "Jul. – Nov. 2025"
+    },
+    overview: {
+      ko: "개별 분석 작업을 Script 기반 자동화 Workflow로 전환하고 LLM 모듈 연계를 검증했습니다.",
+      en: "Turned individual analyses into a script-based automated workflow and validated an LLM module integration."
+    },
+    role: {
+      ko: [
+        "Single-cell, Visium 기반 End-to-End 분석 파이프라인 개발",
+        "RStudio/Jupyter 중심의 개별 분석을 모듈 단위로 분리하고 자동화 Workflow로 전환",
+        "Public Data 분석부터 결과 및 보고서 생성까지 자동화",
+        "실험자도 분석을 수행할 수 있도록 사용 방식 단순화",
+        "Ollama 기반 LLM 모듈을 분석 Workflow에 연계한 PoC 수행"
+      ],
+      en: [
+        "Developed end-to-end analysis pipelines for single-cell and Visium data",
+        "Split RStudio/Jupyter-centered individual analyses into modules and converted them into an automated workflow",
+        "Automated everything from public-data analysis to result and report generation",
+        "Simplified usage so that experimenters can run analyses themselves",
+        "Ran a PoC integrating an Ollama-based LLM module into the workflow"
+      ]
+    },
+    outcome: {
+      ko: [
+        "분석 소요 시간 기존 2~3일에서 12시간 이내로 단축",
+        "실행 환경 표준화 및 사용자별 Local 환경 의존성 감소"
+      ],
+      en: [
+        "Cut analysis time from 2–3 days to within 12 hours",
+        "Standardized the execution environment and reduced dependence on per-user local setups"
+      ]
+    },
+    tools: [
+      "Python",
+      "R",
+      "Bash",
+      "Linux",
+      "Snakemake",
+      "Singularity",
+      "Docker",
+      "Ollama"
+    ]
   },
   {
-    id: 'liquid-ldt',
+    id: "liquid-ldt",
     featured: true,
-    title: locale('액체생검 LDT 분석 플랫폼 개발 및 사업화', 'Liquid biopsy LDT analysis platform development and commercialization'),
-    client: locale('국내 의료기관 / Liquid Biopsy, LDT, Clinical Bioinformatics', 'Domestic medical institutions / Liquid biopsy, LDT, clinical bioinformatics'),
-    period: null,
-    overview: locale('액체생검 분석 파이프라인을 컨테이너화하고 Snakemake로 자동화해 의료기관에 납품했습니다.', 'Containerized and automated the liquid biopsy pipeline with Snakemake and delivered it to medical institutions.'),
-    role: locale([
-      '액체생검 분석 소프트웨어 및 파이프라인 개발',
-      '분석 모듈 컨테이너화, Snakemake 기반 워크플로우 자동화',
-      '레거시 문제 발견 및 개선',
-      '분석 진행 상황 모니터링, 서버 CAPA 최적화',
-      '의료기관 대상 LDT 분석 시스템 배포 및 납품 지원',
-    ], [
-      'Developed liquid biopsy analysis software and pipelines',
-      'Containerized analysis modules and automated workflows with Snakemake',
-      'Found and fixed legacy issues',
-      'Monitored analysis progress and optimized server capacity',
-      'Supported deployment and delivery of the LDT analysis system to medical institutions',
-    ]),
-    outcome: locale([
-      '분석 실행 환경 표준화 및 반복 작업 자동화',
-      '의료기관 대상 분석 시스템 구축, 납품과 운영 개선 지원',
-    ], [
-      'Standardized the execution environment and automated repetitive work',
-      'Supported building, delivering, and improving operations of the analysis system for medical institutions',
-    ]),
-    tools: ['cfDNA', 'NGS', 'Snakemake', 'Singularity', 'Linux', 'Monitoring'],
+    title: {
+      ko: "액체생검 LDT 분석 플랫폼 개발 및 사업화",
+      en: "Liquid biopsy LDT analysis platform development and commercialization"
+    },
+    client: {
+      ko: "국내 상급종합병원 및 사업화 / 바이오 임상 진단 분석",
+      en: "Domestic tertiary hospitals and commercialization / Bio clinical diagnostic analysis"
+    },
+    period: {
+      ko: "2024.11 ~ 2025.06",
+      en: "Nov. 2024 – Jun. 2025"
+    },
+    overview: {
+      ko: "액체생검 분석 파이프라인을 컨테이너화하고 Snakemake로 자동화해 의료기관에 납품했습니다.",
+      en: "Containerized and automated the liquid biopsy pipeline with Snakemake and delivered it to medical institutions."
+    },
+    role: {
+      ko: [
+        "액체생검 분석 소프트웨어 및 파이프라인 개발",
+        "분석 모듈 컨테이너화와 Snakemake 기반 워크플로우 자동화",
+        "레거시 파이프라인의 결과 데이터 문제 발견 및 개선",
+        "분석 진행 상황 모니터링 및 서버 CAPA 최적화",
+        "의료기관 대상 LDT 분석 시스템 배포 및 납품 지원"
+      ],
+      en: [
+        "Developed liquid biopsy analysis software and pipelines",
+        "Containerized analysis modules and automated workflows with Snakemake",
+        "Found and fixed result-data problems in the legacy pipeline",
+        "Monitored analysis progress and optimized server capacity",
+        "Supported deployment and delivery of the LDT analysis system to medical institutions"
+      ]
+    },
+    outcome: {
+      ko: [
+        "분석 실행 환경 표준화 및 반복 작업 자동화",
+        "의료기관 대상 분석 시스템 구축, 납품과 운영 개선 지원"
+      ],
+      en: [
+        "Standardized the execution environment and automated repetitive work",
+        "Supported building, delivering, and improving operations of the analysis system for medical institutions"
+      ]
+    },
+    tools: [
+      "Python",
+      "Linux",
+      "Docker",
+      "Singularity",
+      "Snakemake"
+    ]
   },
   {
-    id: 'hospital',
-    title: locale('국내 상급종합병원 분석 시스템 구축 및 운영', 'Tertiary hospital analysis system build and operation'),
-    client: locale('국내 상급종합병원 / Medical IT, Clinical Bioinformatics', 'Domestic tertiary hospital / Medical IT, clinical bioinformatics'),
-    period: null,
-    overview: locale('병원별 폐쇄망 환경에 분석 시스템을 배포하고 결과 검증과 운영 안정화를 수행했습니다.', 'Deployed the analysis system to hospital air-gapped environments and handled result verification and stabilization.'),
-    role: locale([
-      '병원별 On-premise, Air-gapped 환경에 분석 시스템 배포',
-      '레거시 스크립트 모듈화와 실행 환경 표준화',
-      '분석 결과 동일성 검증 및 운영 안정화',
-      'Daemon, Logging, DB Migration 적용',
-      '현장 모니터링 및 장애 대응',
-    ], [
-      'Deployed the analysis system to per-hospital on-premise and air-gapped environments',
-      'Modularized legacy scripts and standardized the execution environment',
-      'Verified result identity and stabilized operations',
-      'Applied daemons, logging, and DB migration',
-      'On-site monitoring and incident response',
-    ]),
-    outcome: locale([
-      '제한된 네트워크 환경에 맞춘 시스템 구축 및 운영',
-      'MNP 변이 저장 오류의 VARCHAR(50) 제약 확인 후 VARCHAR(200)으로 개선',
-    ], [
-      'Built and operated the system under restricted network conditions',
-      'Traced an MNP variant storage error to a VARCHAR(50) limit and raised it to VARCHAR(200)',
-    ]),
-    tools: ['Linux', 'On-premise', 'Air-gapped', 'DBeaver', 'Snakemake', 'Phenoptes', 'igv-reports', 'DB Migration', 'Logging', 'Troubleshooting'],
+    id: "hospital",
+    title: {
+      ko: "국내 상급종합병원 분석 시스템 구축 및 운영",
+      en: "Tertiary hospital analysis system build and operation"
+    },
+    client: {
+      ko: "국내 상급종합병원 / 바이오 임상 진단 분석",
+      en: "Domestic tertiary hospital / Bio clinical diagnostic analysis"
+    },
+    period: {
+      ko: "2023.06 ~ 2023.11 (재설치 및 현장 지원 기준)",
+      en: "Jun. – Nov. 2023 (reinstallation and on-site support)"
+    },
+    overview: {
+      ko: "병원별 폐쇄망 환경에 분석 시스템을 배포하고 결과 검증과 운영 안정화를 수행했습니다.",
+      en: "Deployed the analysis system to hospital air-gapped environments and handled result verification and stabilization."
+    },
+    role: {
+      ko: [
+        "병원별 On-premise 및 Air-gapped 환경에 분석 시스템 배포",
+        "레거시 스크립트 모듈화와 실행 환경 표준화",
+        "분석 결과 동일성 검증 및 운영 안정화",
+        "Daemon 및 Logging 구성, DB Migration 수행",
+        "현장 모니터링 및 장애 대응"
+      ],
+      en: [
+        "Deployed the analysis system to per-hospital on-premise and air-gapped environments",
+        "Modularized legacy scripts and standardized the execution environment",
+        "Verified result identity and stabilized operations",
+        "Configured daemons and logging and performed DB migration",
+        "On-site monitoring and incident response"
+      ]
+    },
+    outcome: {
+      ko: [
+        "제한된 네트워크 환경에 맞춘 시스템 구축 및 운영",
+        "MNP 변이 저장 오류의 VARCHAR(50) 제약 확인 후 VARCHAR(200)으로 개선"
+      ],
+      en: [
+        "Built and operated the system under restricted network conditions",
+        "Traced an MNP variant storage error to a VARCHAR(50) limit and raised it to VARCHAR(200)"
+      ]
+    },
+    tools: [
+      "Python",
+      "Linux",
+      "Crontab",
+      "DBeaver",
+      "Panoptes",
+      "Snakemake",
+      "On-premise",
+      "Air-gapped"
+    ]
   },
   {
-    id: 'lims',
-    title: locale('LIMS Docker 기반 자동 배포 시스템 구축', 'LIMS Docker-based automated deployment system'),
-    client: locale('국내 의료기관 / LIMS, Deployment Automation', 'Domestic medical institutions / LIMS, deployment automation'),
-    period: null,
-    overview: locale('병원별 설치 환경에 대응하는 자동 배포 스크립트로 약 7일 걸리던 배포와 테스트를 30~40분으로 줄였습니다.', 'Cut deployment and testing from about 7 days to 30–40 minutes with automated deployment scripts for each hospital environment.'),
-    role: locale([
-      '병원별 설치 환경 대응 자동 배포 스크립트 개발',
-      'Ubuntu와 Docker 기반 실행 환경 표준화',
-      'On-premise, Air-gapped 대응 설치 절차 구성',
-      '배포 및 테스트 프로세스 SOP 작성',
-    ], [
-      'Developed automated deployment scripts for each hospital installation environment',
-      'Standardized the Ubuntu and Docker-based execution environment',
-      'Defined installation procedures for on-premise and air-gapped sites',
-      'Wrote SOPs for the deployment and testing process',
-    ]),
-    outcome: locale([
-      '기존 약 7일 소요 배포 및 테스트 작업을 30~40분으로 단축',
-      '설치 환경 차이로 인한 반복 작업 감소',
-    ], [
-      'Reduced deployment and testing from about 7 days to 30–40 minutes',
-      'Reduced repeated work caused by installation-environment differences',
-    ]),
-    tools: ['Docker', 'Ubuntu', 'Linux', 'Shell Script', 'Deployment Automation', 'SOP'],
+    id: "lims",
+    title: {
+      ko: "LIMS(Web) Docker 기반 자동 배포 시스템 구축",
+      en: "LIMS (Web) Docker-based automated deployment system"
+    },
+    client: {
+      ko: "국내 상급종합병원 / 바이오 임상 진단 분석",
+      en: "Domestic tertiary hospital / Bio clinical diagnostic analysis"
+    },
+    period: {
+      ko: "2022.09 ~ 2022.12",
+      en: "Sep. – Dec. 2022"
+    },
+    overview: {
+      ko: "병원별 설치 환경에 대응하는 자동 배포 스크립트로 약 7일 걸리던 배포와 테스트를 30~40분으로 줄였습니다.",
+      en: "Cut deployment and testing from about 7 days to 30–40 minutes with automated deployment scripts for each hospital environment."
+    },
+    role: {
+      ko: [
+        "병원별 설치 환경에 대응하는 자동 배포 스크립트 개발",
+        "Ubuntu 및 Docker 기반 실행 환경 표준화",
+        "On-premise 및 Air-gapped 환경에 대응하는 설치 절차 구성",
+        "배포 및 테스트 프로세스 SOP 작성"
+      ],
+      en: [
+        "Developed automated deployment scripts for each hospital installation environment",
+        "Standardized the Ubuntu and Docker-based execution environment",
+        "Defined installation procedures for on-premise and air-gapped sites",
+        "Wrote SOPs for the deployment and testing process"
+      ]
+    },
+    outcome: {
+      ko: [
+        "기존 약 7일 소요 배포 및 테스트 작업을 30~40분으로 단축",
+        "설치 환경 차이로 인한 반복 작업 감소"
+      ],
+      en: [
+        "Reduced deployment and testing from about 7 days to 30–40 minutes",
+        "Reduced repeated work caused by installation-environment differences"
+      ]
+    },
+    tools: [
+      "CentOS",
+      "Ubuntu",
+      "Docker",
+      "Bash",
+      "Software SOP"
+    ]
   },
   {
-    id: 'aws-migration',
-    title: locale('연구용 분석 서비스 AWS 전환 및 운영 자동화', 'Research analysis service AWS migration and operations automation'),
-    client: locale('연구용 분석 서비스 / Cloud Infrastructure, Workflow Automation', 'Research analysis service / Cloud infrastructure, workflow automation'),
-    period: null,
-    overview: locale('주 100~300건 분석 수요에 대응하는 AWS 워크플로를 구성해 TAT와 비용을 줄였습니다.', 'Built an AWS workflow for 100–300 analyses per week, reducing turnaround time and cost.'),
-    role: locale([
-      '주 100~300건 분석 수요 대응을 위한 AWS 전환 참여',
-      'EC2, S3, Step Functions 기반 분석 Workflow 구성',
-      'CLI Script로 반복 운영 자동화 및 Docker 실행 환경 표준화',
-      '병렬 분석 환경 구성 및 TAT 개선',
-      'S3 Glacier 전환과 미사용 리소스 정리를 통한 비용 관리',
-    ], [
-      'Took part in the AWS migration to handle 100–300 analyses per week',
-      'Built the analysis workflow on EC2, S3, and Step Functions',
-      'Automated repetitive operations with CLI scripts and standardized the Docker runtime',
-      'Set up parallel analysis and improved TAT',
-      'Managed cost through S3 Glacier transitions and cleanup of unused resources',
-    ]),
-    outcome: locale([
-      '분석 TAT 14일에서 7일 이내로 단축하는 데 기여',
-      '월 AWS 비용 약 800~900만 원에서 400~500만 원 수준으로 절감',
-    ], [
-      'Contributed to cutting analysis TAT from 14 days to within 7 days',
-      'Reduced monthly AWS cost from about KRW 8–9 million to KRW 4–5 million',
-    ]),
-    tools: ['AWS EC2', 'S3', 'S3 Glacier', 'Step Functions', 'Docker', 'Cloud Cost Optimization'],
+    id: "aws-migration",
+    title: {
+      ko: "연구용 분석 서비스 AWS 전환 및 운영 자동화",
+      en: "Research analysis service AWS migration and operations automation"
+    },
+    client: {
+      ko: "연구용 분석 서비스 / 바이오 유전체 분석",
+      en: "Research analysis service / Bio genomics analysis"
+    },
+    period: {
+      ko: "2022.03 ~ 2022.07",
+      en: "Mar. – Jul. 2022"
+    },
+    overview: {
+      ko: "주 100~300건 분석 수요에 대응하는 AWS 워크플로를 구성해 TAT와 비용을 줄였습니다.",
+      en: "Built an AWS workflow for 100–300 analyses per week, reducing turnaround time and cost."
+    },
+    role: {
+      ko: [
+        "주 100~300건 분석 수요 대응을 위한 AWS 전환 참여",
+        "EC2, S3, Step Functions 기반 분석 Workflow 구성",
+        "CLI Script로 반복 운영 자동화 및 Docker 실행 환경 표준화",
+        "병렬 분석 환경 구성 및 TAT 개선",
+        "S3 Glacier 전환과 미사용 리소스 정리를 통한 비용 관리"
+      ],
+      en: [
+        "Took part in the AWS migration to handle 100–300 analyses per week",
+        "Built the analysis workflow on EC2, S3, and Step Functions",
+        "Automated repetitive operations with CLI scripts and standardized the Docker runtime",
+        "Set up parallel analysis and improved TAT",
+        "Managed cost through S3 Glacier transitions and cleanup of unused resources"
+      ]
+    },
+    outcome: {
+      ko: [
+        "분석 TAT 14일에서 7일 이내로 단축하는 데 기여",
+        "월 AWS 비용 약 800~900만 원에서 400~500만 원 수준으로 절감"
+      ],
+      en: [
+        "Contributed to cutting analysis TAT from 14 days to within 7 days",
+        "Reduced monthly AWS cost from about KRW 8–9 million to KRW 4–5 million"
+      ]
+    },
+    tools: [
+      "AWS EC2",
+      "S3",
+      "S3 Glacier",
+      "Step Functions",
+      "Docker",
+      "Bash"
+    ]
   },
   {
-    id: 'cap',
-    title: locale('CAP 인증 및 Proficiency Testing 대응', 'CAP accreditation and proficiency testing'),
-    client: locale('지니너스 / Laboratory Quality, Bioinformatics', 'Geninus / Laboratory quality, bioinformatics'),
-    period: null,
-    overview: locale('CAP 실사 대비 분석 시스템 점검과 문서 준비, PT 시료 분석 및 기술 검증을 수행했습니다.', 'Prepared the analysis system and documents for CAP inspection and performed PT sample analysis and technical verification.'),
-    role: locale([
-      'CAP 실사 대비 분석 시스템 점검과 증빙 문서 준비',
-      'CAP PT 시료 분석 및 결과 제출',
-      '분석 파이프라인, 데이터, 결과 및 서버 환경 검증',
-      'Software SOP, 형상관리 문서 작성 및 LOD 관련 결과 검증',
-    ], [
-      'Checked the analysis system and prepared evidence documents for CAP inspection',
-      'Analyzed CAP PT samples and submitted results',
-      'Verified the analysis pipeline, data, results, and server environment',
-      'Wrote software SOPs and configuration-management documents and verified LOD-related results',
-    ]),
-    outcome: locale([
-      'CAP 실사 대응을 위한 분석 시스템 및 문서 준비',
-      '숙련도 평가 시료 분석 및 결과 제출, 기술적 검증 수행',
-    ], [
-      'Prepared the analysis system and documents for CAP inspection',
-      'Analyzed proficiency-testing samples, submitted results, and performed technical verification',
-    ]),
-    tools: ['CAP PT', 'LOD Analysis', 'Data Validation', 'Software SOP', 'Quality Assurance'],
+    id: "cap",
+    title: {
+      ko: "CAP 인증 및 Proficiency Testing 대응",
+      en: "CAP accreditation and proficiency testing"
+    },
+    client: {
+      ko: "지니너스 내부 / 바이오 임상 진단 분석",
+      en: "GENINUS (internal) / Bio clinical diagnostic analysis"
+    },
+    period: {
+      ko: "2024.04 ~ 2025.11",
+      en: "Apr. 2024 – Nov. 2025"
+    },
+    overview: {
+      ko: "CAP 실사 대비 분석 시스템 점검과 문서 준비, PT 시료 분석 및 기술 검증을 수행했습니다.",
+      en: "Prepared the analysis system and documents for CAP inspection and performed PT sample analysis and technical verification."
+    },
+    role: {
+      ko: [
+        "CAP 실사 대비 분석 시스템 점검, 증빙 문서 준비 및 실사 대응",
+        "CAP PT 시료 분석 및 결과 제출",
+        "분석 파이프라인, 데이터, 결과 및 서버 환경 검증",
+        "Software SOP, 형상관리 문서 작성 및 LOD 관련 결과 검증"
+      ],
+      en: [
+        "Checked the analysis system, prepared evidence documents, and handled the CAP inspection",
+        "Analyzed CAP PT samples and submitted results",
+        "Verified the analysis pipeline, data, results, and server environment",
+        "Wrote software SOPs and configuration-management documents and verified LOD-related results"
+      ]
+    },
+    outcome: {
+      ko: [
+        "CAP 실사 대응을 위한 분석 시스템 및 문서 준비",
+        "숙련도 평가 시료 분석 및 결과 제출, 기술적 검증 수행"
+      ],
+      en: [
+        "Prepared the analysis system and documents for CAP inspection",
+        "Analyzed proficiency-testing samples, submitted results, and performed technical verification"
+      ]
+    },
+    tools: [
+      "CAP PT",
+      "LOD Analysis",
+      "Data Validation",
+      "Software SOP"
+    ]
   },
   {
-    id: 'gxd-japan',
+    id: "gxd-japan",
     featured: true,
-    title: locale('일본 현지 유전체 분석 시스템 구축 및 운영', 'Japan on-site genomic analysis system build and operation'),
-    client: locale('GxD 株式会社 (일본 자회사) / Bioinformatics, NGS, Workflow Automation, Laboratory Quality', 'GxD 株式会社 (Japan subsidiary) / Bioinformatics, NGS, workflow automation, laboratory quality'),
-    period: locale('2023.11 ~ 2024.03 (파견 전체 기간)', 'Nov. 2023 – Mar. 2024 (entire assignment)'),
-    overview: locale('일본 법인 초기 구축 멤버로 분석 시스템 구축과 이관, 파이프라인 자동화, 장비 이슈 분석, 현지 SOP 대응까지 수행했습니다.', 'As an initial member of the Japan entity, handled system build and migration, pipeline automation, instrument issue analysis, and local SOP support.'),
-    role: locale([
-      '일본 법인 초기 구축 멤버로 서버 및 분석 환경 구성, 국내 분석 파이프라인 이관 및 운영 테스트',
-      '서버 자원 사용량과 분석 Workflow 최적화, 심볼릭 링크 등을 활용한 데이터 저장 및 실행 경로 구성',
-      'DNA/RNA 데이터 자동 분류 및 파이프라인 분기 모듈 개발, Raw Data 변환 및 분석 Trigger 자동화',
-      'Python과 Crontab 기반 반복 운영 자동화, Singularity와 Snakemake 실행 환경 구성, SGE qsub 활용 데이터 변환 작업 병렬화',
-      '장비 CLI의 ERROR, WARNING 로그와 반복 패턴을 분석해 특정 카메라 축 좌표가 지속적으로 0으로 기록되는 이상 현상 발견',
-      '정상 테스트 로그와 비교해 이상 가능성을 보고하고 제조사 기술지원팀과 원인 검증 및 후속 대응 지원',
-      '분석 파이프라인 SOP 작성 및 일본 현지 양식 적용, 데이터 성능평가와 QC 최적화 지원',
-      'CAP Proficiency Testing 대응 및 분석 환경 검증',
-    ], [
-      'Set up servers and the analysis environment as an initial member of the Japan entity, migrated the domestic pipelines, and ran operational tests',
-      'Optimized server resource usage and analysis workflows; configured data storage and execution paths with symbolic links and similar techniques',
-      'Developed a module that automatically classifies DNA/RNA data and branches pipelines; automated raw-data conversion and analysis triggering',
-      'Automated recurring operations with Python and Crontab, set up Singularity and Snakemake environments, and parallelized data conversion with SGE qsub',
-      'Analyzed ERROR and WARNING logs and repeated patterns from the instrument CLI and found a condition where a camera axis coordinate was consistently recorded as 0',
-      'Reported the possible fault by comparing against normal test logs and supported cause verification and follow-up with the manufacturer support team',
-      'Wrote analysis pipeline SOPs in local Japanese formats and supported data performance evaluation and QC optimization',
-      'Supported CAP proficiency testing and verified the analysis environment',
-    ]),
-    outcome: locale([
-      '현지 분석 환경 구축 및 국내 시스템 이관, 데이터 중복 복사를 줄이고 운영 환경 정비',
-      '데이터 변환 작업 약 2시간에서 20분 이내로 단축, 반복 실행 작업 및 분석 파이프라인 운영 자동화',
-      '장비 이상 징후 식별 및 제조사 대응, 부품 교체 후속 조치 지원, 약 1억 원 규모 재실험 비용 보상 관련 대응에 기여',
-      '일본 현지 분석 운영 문서 정비 및 품질 검증, 숙련도 평가 관련 기술 대응',
-    ], [
-      'Built the local analysis environment and migrated the domestic system; reduced duplicate data copies and tidied the operating environment',
-      'Reduced data conversion from about 2 hours to under 20 minutes and automated recurring jobs and pipeline operations',
-      'Identified signs of instrument failure, supported the manufacturer response and part replacement, and contributed to the response on compensation for roughly KRW 100 million of re-experiment costs',
-      'Organized local analysis operations documents and provided technical support for quality verification and proficiency testing',
-    ]),
-    tools: ['Linux', 'Server Administration', 'Bioinformatics', 'Python', 'Crontab', 'SGE', 'Singularity', 'Snakemake', 'Log Analysis', 'Root Cause Analysis', 'SOP', 'QC', 'CAP PT'],
-  },
+    title: {
+      ko: "NCCE MONSTAR SCREEN-3 유전체 분석 시스템 구축 및 운영 자동화",
+      en: "NCCE MONSTAR SCREEN-3 genomic analysis system build and operations automation"
+    },
+    client: {
+      ko: "GxD 株式会社 / 바이오 유전체 분석",
+      en: "GxD 株式会社 / Bio genomics analysis"
+    },
+    period: {
+      ko: "2023.11 ~ 2024.03 (일본 파견 기간)",
+      en: "Nov. 2023 – Mar. 2024 (Japan assignment)"
+    },
+    overview: {
+      ko: "일본 법인 초기 구축 멤버로 분석 시스템 구축과 이관, 파이프라인 자동화, 장비 이슈 분석, 현지 SOP 대응까지 수행했습니다.",
+      en: "As an initial member of the Japan entity, handled system build and migration, pipeline automation, instrument issue analysis, and local SOP support."
+    },
+    role: {
+      ko: [
+        "일본 자회사 초기 구축 멤버로 참여하여 현지 분석 서버 환경 구성 및 국내 유전체 분석 파이프라인 이관",
+        "Linux 심볼릭 링크를 활용한 대용량 데이터 저장 경로 구성 및 서버 자원 활용 최적화",
+        "DNA/RNA 데이터 자동 분류, Raw Data 변환 및 분석 파이프라인 실행 자동화 모듈 개발",
+        "Python, Crontab, Singularity, Snakemake를 활용한 분석 워크플로우 구성 및 운영 자동화",
+        "SGE qsub을 활용해 데이터 변환 작업을 병렬화하여 처리 시간을 약 2시간에서 20분 이내로 단축",
+        "NovaSeq X Plus 장비의 데이터 생성 오류 발생 시 CLI 로그와 정상 테스트 기록을 비교하여 카메라 축 좌표 이상 징후 확인",
+        "장비 이상 분석 결과를 공유하여 제조사 원인 검증 및 부품 교체 대응을 지원하고, 약 1억 원 규모의 재실험 비용 보상 관련 대응에 기여",
+        "일본 현지 분석 파이프라인 SOP 작성 및 데이터 성능평가, QC 최적화, CAP Proficiency Testing 대응"
+      ],
+      en: [
+        "Joined as an initial member of the Japan subsidiary: set up the local analysis server environment and migrated the domestic genomic analysis pipelines",
+        "Configured large-data storage paths with Linux symbolic links and optimized server resource use",
+        "Developed modules for automatic DNA/RNA data classification, raw-data conversion, and pipeline execution",
+        "Built analysis workflows and automated operations with Python, Crontab, Singularity, and Snakemake",
+        "Parallelized data conversion with SGE qsub, cutting processing time from about 2 hours to under 20 minutes",
+        "Compared CLI logs with normal test records after NovaSeq X Plus data-generation errors and identified a camera-axis coordinate anomaly",
+        "Shared the analysis so the manufacturer could verify the cause and replace parts, and contributed to the response on compensation for roughly KRW 100 million of re-experiment costs",
+        "Wrote local analysis pipeline SOPs and supported data performance evaluation, QC optimization, and CAP proficiency testing"
+      ]
+    },
+    outcome: {
+      ko: [
+        "현지 분석 환경 구축 및 국내 시스템 이관, 데이터 중복 복사를 줄이고 운영 환경 정비",
+        "데이터 변환 작업 약 2시간에서 20분 이내로 단축, 반복 실행 작업 및 분석 파이프라인 운영 자동화",
+        "장비 이상 징후 식별 및 제조사 대응, 부품 교체 후속 조치 지원, 약 1억 원 규모 재실험 비용 보상 관련 대응에 기여",
+        "일본 현지 분석 운영 문서 정비 및 품질 검증, 숙련도 평가 관련 기술 대응"
+      ],
+      en: [
+        "Built the local analysis environment and migrated the domestic system; reduced duplicate data copies and tidied the operating environment",
+        "Reduced data conversion from about 2 hours to under 20 minutes and automated recurring jobs and pipeline operations",
+        "Identified signs of instrument failure, supported the manufacturer response and part replacement, and contributed to the response on compensation for roughly KRW 100 million of re-experiment costs",
+        "Organized local analysis operations documents and provided technical support for quality verification and proficiency testing"
+      ]
+    },
+    tools: [
+      "Python",
+      "Bash",
+      "Linux",
+      "Crontab",
+      "Singularity",
+      "Snakemake",
+      "SGE(qsub)",
+      "Docker"
+    ]
+  }
 ];
 
 const skillGroups = {
@@ -402,17 +705,17 @@ const skills = [
 const milestones = [
   { f: 'exp', start: '2025-11', logo: 'nongshim.svg', org: locale('농심데이터시스템', 'Nongshim Data System'), role: locale('AI 솔루션 기획 및 개발, B2B 솔루션 구축', 'AI solution planning and development, B2B solution delivery'),
     text: locale('AI 솔루션, AI Agent 플랫폼, B2B 솔루션, 클라우드 아키텍처 분야를 담당합니다.', 'Working on AI solutions, AI agent platforms, B2B solutions, and cloud architecture.'),
-    projects: ['nai-gateway', 'ai-re', 'rag-chatbot'] },
-  { f: 'exp', start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'),
-    projects: ['b2b-analysis'] },
-  { f: 'exp', start: '2026-04', end: '2026-04', logo: 'inocras.png', org: locale('이노크라스 미국 파견', 'Inocras (US assignment)'), role: locale('농심데이터시스템 재직 중 해외 고객사 파견', 'Assigned to an overseas customer while at Nongshim Data System'),
-    projects: ['cgn-aacr'] },
+    projects: ['nai-gateway', 'ai-re', 'rag-chatbot'],
+    children: [
+      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), projects: ['b2b-analysis'] },
+      { start: '2026-04', end: '2026-04', logo: 'inocras.png', org: locale('이노크라스 미국 파견', 'Inocras (US assignment)'), role: locale('농심데이터시스템 재직 중 해외 고객사 파견', 'Assigned to an overseas customer while at Nongshim Data System'), projects: ['cgn-aacr'] },
+    ] },
   { f: 'exp', start: '2022-03', end: '2025-11', logo: 'geninus.png', org: locale('지니너스 (GENINUS)', 'GENINUS'), role: locale('유전체 분석 소프트웨어 및 시스템 개발', 'Genomic analysis software and system development'),
     text: locale('Bioinformatics Engineering, Workflow Automation, 의료기관 시스템 구축, AWS 전환을 담당했습니다.', 'Worked on bioinformatics engineering, workflow automation, medical-institution system delivery, and AWS migration.'),
-    projects: ['spatial', 'liquid-ldt', 'hospital', 'lims', 'aws-migration', 'cap'] },
-  { f: 'exp', start: '2023-11', end: '2024-03', logo: 'gxd.png', org: locale('GxD 株式会社 (일본 파견)', 'GxD 株式会社 (Japan assignment)'), role: locale('지니너스 재직 중 일본 자회사 파견', 'Assigned to the Japan subsidiary while at GENINUS'),
-    text: locale('NCCE MONSTAR SCREEN-3 관련 일본 현지 분석 시스템 구축과 운영을 담당했습니다.', 'Built and operated the local analysis system in Japan for NCCE MONSTAR SCREEN-3.'),
-    projects: ['gxd-japan'] },
+    projects: ['spatial', 'liquid-ldt', 'hospital', 'lims', 'aws-migration', 'cap'],
+    children: [
+      { start: '2023-11', end: '2024-03', logo: 'gxd.png', org: locale('GxD 株式会社 (일본 파견)', 'GxD 株式会社 (Japan assignment)'), role: locale('지니너스 재직 중 일본 자회사 파견 (NCCE MONSTAR SCREEN-3)', 'Assigned to the Japan subsidiary while at GENINUS (NCCE MONSTAR SCREEN-3)'), projects: ['gxd-japan'] },
+    ] },
   { f: 'edu', start: '2019-03', end: '2021-02', org: locale('멀티미디어공학과 석사 (M.Sc.)', 'M.Sc., Multimedia Engineering'), inst: locale('동국대학교', 'Dongguk University'), text: locale('학점 4.39 / 4.5<br>석사 졸업 논문: Research on DNA Sequence Alignment Algorithm Based on Anchoring', 'GPA 4.39 / 4.5<br>Master’s thesis: Research on DNA Sequence Alignment Algorithm Based on Anchoring') },
   { f: 'edu', start: '2013-03', end: '2019-02', org: locale('컴퓨터공학과 학사 (B.Sc.)', 'B.Sc., Computer Science and Engineering'), inst: locale('동국대학교', 'Dongguk University'), text: locale('학점 3.24 / 4.5<br>학사 졸업 논문: A domestic crime information system by year. (web site)', 'GPA 3.24 / 4.5<br>Bachelor’s thesis: A domestic crime information system by year. (web site)') },
   { f: 'pub', date: locale('2025.01', 'Jan. 2025'), org: locale('Phase II Trial of Avelumab in Combination with Gemcitabine in Advanced Leiomyosarcoma as a Second-line Treatment (EAGLES, KCSG UN18-09)', 'Phase II Trial of Avelumab in Combination with Gemcitabine in Advanced Leiomyosarcoma as a Second-line Treatment (EAGLES, KCSG UN18-09)'), inst: locale('Cancer, vol. 131, Issue 1, e35609', 'Cancer, vol. 131, Issue 1, e35609'), text: locale('Miso Kim MD, PhD, …, <b>Jeongkyu Kim</b> MS, Young Saing Kim MD, PhD, Jin-Hee Ahn MD, PhD', 'Miso Kim MD, PhD, …, <b>Jeongkyu Kim</b> MS, Young Saing Kim MD, PhD, Jin-Hee Ahn MD, PhD') },
