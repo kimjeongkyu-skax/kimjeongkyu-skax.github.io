@@ -7,12 +7,12 @@ const I18N = {
     title: '김정규 | 포트폴리오',
     'nav.home': '홈', 'nav.projects': '프로젝트', 'nav.skills': '기술', 'nav.about': '소개', 'nav.cv': '이력서', 'nav.contact': '연락',
     cord: '줄을\n당기세요!',
-    'hero.chip': 'AI ENGINEERING, DATA ENGINEERING', 'hero.name': '김정규', 'hero.title': '복잡한 현장의 문제를 이해하고, 기술로 해결하는 엔지니어.',
-    'hero.lead': '컴퓨터공학 석사로 약 5년간 바이오 데이터 파이프라인과 백엔드 시스템을 개발하고 운영해 왔습니다. AWS 기반 AI Gateway 구축 경험을 바탕으로 AI Agent와 기업 업무 자동화로 전문성을 확장하고 있습니다.',
-    'hero.stack': '기술 스택', 'hero.know': '나를 알아보기 ↘', 'hero.cv': '이력서 다운로드 ↗',
-    'hero.hlTitle': '약 5년의 경력', 'hero.hlText': '바이오 데이터 파이프라인과 백엔드 시스템을 개발하고 운영했습니다.',
-    'hero.focus': '데이터 & AI 엔지니어링', 'hero.focusSub': 'Data Pipeline, AWS, AI Agent', 'hero.role': 'AI, AX Engineering',
-    'proj.chip': '대표 작업', 'proj.title': '대표 프로젝트', 'proj.details': '프로젝트 상세', 'proj.demo': '데모',
+    'hero.chip': 'AI ENGINEERING | BIOINFORMATICS ENGINEERING', 'hero.name': '김정규', 'hero.title': '현장의 요구사항을 구현하는 엔지니어',
+    'hero.lead': 'Python, LangGraph, LiteLLM을 활용해 AI Agent와 RAG 서비스, AI Gateway를 개발하고 있습니다. AWS 기반 서비스 설계와 데이터 파이프라인 자동화, 국내외 시스템 구축 및 운영 경험을 보유하고 있습니다.',
+    'hero.stack': '기술 스택', 'hero.know': '나를 알아보기 ↘', 'hero.cv': '이력서 다운로드 ↗', 'hero.pf': '포트폴리오 다운로드 ↗', 'loc.label': '위치', 'loc.city': '서울, 대한민국', 'loc.based': '서울에 거주하고 있습니다',
+    'hero.hlTitle': '약 5년의 경력', 'hero.hlText': '바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
+    'hero.focus': 'AI Agent 개발자', 'hero.focusSub': '바이오 × AI 엔지니어링', 'hero.role': 'AI, AX Engineering',
+    'proj.chip': '대표 작업', 'proj.title': 'AI Agent와 AI 플랫폼을 실제 서비스로 구현한 프로젝트', 'proj.lead': 'LangGraph 기반 RAG Agent, Claude Code Skills를 적용한 연구 지원 Agent, AI Gateway를 구축했습니다. 병원 폐쇄망과 해외 법인처럼 제약이 다른 환경에서 시스템을 구축한 경험도 함께 담았습니다.', 'proj.details': '프로젝트 상세', 'proj.demo': '데모',
     'skills.chip': '기술 스택 & 도구', 'skills.title': '실무에서 다루는 기술',
     'skills.note': '실무 개발, 운영, 직접 구현, 학습 및 검토 경험을 표시했습니다.',
     'skills.hint': '화살표, 키보드, 스와이프, 마우스 드래그로 넘겨볼 수 있습니다.',
@@ -23,9 +23,9 @@ const I18N = {
     'project.architecture': '시스템 아키텍처', 'project.implementation': '구현 및 해결', 'project.validation': '검증',
     'project.outcome': '결과', 'project.tools': '기술 스택', 'project.connection': 'SK AX 직무 연결',
     'case.investigation': '조사', 'case.decision': '판단', 'unavailable': '추가 확인 중',
-    'about.summary': '연구 및 분석 업무에서 요구하는 데이터 품질을 운영 시스템에 반영해 왔습니다. 파이프라인 개발과 결과 검증부터 외부 기관 연동, 병원 현장 장애 대응, AWS 기반 AI 도구 도입까지 경험했습니다.',
+    'about.summary': '바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
     'about.chip': '경력 & 학력', 'about.title': '주요 이력',
-    'tab.all': '전체', 'tab.exp': '경력', 'tab.edu': '학력', 'kind.exp': '경력', 'kind.edu': '학력', 'tab.pub': '해외 논문', 'kind.pub': '해외 논문', 'tab.award': '수상', 'kind.award': '수상', 'tab.conf': '학술대회', 'kind.conf': '학술대회 논문 및 발표',
+    'tab.all': '전체', 'tab.exp': '경력', 'tab.edu': '학력', 'kind.exp': '경력', 'kind.edu': '학력', 'paper.view': '논문 보기', 'award.view': '보기', 'tab.pub': '해외 논문', 'kind.pub': '해외 논문', 'tab.award': '수상', 'kind.award': '수상', 'tab.conf': '학술대회', 'kind.conf': '학술대회 논문 및 발표',
     'contact.chip': '연락처', 'contact.title': '함께 이야기해 보세요',
     'form.title': '메시지 보내기', 'form.req': '모든 항목은 필수입니다.',
     'f.name': '이름', 'f.nameHelp': '어떻게 불러 드리면 될까요?',
@@ -36,18 +36,18 @@ const I18N = {
     'ch.email': '이메일', 'ch.emailSub': '메일 보내기', 'ch.inSub': '프로필 열기', domains: '주요 기술 분야',
     'st.err': '모든 항목을 올바르게 입력해 주세요.', 'st.sending': '전송 중...', 'st.sent': '메시지가 전송되었습니다. 감사합니다!',
     'st.fail': '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.', 'st.nokey': '문의 양식 준비 중입니다. 이메일 링크를 이용해 주세요.',
-    foot: '© 2026 김정규',
+    foot: '© 2026 김정규. 모든 권리 보유.',
   },
   en: {
     title: 'Kim Jeongkyu | Portfolio',
     'nav.home': 'Home', 'nav.projects': 'Projects', 'nav.skills': 'Skills', 'nav.about': 'About Me', 'nav.cv': 'Resume', 'nav.contact': 'Contact',
     cord: 'Pull the\ncord!',
-    'hero.chip': 'AI ENGINEERING, DATA ENGINEERING', 'hero.name': 'Kim Jeongkyu', 'hero.title': 'An engineer who understands complex on-site problems and solves them with technology.',
-    'hero.lead': 'I hold a master’s degree in Computer Science and have nearly five years of experience building and operating bioinformatics pipelines and backend systems. My work building an AWS AI Gateway is a foundation for developing AI agents and enterprise automation.',
-    'hero.stack': 'Tech Stack', 'hero.know': 'Know Me ↘', 'hero.cv': 'Download CV ↗',
-    'hero.hlTitle': 'Nearly 5 years of experience', 'hero.hlText': 'Building and operating bioinformatics data pipelines and backend systems.',
-    'hero.focus': 'Data & AI Engineering', 'hero.focusSub': 'Data Pipeline, AWS, AI Agent', 'hero.role': 'AI, AX Engineering',
-    'proj.chip': 'SELECTED WORK', 'proj.title': 'Featured projects', 'proj.details': 'Project details', 'proj.demo': 'Demo',
+    'hero.chip': 'AI ENGINEERING | BIOINFORMATICS ENGINEERING', 'hero.name': 'Kim Jeongkyu', 'hero.title': 'An engineer who implements on-site requirements',
+    'hero.lead': 'I develop AI agents, RAG services and an AI gateway using Python, LangGraph and LiteLLM. I have experience in AWS-based service design, data-pipeline automation, and building and operating systems at home and abroad.',
+    'hero.stack': 'Tech Stack', 'hero.know': 'Know Me ↘', 'hero.cv': 'Download CV ↗', 'hero.pf': 'Download Portfolio ↗', 'loc.label': 'LOCATION', 'loc.city': 'Seoul, South Korea', 'loc.based': 'Based in Seoul, South Korea',
+    'hero.hlTitle': 'Nearly 5 years of experience', 'hero.hlText': 'From developing and operating analysis systems for the bio and healthcare industries to building enterprise AI solutions',
+    'hero.focus': 'AI Agent Developer', 'hero.focusSub': 'Bio × AI Engineering', 'hero.role': 'AI, AX Engineering',
+    'proj.chip': 'SELECTED WORK', 'proj.title': 'AI agents and AI platforms built into real services', 'proj.lead': 'I built a LangGraph-based RAG agent, a research-support agent using Claude Code Skills, and an AI gateway, drawing on experience delivering systems in constrained environments such as hospital air-gapped networks and an overseas subsidiary.', 'proj.details': 'Project details', 'proj.demo': 'Demo',
     'skills.chip': 'TECHNICAL STACK & TOOLING', 'skills.title': 'Technologies I Work With',
     'skills.note': 'Production work, hands-on implementation, and areas of exploration.',
     'skills.hint': 'Use the arrow controls, keyboard, swipe, or drag with the mouse to browse.',
@@ -58,9 +58,9 @@ const I18N = {
     'project.architecture': 'System architecture', 'project.implementation': 'Implementation', 'project.validation': 'Validation',
     'project.outcome': 'Outcome', 'project.tools': 'Technology', 'project.connection': 'Relevance to SK AX',
     'case.investigation': 'Investigation', 'case.decision': 'Decision', 'unavailable': 'Pending confirmation',
-    'about.summary': 'I have built systems that meet the data quality needs of research and analysis. My work spans pipeline development, output validation, integration with external partners, hospital-site troubleshooting, and AI tool adoption on AWS.',
+    'about.summary': 'From developing and operating analysis systems for the bio and healthcare industries to building enterprise AI solutions',
     'about.chip': 'EXPERIENCE & EDUCATION', 'about.title': 'Professional Milestones',
-    'tab.all': 'All', 'tab.exp': 'Experience', 'tab.edu': 'Education', 'kind.exp': 'Experience', 'kind.edu': 'Education', 'tab.pub': 'International Papers', 'kind.pub': 'International paper', 'tab.award': 'Awards', 'kind.award': 'Award', 'tab.conf': 'Conferences', 'kind.conf': 'Conference paper',
+    'tab.all': 'All', 'tab.exp': 'Experience', 'tab.edu': 'Education', 'kind.exp': 'Experience', 'kind.edu': 'Education', 'paper.view': 'View paper', 'award.view': 'View', 'tab.pub': 'International Papers', 'kind.pub': 'International paper', 'tab.award': 'Awards', 'kind.award': 'Award', 'tab.conf': 'Conferences', 'kind.conf': 'Conference paper',
     'contact.chip': 'CONTACT', 'contact.title': 'Let’s talk',
     'form.title': 'Send a message', 'form.req': 'All fields are required.',
     'f.name': 'Name', 'f.nameHelp': 'How should I address you?',
@@ -71,7 +71,7 @@ const I18N = {
     'ch.email': 'Email', 'ch.emailSub': 'Write me a message', 'ch.inSub': 'Open profile', domains: 'Areas of Focus',
     'st.err': 'Please fill in every field correctly.', 'st.sending': 'Sending...', 'st.sent': 'Your message was sent. Thank you!',
     'st.fail': 'Sending failed. Please try again in a moment.', 'st.nokey': 'The form is unavailable. Please use the email link.',
-    foot: '© 2026 Kim Jeongkyu',
+    foot: '© 2026 Kim Jeongkyu. All rights reserved.',
   },
 };
 
@@ -297,7 +297,7 @@ const drawTl = () => {
   tl.innerHTML = milestones.filter((m) => tlFilter === 'all' || m.f === tlFilter).map((m) => {
     const head = `<div class="tl-top"><span class="k">${tr('kind.' + m.f)}</span>${fmtPeriod(m) ? `<time>${fmtPeriod(m)}</time>` : ''}</div>`;
     const name = m.f !== 'exp'
-      ? `<h3>${pick(m.org)}</h3>${m.inst ? `<p class="tl-inst">${pick(m.inst)}</p>` : ''}`
+      ? `<div class="tl-titlerow"><h3>${pick(m.org)}</h3>${m.link ? `<a class="btn soft tl-link" href="${m.link}" target="_blank" rel="noopener noreferrer">${tr(m.f === 'award' || m.f === 'edu' ? 'award.view' : 'paper.view')} ↗</a>` : ''}</div>${m.inst ? `<p class="tl-inst">${pick(m.inst)}</p>` : ''}`
       : m.logo
       ? `<div class="tl-org"><img class="tl-logo" src="assets/orgs/${m.logo}" alt="" onerror="this.remove()"><h3>${pick(m.org)}</h3></div>`
       : `<h3>${pick(m.org)}</h3>`;
