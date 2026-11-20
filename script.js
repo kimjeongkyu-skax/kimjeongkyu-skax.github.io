@@ -15,7 +15,7 @@ const I18N = {
     'proj.chip': '대표 작업', 'proj.title': 'AI Agent와 AI 플랫폼을 실제 서비스로 구현한 프로젝트', 'proj.lead': 'LangGraph 기반 RAG Agent, Claude Code Skills를 적용한 연구 지원 Agent, AI Gateway를 구축했습니다. 병원 폐쇄망과 해외 법인처럼 제약이 다른 환경에서 시스템을 구축한 경험도 함께 담았습니다.', 'proj.details': '프로젝트 상세', 'proj.demo': '데모',
     'skills.chip': '기술 스택 & 도구', 'skills.title': '실무에서 다루는 기술',
     'skills.note': '실무 개발, 운영, 직접 구현, 학습 및 검토 경험을 표시했습니다.',
-    'skills.hint': '화살표, 키보드, 스와이프, 마우스 드래그로 넘겨볼 수 있습니다.',
+    'skills.hint': '화살표나 마우스 드래그로 넘겨볼 수 있습니다.',
     'auto.on': '자동 스크롤 켜짐', 'auto.off': '자동 스크롤 꺼짐', pause: '❚❚ 일시정지', play: '▶ 재생',
     'cat.all': '전체', 'level.production': '실무 개발, 운영했습니다', 'level.implemented': '직접 구현했습니다', 'level.exploring': '학습 및 검토했습니다',
     'nav.cases': '문제 해결', 'nav.ax': 'AI / AX', 'cases.title': '기술 문제 해결 사례', 'ax.title': 'AI Agent와 엔터프라이즈 AX',
@@ -26,7 +26,7 @@ const I18N = {
     'about.summary': '바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
     'about.chip': '경력 & 학력', 'about.title': '주요 이력',
     'tab.all': '전체', 'tab.exp': '경력', 'tab.edu': '학력', 'kind.exp': '경력', 'kind.edu': '학력', 'paper.view': '논문 보기', 'award.view': '보기', 'tab.pub': '해외 논문', 'kind.pub': '해외 논문', 'tab.award': '수상', 'kind.award': '수상', 'tab.conf': '학술대회', 'kind.conf': '학술대회 논문 및 발표',
-    'contact.chip': '연락처', 'contact.title': '함께 이야기해 보세요',
+    'contact.chip': '연락처', 'contact.title': '연락 기다리겠습니다',
     'form.title': '메시지 보내기', 'form.req': '모든 항목은 필수입니다.',
     'f.name': '이름', 'f.nameHelp': '어떻게 불러 드리면 될까요?',
     'f.email': '이메일', 'f.emailHelp': '답장을 보낼 주소로 사용합니다.',
@@ -50,7 +50,7 @@ const I18N = {
     'proj.chip': 'SELECTED WORK', 'proj.title': 'AI agents and AI platforms built into real services', 'proj.lead': 'I built a LangGraph-based RAG agent, a research-support agent using Claude Code Skills, and an AI gateway, drawing on experience delivering systems in constrained environments such as hospital air-gapped networks and an overseas subsidiary.', 'proj.details': 'Project details', 'proj.demo': 'Demo',
     'skills.chip': 'TECHNICAL STACK & TOOLING', 'skills.title': 'Technologies I Work With',
     'skills.note': 'Production work, hands-on implementation, and areas of exploration.',
-    'skills.hint': 'Use the arrow controls, keyboard, swipe, or drag with the mouse to browse.',
+    'skills.hint': 'Use the arrow controls or drag with the mouse to browse.',
     'auto.on': 'Auto-scroll on', 'auto.off': 'Auto-scroll off', pause: '❚❚ Pause', play: '▶ Play',
     'cat.all': 'All', 'level.production': 'Production', 'level.implemented': 'Implemented', 'level.exploring': 'Exploring',
     'nav.cases': 'Case studies', 'nav.ax': 'AI / AX', 'cases.title': 'Engineering case studies', 'ax.title': 'AI agents and enterprise AX',
@@ -61,7 +61,7 @@ const I18N = {
     'about.summary': 'From developing and operating analysis systems for the bio and healthcare industries to building enterprise AI solutions',
     'about.chip': 'EXPERIENCE & EDUCATION', 'about.title': 'Professional Milestones',
     'tab.all': 'All', 'tab.exp': 'Experience', 'tab.edu': 'Education', 'kind.exp': 'Experience', 'kind.edu': 'Education', 'paper.view': 'View paper', 'award.view': 'View', 'tab.pub': 'International Papers', 'kind.pub': 'International paper', 'tab.award': 'Awards', 'kind.award': 'Award', 'tab.conf': 'Conferences', 'kind.conf': 'Conference paper',
-    'contact.chip': 'CONTACT', 'contact.title': 'Let’s talk',
+    'contact.chip': 'CONTACT', 'contact.title': 'I look forward to hearing from you',
     'form.title': 'Send a message', 'form.req': 'All fields are required.',
     'f.name': 'Name', 'f.nameHelp': 'How should I address you?',
     'f.email': 'Email', 'f.emailHelp': "I'll use this address to reply.",
@@ -185,7 +185,7 @@ const definition = (label, value, flow = false) => {
 
 const drawProjects = () => {
   $('#projectGrid').innerHTML = portfolioProjects.filter((p) => p.featured).map((project) =>
-    `<article class="card"><a class="project-media" href="project.html?id=${project.id}" aria-label="${pick(project.title)}">${projectImg(project.id)}<span class="project-media-overlay" aria-hidden="true">↗</span></a>
+    `<article class="card"><div class="project-media">${projectImg(project.id)}</div>
       <h3>${pick(project.title)}</h3><p>${pick(project.overview)}</p>
       ${project.tools && project.tools.length ? `<ul class="tags">${project.tools.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}
       <div class="card-foot"><a class="btn soft" href="project.html?id=${project.id}">${tr('proj.details')} ↗</a></div></article>`).join('');
@@ -223,7 +223,7 @@ let pos = 0, dir = 1, last = 0, hover = false;
 const drift = (t) => {
   const dt = Math.min(t - (last || t), 50);
   last = t;
-  if (!paused && !hover && maxOffset() > 0) {
+  if (!paused && !hover && !trackWrap.matches(':hover') && maxOffset() > 0) {
     pos += dir * dt * 0.03;
     if (pos >= maxOffset()) { pos = maxOffset(); dir = -1; }
     if (pos <= 0) { pos = 0; dir = 1; }
@@ -234,8 +234,8 @@ const drift = (t) => {
   requestAnimationFrame(drift);
 };
 requestAnimationFrame(drift);
-trackWrap.addEventListener('pointerenter', () => { hover = true; });
-trackWrap.addEventListener('pointerleave', () => { hover = false; });
+trackWrap.addEventListener('pointerenter', () => { hover = true; drawCtrl(); });
+trackWrap.addEventListener('pointerleave', () => { hover = false; drawCtrl(); });
 const drawSkills = () => {
   track.innerHTML = visible().map((s) => `<div class="skill"><img class="tool-logo" src="assets/tools/${s.icon}.svg" alt="" loading="lazy"><small>${pick(skillGroups[s.c])}, ${tr('level.' + s.level)}</small><h3>${s.n}</h3><p>${pick(s.d)}</p></div>`).join('');
   $('#filters').innerHTML = cats.map((c) => {
@@ -246,7 +246,7 @@ const drawSkills = () => {
 };
 const drawCtrl = () => {
   $('#pause').textContent = paused ? tr('play') : tr('pause');
-  $('#autoLabel').textContent = paused ? tr('auto.off') : tr('auto.on');
+  $('#autoLabel').textContent = paused || hover ? tr('auto.off') : tr('auto.on');
 };
 $('#filters').addEventListener('click', (e) => {
   const b = e.target.closest('button');
@@ -262,14 +262,32 @@ $('#skills').addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') go(idx + 1);
   if (e.key === 'ArrowLeft') go(idx - 1);
 });
-let startX = null;
-track.addEventListener('pointerdown', (e) => { startX = e.clientX; });
-window.addEventListener('pointerup', (e) => {
-  if (startX === null) return;
-  const dx = e.clientX - startX;
-  if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
-  startX = null;
+// 마우스/터치 드래그: 카드가 손을 따라 움직이고, 놓으면 가장 가까운 카드로 맞춘다
+let dragStartX = null, dragStartPos = 0, dragMoved = false;
+trackWrap.addEventListener('pointerdown', (e) => {
+  if (e.pointerType === 'mouse' && e.button !== 0) return;
+  dragStartX = e.clientX; dragStartPos = pos; dragMoved = false;
+  trackWrap.setPointerCapture(e.pointerId);
 });
+trackWrap.addEventListener('pointermove', (e) => {
+  if (dragStartX === null) return;
+  const dx = e.clientX - dragStartX;
+  if (!dragMoved && Math.abs(dx) < 4) return;
+  dragMoved = true;
+  pos = Math.max(0, Math.min(maxOffset(), dragStartPos - dx));
+  track.style.transition = 'none';
+  track.style.transform = `translateX(${-pos}px)`;
+  trackWrap.classList.add('dragging');
+});
+const endDrag = () => {
+  if (dragStartX === null) return;
+  dragStartX = null;
+  trackWrap.classList.remove('dragging');
+  if (dragMoved) go(Math.round(pos / step));
+};
+trackWrap.addEventListener('pointerup', endDrag);
+trackWrap.addEventListener('pointercancel', endDrag);
+trackWrap.addEventListener('dragstart', (e) => e.preventDefault());
 
 // timeline
 const tl = $('#timeline');

@@ -3,12 +3,12 @@ const L = {
   ko: {
     back: '← 프로젝트 목록', nav: '프로젝트', client: '고객사 / Domain', period: '수행 기간',
     role: '업무 내용 및 담당 역할', outcome: '주요 성과', tools: '보유 및 활용 Skill', gallery: '관련 이미지', unavailable: '추가 확인 중',
-    prev: '← 이전 프로젝트', next: '다음 프로젝트 →', missing: '프로젝트를 찾을 수 없습니다.',
+    gPrev: '이전 이미지', gNext: '다음 이미지', prev: '← 이전 프로젝트', next: '다음 프로젝트 →', missing: '프로젝트를 찾을 수 없습니다.',
   },
   en: {
     back: '← All projects', nav: 'Projects', client: 'Customer / Domain', period: 'Period',
     role: 'Work and responsibilities', outcome: 'Key results', tools: 'Skills used', gallery: 'Images', unavailable: 'Pending confirmation',
-    prev: '← Previous project', next: 'Next project →', missing: 'Project not found.',
+    gPrev: 'Previous image', gNext: 'Next image', prev: '← Previous project', next: 'Next project →', missing: 'Project not found.',
   },
 };
 let lang = 'ko';
@@ -30,6 +30,74 @@ const field = (key, value) => {
   return `<div><dt>${t[key]}</dt><dd>${body}</dd></div>`;
 };
 
+// 갤러리 슬라이더: 스크롤 스냅 + 화살표 + 마우스 드래그(터치는 기본 스와이프)
+const setupGallery = (captions) => {
+  const g = $('.project-gallery'), prev = $('.g-prev'), next = $('.g-next'), cap = $('.gallery-caption'), count = $('.gallery-count');
+  if (!g) return;
+  const step = () => g.clientWidth;
+  const update = () => {
+    const more = g.scrollWidth > g.clientWidth + 4;
+    prev.hidden = next.hidden = !more;
+    prev.disabled = g.scrollLeft <= 2;
+    next.disabled = g.scrollLeft >= g.scrollWidth - g.clientWidth - 2;
+    // 현재 보이는 사진의 제목 표시
+    const imgs = [...g.querySelectorAll('img')];
+    const cur = imgs[Math.min(imgs.length - 1, Math.max(0, Math.round(g.scrollLeft / Math.max(1, g.clientWidth))))];
+    const text = cur && captions ? pick(captions[Number(cur.dataset.name) - 1]) : '';
+    cap.textContent = text || '';
+    cap.hidden = !text;
+    // 현재 사진 번호 (예: 3/9)
+    count.textContent = `${imgs.indexOf(cur) + 1}/${imgs.length}`;
+    count.hidden = imgs.length < 2;
+  };
+  prev.onclick = () => g.scrollBy({ left: -step(), behavior: 'smooth' });
+  next.onclick = () => g.scrollBy({ left: step(), behavior: 'smooth' });
+  g.addEventListener('scroll', update, { passive: true });
+  g.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+  });
+  g.tabIndex = 0;
+  // 마우스 드래그
+  let x0 = null, s0 = 0, moved = false, downImg = null;
+  g.addEventListener('pointerdown', (e) => {
+    downImg = e.target.closest('img'); // 포인터 캡처 후에는 click 대상이 g로 바뀌므로 미리 기억
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    x0 = e.clientX; s0 = g.scrollLeft; moved = false;
+    g.setPointerCapture(e.pointerId);
+  });
+  g.addEventListener('pointermove', (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0;
+    if (!moved && Math.abs(dx) < 4) return;
+    moved = true; g.classList.add('dragging'); g.scrollLeft = s0 - dx;
+  });
+  const end = (e) => {
+    if (x0 === null) return;
+    const dx = (e && e.clientX !== undefined ? e.clientX : x0) - x0;
+    x0 = null; g.classList.remove('dragging');
+    if (!moved) return;
+    // 조금만 끌어도(약 15%) 끈 방향의 다음 이미지로 넘긴다
+    const base = Math.round(s0 / step());
+    const to = Math.abs(dx) > step() * 0.15 ? base + (dx < 0 ? 1 : -1) : base;
+    g.scrollTo({ left: Math.max(0, to) * step(), behavior: 'smooth' });
+  };
+  g.addEventListener('pointerup', end);
+  g.addEventListener('pointercancel', end);
+  g.addEventListener('dragstart', (e) => e.preventDefault());
+  // 클릭(드래그 아님)하면 원본 크기로 새 탭에서 열기
+  g.addEventListener('click', (e) => {
+    if (moved) return;
+    const img = e.target.closest('img') || downImg;
+    if (img) window.open(img.currentSrc || img.src, '_blank', 'noopener');
+  });
+  // 이미지가 로드되거나 없는 이미지가 제거될 때 상태 갱신
+  g.addEventListener('load', update, true);
+  new MutationObserver(update).observe(g, { childList: true });
+  window.addEventListener('resize', update);
+  update();
+};
+
 const render = () => {
   const t = L[lang];
   document.documentElement.lang = lang;
@@ -48,7 +116,14 @@ const render = () => {
     <h1 class="project-title">${esc(pick(p.title))}</h1>
     <p class="project-lead">${esc(pick(p.overview))}</p>
     <dl class="definitions">${FIELDS.map((k) => field(k, p[k])).join('')}</dl>
-    <div class="project-gallery" aria-label="${t.gallery}">${[1, 2, 3, 4, 5, 6].map((n) => projectImg(p.id, String(n), 'png,webp', 'hide')).join('')}</div>`;
+    <div class="gallery-wrap">
+      <div class="project-gallery" aria-label="${t.gallery}">${Array.from({ length: 12 }, (_, i) => i + 1).map((n) => projectImg(p.id, String(n), 'png,webp,jpg', 'hide').replace('loading="lazy"', 'loading="eager"')).join('')}</div>
+      <button type="button" class="g-btn g-prev" aria-label="${t.gPrev}" hidden>‹</button>
+      <button type="button" class="g-btn g-next" aria-label="${t.gNext}" hidden>›</button>
+      <span class="gallery-count" aria-hidden="true" hidden></span>
+      <p class="gallery-caption" aria-live="polite" hidden></p>
+    </div>`;
+  setupGallery(p.gallery);
   const prev = portfolioProjects[index - 1], next = portfolioProjects[index + 1];
   $('#pager').innerHTML =
     (prev ? `<a href="project.html?id=${esc(prev.id)}">${t.prev}</a>` : '<span></span>') +

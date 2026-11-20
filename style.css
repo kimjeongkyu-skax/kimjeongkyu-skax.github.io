@@ -79,7 +79,7 @@ h4{margin:0 0 10px;color:var(--ink)}
 .card-foot a.b{background:var(--tint);color:var(--ink);font-weight:700;padding:10px 16px;border-radius:4px}
 
 /* skills */
-#skills{border-top:1px solid var(--line)}
+section + section{border-top:1px solid var(--line)}
 .skills-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
 .note-r{text-align:right;max-width:20em;color:var(--ink);margin:0 0 28px}
 .skills-ctrl{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
@@ -188,7 +188,7 @@ footer nav { flex-wrap: wrap; padding-inline: 1rem; }
 }
 
 /* project card media (reference-style gallery) */
-.card .project-media{position:relative;display:block;width:100%;padding:0;margin:0 0 14px;border:0;border-radius:9px;overflow:hidden;aspect-ratio:16/9;background:var(--tint);cursor:pointer}
+.card .project-media{position:relative;display:block;width:100%;padding:0;margin:0 0 14px;border:0;border-radius:9px;overflow:hidden;aspect-ratio:16/9;background:var(--tint)}
 .card .project-media img{display:block;width:100%;height:100%;object-fit:cover}
 .card .project-media-overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(2,43,82,.35);color:#fff;font-size:2rem;opacity:0;transition:opacity .25s}
 .card .project-media:hover .project-media-overlay,.card .project-media:focus-visible .project-media-overlay{opacity:1}
@@ -227,7 +227,7 @@ footer nav { flex-wrap: wrap; padding-inline: 1rem; }
 #tabs button.active,#tabs button[aria-pressed="true"]{background:var(--dark,#022b52);color:#fff}
 
 /* contact: channels (left) | focus areas (right) */
-.contact-grid{grid-template-columns:1fr 1fr}
+.contact-grid{grid-template-columns:1fr}
 .contact-grid .side{display:contents}
 
 /* hero terminal: bar + python greeting (matches reference layout) */
@@ -279,9 +279,12 @@ footer nav { flex-wrap: wrap; padding-inline: 1rem; }
 .project-lead{color:var(--muted);font-size:1.05rem;line-height:1.7;margin:0 0 20px}
 .duty-list{margin:0;padding-left:1.1em}.duty-list li{margin:4px 0;line-height:1.6}
 .definitions .tags{margin:4px 0 0}
-.project-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:24px}
+.gallery-wrap{position:relative;max-width:534px;margin:24px auto 0}
+.project-gallery{display:flex;align-items:center;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;outline:none}
+.project-gallery::-webkit-scrollbar{display:none}
+.project-gallery.dragging{cursor:grabbing;scroll-snap-type:none}
 .project-gallery:not(:has(img)){display:none}
-.project-gallery img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+.project-gallery img{flex:0 0 100%;width:100%;scroll-snap-align:start;aspect-ratio:534/320;height:auto;object-fit:contain;background:transparent;border-radius:12px;border:1px solid var(--line);display:block;-webkit-user-drag:none;user-select:none}
 
 /* dispatch sub-sections inside an employer card */
 .tl-sub{margin-top:22px;padding-top:6px;border-top:2px solid var(--line)}
@@ -362,3 +365,14 @@ footer{text-align:left;padding:28px 20px}
   .track{flex-wrap:wrap;transform:none!important}
   .track .skill{flex:0 0 calc(25% - 12px)}
 }
+.track-wrap.dragging,.track-wrap.dragging .track{cursor:grabbing}
+.track-wrap{user-select:none;-webkit-user-select:none}
+.track img{-webkit-user-drag:none;pointer-events:none}
+.g-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.g-btn[hidden]{display:none}
+.g-btn:disabled{opacity:.35;cursor:default}
+.g-prev{left:10px}.g-next{right:10px}
+.gallery-caption{margin:10px 0 0;text-align:center;font-weight:600;color:var(--ink)}
+.gallery-caption[hidden]{display:none}
+.gallery-count{position:absolute;top:10px;left:10px;z-index:2;padding:3px 10px;border-radius:999px;background:rgba(10,20,35,.72);color:#fff;font-size:.8rem;font-weight:600;letter-spacing:.02em;pointer-events:none}
+.gallery-count[hidden]{display:none}

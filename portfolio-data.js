@@ -4,15 +4,17 @@
 const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
+// 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
+const ASSET_V = '20261123m';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
-  if (n < exts.length) { el.dataset.n = n + 1; el.src = `assets/projects/${el.dataset.id}/${el.dataset.name}.${exts[n]}`; }
+  if (n < exts.length) { el.dataset.n = n + 1; el.src = `assets/projects/${el.dataset.id}/${el.dataset.name}.${exts[n]}?v=${ASSET_V}`; }
   else if (el.dataset.hide) el.remove();
   else el.onerror = null;
 }
 const projectImg = (id, name = 'cover', exts = 'png,webp,svg', hide = '') =>
-  `<img src="assets/projects/${id}/${name}.jpg" alt="" loading="lazy" data-id="${id}" data-name="${name}" data-exts="${exts}" ${hide ? 'data-hide="1"' : ''} onerror="imgFallback(this)">`;
+  `<img src="assets/projects/${id}/${name}.jpg?v=${ASSET_V}" alt="" loading="lazy" data-id="${id}" data-name="${name}" data-exts="${exts}" ${hide ? 'data-hide="1"' : ''} onerror="imgFallback(this)">`;
 const portfolioProjects = [
   {
     id: "b2b-analysis",
@@ -619,8 +621,8 @@ const portfolioProjects = [
     id: "gxd-japan",
     featured: true,
     title: {
-      ko: "NCCE MONSTAR SCREEN-3 유전체 분석 시스템 구축 및 운영 자동화",
-      en: "NCCE MONSTAR SCREEN-3 genomic analysis system build and operations automation"
+      ko: "NCCE MONSTAR SCREEN-3 분석 시스템 구축 및 운영 자동화",
+      en: "NCCE MONSTAR SCREEN-3 analysis system build and operations automation"
     },
     client: {
       ko: "GxD 株式会社 / 바이오 유전체 분석",
@@ -670,6 +672,17 @@ const portfolioProjects = [
         "Organized local analysis operations documents and provided technical support for quality verification and proficiency testing"
       ]
     },
+    gallery: [
+      { ko: "MONSTAR 프로그램 개요", en: "MONSTAR program overview" },
+      { ko: "초창기 사무실", en: "Early office" },
+      { ko: "구축 완료 후 사무실", en: "Office after setup" },
+      { ko: "분석 시스템 구성도", en: "Analysis system architecture" },
+      { ko: "폴더 구조와 심볼릭 링크(ln -s)", en: "Folder structure and symbolic links (ln -s)" },
+      { ko: "단일 모듈 병렬 처리", en: "Parallel processing of a single module" },
+      { ko: "E2E 분석 과정", en: "End-to-end analysis workflow" },
+      { ko: "장비 오류 (NovaSeq X Plus)", en: "Instrument failure (NovaSeq X Plus)" },
+      { ko: "CAP 인증서", en: "CAP certificate of accreditation" }
+    ],
     tools: [
       "Python",
       "Bash",
@@ -710,7 +723,7 @@ const milestones = [
       { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), projects: ['b2b-analysis'] },
       { start: '2026-04', end: '2026-04', logo: 'inocras.png', org: locale('이노크라스 미국 파견', 'Inocras (US assignment)'), role: locale('농심데이터시스템 재직 중 해외 고객사 파견', 'Assigned to an overseas customer while at Nongshim Data System'), projects: ['cgn-aacr'] },
     ] },
-  { f: 'exp', start: '2022-03', end: '2025-11', logo: 'geninus.png', org: locale('지니너스 (GENINUS)', 'GENINUS'), role: locale('유전체 분석 소프트웨어 및 시스템 개발', 'Genomic analysis software and system development'),
+  { f: 'exp', start: '2022-03', end: '2025-11', logo: 'geninus.png', org: locale('지니너스', 'GENINUS'), role: locale('유전체 분석 소프트웨어 및 시스템 개발', 'Genomic analysis software and system development'),
     text: locale('Bioinformatics Engineering, Workflow Automation, 의료기관 시스템 구축, AWS 전환을 담당했습니다.', 'Worked on bioinformatics engineering, workflow automation, medical-institution system delivery, and AWS migration.'),
     projects: ['spatial', 'liquid-ldt', 'hospital', 'lims', 'aws-migration', 'cap'],
     children: [
@@ -720,9 +733,9 @@ const milestones = [
   { f: 'edu', link: 'assets/papers/dongguk-bsc-report.pdf', start: '2013-03', end: '2019-02', org: locale('컴퓨터공학과 학사 (B.Sc.)', 'B.Sc., Computer Science and Engineering'), inst: locale('동국대학교', 'Dongguk University'), text: locale('학점 3.24 / 4.5<br>학사 졸업 논문: A domestic crime information system by year. (web site)', 'GPA 3.24 / 4.5<br>Bachelor’s thesis: A domestic crime information system by year. (web site)') },
   { f: 'pub', link: 'https://acsjournals.onlinelibrary.wiley.com/doi/full/10.1002/cncr.35609', date: locale('2025.01', 'Jan. 2025'), org: locale('Phase II Trial of Avelumab in Combination with Gemcitabine in Advanced Leiomyosarcoma as a Second-line Treatment (EAGLES, KCSG UN18-09)', 'Phase II Trial of Avelumab in Combination with Gemcitabine in Advanced Leiomyosarcoma as a Second-line Treatment (EAGLES, KCSG UN18-09)'), inst: locale('Cancer, vol. 131, Issue 1, e35609', 'Cancer, vol. 131, Issue 1, e35609'), text: locale('Miso Kim MD, PhD, …, <b>Jeongkyu Kim</b> MS, Young Saing Kim MD, PhD, Jin-Hee Ahn MD, PhD', 'Miso Kim MD, PhD, …, <b>Jeongkyu Kim</b> MS, Young Saing Kim MD, PhD, Jin-Hee Ahn MD, PhD') },
   { f: 'pub', link: 'https://ieeexplore.ieee.org/document/9223667', date: locale('2020.12', '2020'), org: locale('A Review on Sequence Alignment Algorithms for Short Reads Based on Next-Generation Sequencing', 'A Review on Sequence Alignment Algorithms for Short Reads Based on Next-Generation Sequencing'), inst: locale('IEEE Access, vol. 8, pp. 189811–189822', 'IEEE Access, vol. 8, pp. 189811–189822'), text: locale('<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
-    { f: 'award', link: 'assets/awards/kms-best-paper-2020.pdf', org: locale('우수논문상', 'Best Paper Award'), inst: locale('Korea Multimedia Society', 'Korea Multimedia Society'), text: locale('<b>Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads</b><br><b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads</b><br><b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
-{ f: 'conf', date: locale('2020', '2020'), org: locale('Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads', 'Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads'), inst: locale('Korea Multimedia Society', 'Korea Multimedia Society'), text: locale('<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
-  { f: 'conf', link: 'assets/papers/kips-seed-aligner-2019.pdf', date: locale('2019', '2019'), org: locale('A Study on the Implementation of a Seed-Based Short Read Aligner', 'A Study on the Implementation of a Seed-Based Short Read Aligner'), inst: locale('Korea Information Processing Society, vol. 26, no. 2, pp. 1107–1109', 'Korea Information Processing Society, vol. 26, no. 2, pp. 1107–1109'), text: locale('Mingeun Ji, <b>Jeongkyu Kim</b>, Gangman Yi', 'Mingeun Ji, <b>Jeongkyu Kim</b>, Gangman Yi') },
+    { f: 'award', link: 'assets/awards/kms-best-paper-2020.pdf', date: locale('2020.08', 'Aug. 2020'), org: locale('우수논문상', 'Best Paper Award'), inst: locale('Korea Multimedia Society', 'Korea Multimedia Society'), text: locale('<b>Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads</b><br><b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads</b><br><b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
+{ f: 'conf', link: 'assets/papers/kms-hash-sorting-2020.pdf', date: locale('2020.08', 'Aug. 2020'), org: locale('Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads', 'Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads'), inst: locale('Korea Multimedia Society', 'Korea Multimedia Society'), text: locale('<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
+  { f: 'conf', link: 'assets/papers/kips-seed-aligner-2019.pdf', date: locale('2019.11', 'Nov. 2019'), org: locale('A Study on the Implementation of a Seed-Based Short Read Aligner', 'A Study on the Implementation of a Seed-Based Short Read Aligner'), inst: locale('Korea Information Processing Society, vol. 26, no. 2, pp. 1107–1109', 'Korea Information Processing Society, vol. 26, no. 2, pp. 1107–1109'), text: locale('Mingeun Ji, <b>Jeongkyu Kim</b>, Gangman Yi', 'Mingeun Ji, <b>Jeongkyu Kim</b>, Gangman Yi') },
 ];
 
 // 학력 카드: inst(학교명)와 date(기간)를 locale('한글','English')로 추가하면 카드에 표시됩니다.
