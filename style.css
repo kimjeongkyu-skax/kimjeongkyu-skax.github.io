@@ -5,7 +5,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{margin:0;color:var(--body);font:17px/1.6 var(--font);background:var(--bg) radial-gradient(var(--dot) 1.2px,transparent 1.3px) 0 0/26px 26px}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer}
-.wrap{max-width:1048px;margin:0 auto;padding:0 20px}
+.wrap{max-width:clamp(1200px,72vw,1560px);margin:0 auto;padding:0 20px}
 section{padding:72px 0}
 .title{font-size:2.3rem;line-height:1.2;color:var(--ink);margin:10px 0 28px}
 .chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border:1px solid var(--line);background:var(--soft);border-radius:999px;color:var(--accent);font-size:.72rem;font-weight:700;letter-spacing:.06em}
@@ -419,3 +419,73 @@ footer{text-align:left;padding:28px 20px}
 
 .flag img{display:block;height:20px;width:auto;border:1px solid #b9c2cc;border-radius:3px}
 .dispatch-flag img{display:block;height:18px;width:auto}
+
+/* contact rows: hover feedback */
+.row{margin:0 -10px;padding:12px 10px;border-radius:12px;transition:background .2s,box-shadow .2s}
+.row .ico{transition:background .2s,color .2s,transform .2s}
+.row .arr{transition:transform .2s,color .2s}
+.row:hover,.row:focus-visible{background:var(--tint);box-shadow:inset 0 0 0 1px var(--line)}
+.row:hover .ico,.row:focus-visible .ico{background:var(--accent);color:#fff;transform:scale(1.08)}
+.row:hover .arr,.row:focus-visible .arr{transform:translate(3px,-3px);color:var(--accent)}
+.row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* footer: centered */
+footer{text-align:center}
+.foot-in{justify-content:center}
+.foot-left{justify-content:center;text-align:center}
+.foot-text{align-items:center}
+@media (max-width:760px){.foot-in{align-items:center}.foot-left{flex-direction:column;gap:12px}}
+
+/* timeline view buttons (논문 보기 / 보기): blue on hover */
+.tl-link{transition:background .2s,color .2s,box-shadow .2s}
+.tl-link:hover,.tl-link:focus-visible{background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(10,102,200,.3)}
+
+/* text-only toggle body (e.g. CAP PT) */
+.tl-sub-body{padding:6px 4px 12px 0}
+.timeline .tl-sub-body .tl-list{margin:6px 0 0;padding-left:1.2em;color:var(--ink);line-height:1.7}
+.timeline .tl-sub-body .tl-note{margin:14px 0 0}
+
+/* skills: larger icons and labels */
+.sk-card h3{font-size:1.1rem}
+.sk-item{gap:8px}
+.sk-item img{width:50px;height:50px;border-radius:12px;padding:8px}
+.sk-item span{font-size:.95rem}
+.dispatch-flag img{height:18px}
+.sk-items{gap:20px 6px}
+
+/* skills: crisp, frameless logos */
+.sk-item img{width:60px;height:60px;padding:0;border:0;background:none;border-radius:13px;object-fit:contain;image-rendering:auto}
+.sk-item{gap:10px}
+.sk-item span{font-size:1rem}
+
+/* skills (dark theme): gray logos on gray tiles, white + color on hover */
+:root[data-theme=dark] .sk-card{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.28);transition:box-shadow .25s,border-color .25s,background .25s}
+:root[data-theme=dark] .sk-item img{box-sizing:border-box;padding:10px;background:#8e98a3;filter:grayscale(1);transition:background .25s,filter .25s,transform .25s}
+:root[data-theme=dark] .sk-card:hover{border-color:rgba(255,255,255,.85);background:rgba(255,255,255,.05);box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 28px rgba(255,255,255,.28)}
+:root[data-theme=dark] .sk-card:hover .sk-item img{background:#fff;filter:none}
+:root[data-theme=dark] .sk-item:hover img{transform:translateY(-3px) scale(1.05)}
+
+/* skills (light theme): gray logos on light-gray tiles, color on white + glow on hover */
+.sk-card{transition:box-shadow .25s,border-color .25s,transform .25s}
+.sk-item img{box-sizing:border-box;padding:10px;background:#e9edf2;filter:grayscale(1);transition:background .25s,filter .25s,transform .25s,box-shadow .25s}
+.sk-card:hover{border-color:var(--accent);box-shadow:0 12px 30px rgba(10,102,200,.18)}
+.sk-card:hover .sk-item img{background:#fff;filter:none;box-shadow:0 2px 8px rgba(2,43,82,.12)}
+.sk-item:hover img{transform:translateY(-3px) scale(1.05)}
+
+/* skills cards: transparent background so the page dots show through */
+.sk-card{background:transparent}
+
+/* skills: click to pin the colored state, click again to release */
+.sk-card{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sk-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sk-card.on{border-color:var(--accent);box-shadow:0 12px 30px rgba(10,102,200,.18)}
+.sk-card.on .sk-item img{background:#fff;filter:none;box-shadow:0 2px 8px rgba(2,43,82,.12)}
+:root[data-theme=dark] .sk-card.on{border-color:rgba(255,255,255,.85);background:rgba(255,255,255,.05);box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 28px rgba(255,255,255,.28)}
+:root[data-theme=dark] .sk-card.on .sk-item img{background:#fff;filter:none}
+
+.timeline .tl-sub-body .tl-desc{margin:6px 0 0;font-size:1rem;color:var(--ink);line-height:1.6}
+
+/* text-only toggle body: separated from the header by a thin line */
+.tl-sub[open]>.tl-sub-head{padding-bottom:14px}
+.timeline .tl-sub-body{margin-top:0;padding:16px 4px 14px 0;border-top:1px solid var(--line)}
+.timeline .tl-sub-body .tl-list{margin-top:0}

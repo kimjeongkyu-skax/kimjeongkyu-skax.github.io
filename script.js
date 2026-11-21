@@ -208,14 +208,27 @@ $('#projectGrid').addEventListener('click', (event) => {
 });
 
 // skills grid: category cards with logos
+const pinned = new Set();
 const drawSkills = () => {
   $('#skillsGrid').innerHTML = Object.keys(skillGroups).map((g) => {
     const items = skills.filter((s) => s.c === g);
     if (!items.length) return '';
-    return `<div class="sk-card${items.length >= 5 ? ' wide' : ''}"><h3>${pick(skillGroups[g])}</h3><div class="sk-items${items.length === 4 ? ' four' : items.length === 6 ? ' six' : ''}">${items.map((s) =>
+    return `<div class="sk-card${items.length >= 5 ? ' wide' : ''}${pinned.has(g) ? ' on' : ''}" data-g="${g}" role="button" tabindex="0" aria-pressed="${pinned.has(g)}"><h3>${pick(skillGroups[g])}</h3><div class="sk-items${items.length === 4 ? ' four' : items.length === 6 ? ' six' : ''}">${items.map((s) =>
       `<div class="sk-item" title="${pick(s.d)}"><img src="assets/tools/${s.icon}.svg?v=${ASSET_V}" alt="" loading="lazy"><span>${s.n}</span></div>`).join('')}</div></div>`;
   }).join('');
 };
+const togglePin = (card) => {
+  const g = card.dataset.g;
+  if (pinned.has(g)) pinned.delete(g); else pinned.add(g);
+  card.classList.toggle('on', pinned.has(g));
+  card.setAttribute('aria-pressed', String(pinned.has(g)));
+};
+$('#skillsGrid').addEventListener('click', (e) => { const c = e.target.closest('.sk-card'); if (c) togglePin(c); });
+$('#skillsGrid').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const c = e.target.closest('.sk-card');
+  if (c) { e.preventDefault(); togglePin(c); }
+});
 
 // timeline
 const tl = $('#timeline');
@@ -253,6 +266,7 @@ const drawTl = () => {
     const projects = projHtml(m.projects);
     const subs = (m.children || []).map((c) => {
       const logo = c.logo ? `<img class="tl-logo tl-logo-sm" src="assets/orgs/${c.logo}" alt="" onerror="this.remove()">` : '';
+      if (c.list || c.toggle) return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary><div class="tl-sub-body">${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.list ? `<ul class="tl-list">${pick(c.list).map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div></details>`;
       if (c.compact) return `<div class="tl-sub tl-sub-compact"><div class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}</div></div>`;
       return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary>${projHtml(c.projects)}</details>`;
     }).join('');

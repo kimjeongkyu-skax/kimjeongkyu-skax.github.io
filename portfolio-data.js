@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261124a';
+const ASSET_V = '20261126h';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -717,14 +717,14 @@ const milestones = [
     text: locale('AI 솔루션, AI Agent 플랫폼, B2B 솔루션, 클라우드 아키텍처 분야를 담당합니다.', 'Working on AI solutions, AI agent platforms, B2B solutions, and cloud architecture.'),
     projects: ['nai-gateway', 'ai-re', 'rag-chatbot'],
     children: [
-      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), desc: locale('현재 NDA(비밀유지계약) 및 MOU(업무협약)에 따라 업무를 수행하고 있습니다.', 'Currently working under an NDA (non-disclosure agreement) and an MOU (memorandum of understanding).'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), compact: true },
+      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), desc: locale('현재 NDA(비밀유지계약) 및 MOU(업무협약)에 따라 업무를 수행하고 있습니다.', 'Currently working under an NDA (non-disclosure agreement) and an MOU (memorandum of understanding).'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), toggle: true },
       { start: '2026-04', end: '2026-04', logo: 'inocras.png', org: locale('이노크라스 미국 파견', 'Inocras (US assignment)'), role: locale('농심데이터시스템 재직 중 해외 고객사 파견', 'Assigned to an overseas customer while at Nongshim Data System'), projects: ['cgn-aacr'] },
     ] },
   { f: 'exp', start: '2022-03', end: '2025-11', logo: 'geninus.png', org: locale('지니너스', 'GENINUS'), role: locale('유전체 분석 소프트웨어 및 시스템 개발', 'Genomic analysis software and system development'),
     text: locale('Bioinformatics Engineering, Workflow Automation, 의료기관 시스템 구축, AWS 전환을 담당했습니다.', 'Worked on bioinformatics engineering, workflow automation, medical-institution system delivery, and AWS migration.'),
     projects: ['spatial', 'liquid-ldt', 'hospital', 'lims', 'aws-migration'],
     children: [
-      { start: '2024-04', end: '2025-11', org: locale('CAP PT / 실사 대응 (미국병리학회 인증)', 'CAP PT / Inspection response (College of American Pathologists accreditation)'), role: locale('분석 시스템 점검, SOP 및 증빙 문서 준비, CAP PT 분석 및 결과지 제출', 'System checks, SOP and evidence documents, CAP PT analysis and result reports'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), compact: true },
+      { start: '2024-04', end: '2025-11', org: locale('국내용 CAP PT / 실사 대응(미국병리학회 인증)', 'Domestic CAP PT / Inspection response (College of American Pathologists accreditation)'), role: locale('분석 시스템 점검, SOP 및 증빙 문서 준비, CAP PT 분석 및 결과지 제출', 'System checks, SOP and evidence documents, CAP PT analysis and result reports'), list: locale(['CAP 실사를 위한 분석 시스템 점검 및 증빙 문서 준비', 'CAP PT 숙련도 평가용 데이터 분석 및 결과지 제출', 'Software SOP 및 데이터 형상관리 문서 작성', 'CAP 실사평가 대응'], ['Analysis system checks and evidence documents for the CAP inspection', 'Data analysis and result-report submission for CAP PT proficiency testing', 'Software SOP and data configuration-management documents', 'CAP inspection response']), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.') },
       { start: '2023-11', end: '2024-03', logo: 'gxd.png', org: locale('GxD 株式会社 (일본 파견)', 'GxD 株式会社 (Japan assignment)'), role: locale('지니너스 재직 중 일본 자회사 파견 (NCCE MONSTAR SCREEN-3)', 'Assigned to the Japan subsidiary while at GENINUS (NCCE MONSTAR SCREEN-3)'), projects: ['gxd-japan'] },
     ] },
   { f: 'edu', link: 'assets/papers/dongguk-msc-thesis.pdf', start: '2019-03', end: '2021-02', org: locale('멀티미디어공학과 석사 (M.Sc.)', 'M.Sc., Multimedia Engineering'), inst: locale('동국대학교', 'Dongguk University'), text: locale('학점 4.39 / 4.5<br>석사 졸업 논문: Research on DNA Sequence Alignment Algorithm Based on Anchoring', 'GPA 4.39 / 4.5<br>Master’s thesis: Research on DNA Sequence Alignment Algorithm Based on Anchoring') },
