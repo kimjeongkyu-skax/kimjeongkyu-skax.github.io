@@ -1,12 +1,12 @@
 // Project detail page: renders one entry of portfolioProjects (portfolio-data.js) chosen by ?id=
 const L = {
   ko: {
-    back: '← 프로젝트 목록', nav: '프로젝트', client: '고객사 / Domain', period: '수행 기간', story: '프로젝트 스토리', storyEmpty: '작성 예정',
+    back: '← 프로젝트 목록', nav: '프로젝트', client: '고객사 / Domain', period: '수행 기간', story: '프로젝트 스토리', storyEmpty: '작성 예정', star: { situation: '배경', task: '과제', action: '해결 과정', test: 'PoC 테스트' },
     role: '업무 내용 및 담당 역할', outcome: '주요 성과', tools: '보유 및 활용 Skill', gallery: '관련 이미지', unavailable: '추가 확인 중',
     gPrev: '이전 이미지', gNext: '다음 이미지', prev: '← 이전 프로젝트', next: '다음 프로젝트 →', missing: '프로젝트를 찾을 수 없습니다.',
   },
   en: {
-    back: '← All projects', nav: 'Projects', client: 'Customer / Domain', period: 'Period', story: 'Project story', storyEmpty: 'Coming soon',
+    back: '← All projects', nav: 'Projects', client: 'Customer / Domain', period: 'Period', story: 'Project story', storyEmpty: 'Coming soon', star: { situation: 'Situation', task: 'Task', action: 'Action', test: 'PoC test' },
     role: 'Work and responsibilities', outcome: 'Key results', tools: 'Skills used', gallery: 'Images', unavailable: 'Pending confirmation',
     gPrev: 'Previous image', gNext: 'Next image', prev: '← Previous project', next: 'Next project →', missing: 'Project not found.',
   },
@@ -26,7 +26,15 @@ const field = (key, value) => {
   if (Array.isArray(value) && key === 'tools') body = `<ul class="tags">${value.map((v) => `<li>${esc(v)}</li>`).join('')}</ul>`;
   else if (Array.isArray(value)) body = esc(value.join(', '));
   else if (value && Array.isArray(pick(value))) body = `<ul class="duty-list">${pick(value).map((v) => `<li>${esc(v)}</li>`).join('')}</ul>`;
-  else if (key === 'story') body = value && pick(value) ? `<p class="story-text">${esc(pick(value))}</p>` : `<span class="story-empty">${t.storyEmpty}</span>`;
+  else if (key === 'story') {
+    const STAR = ['situation', 'task', 'action', 'test'];
+    const rows = value && typeof value === 'object' && !('ko' in value)
+      ? STAR.filter((k) => value[k] && pick(value[k])).map((k) => `<div class="star-row"><b>${t.star[k]}</b>${pick(value[k]).split('\n').map((x) => (/^\[.+\]$/.test(x) ? `<h5 class="star-sub">${esc(x.slice(1, -1))}</h5>` : `<p>${esc(x)}</p>`)).join('')}</div>`)
+      : [];
+    if (rows.length) body = `<div class="star">${rows.join('')}</div>`;
+    else if (value && pick(value)) body = `<p class="story-text">${esc(pick(value))}</p>`;
+    else body = `<span class="story-empty">${t.storyEmpty}</span>`;
+  }
   else body = value ? esc(pick(value)) : t.unavailable;
   return `<div><dt>${t[key]}</dt><dd>${body}</dd></div>`;
 };

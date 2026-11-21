@@ -509,3 +509,14 @@ footer{text-align:center}
 /* project story slot (between period and work) */
 .story-text{margin:0;line-height:1.75}
 .story-empty{display:block;padding:12px 14px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:.92rem}
+
+/* project story: background, task, action */
+.star{display:grid;gap:16px;margin-top:6px}
+.star-row{padding-left:14px;border-left:3px solid var(--accent)}
+.star-row b{display:block;color:var(--ink);font-size:.95rem;margin-bottom:2px}
+.star-row p{margin:0;line-height:1.7}
+
+.star-row p + p{margin-top:10px}
+
+.star-row .star-sub{margin:18px 0 4px;font-size:.92rem;font-weight:700;color:var(--accent)}
+.star-row b + .star-sub{margin-top:8px}

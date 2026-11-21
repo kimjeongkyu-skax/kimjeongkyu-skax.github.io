@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261127u';
+const ASSET_V = '20261129c';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -72,6 +72,24 @@ const portfolioProjects = [
   },
   {
     id: "nai-gateway",
+    story: {
+      situation: {
+        ko: "사내에서 Claude Code와 ChatGPT의 조직 차원 도입을 검토하면서 AI 서비스의 활용 방식, 보안 및 비용 관리에 대한 논의가 진행되었습니다.",
+        en: "While reviewing organization-wide adoption of Claude Code and ChatGPT, discussions took place on how to use AI services and how to manage security and cost."
+      },
+      task: {
+        ko: "여러 AI 서비스를 통합하고 사용자별 접근 권한과 비용을 관리할 방법이 필요했습니다. 관련 기술을 조사하면서 LLM Gateway를 알게 되었고, AWS 세션을 통해 인증 및 접근 통제 등 보안 측면에서도 보완이 필요하다고 판단했습니다.",
+        en: "We needed a way to integrate multiple AI services and manage per-user access and cost. While researching related technologies, I came across the LLM gateway, and through an AWS session I judged that authentication and access control also needed to be strengthened from a security standpoint."
+      },
+      action: {
+        ko: "LiteLLM 기반 AI Gateway를 구성하고, Amazon Bedrock 호출에는 IAM 인증을 적용해 API Key 노출 위험을 줄이고자 했습니다. Gateway 서버는 Private Subnet에 배치하고 외부 접근이 가능한 별도의 Web Portal을 앞단에 두는 구조를 설계했습니다. 이후 포털에 사용자 인증, 관리자 승인, 접근 권한 및 비용 관리 기능을 구현하고 일부 사내 사용자를 대상으로 PoC를 진행하고 있습니다.",
+        en: "Set up an AI gateway on LiteLLM and applied IAM authentication to Amazon Bedrock calls to reduce the risk of API key exposure. Designed an architecture in which the gateway server sits in a private subnet behind a separate, externally accessible web portal. Then implemented user authentication, administrator approval, and access-permission and cost-management features in the portal, and am running a PoC with some internal users."
+      },
+      test: {
+        ko: "[사용자 인증 및 접근 통제]\n초기 PoC에서는 사내 구글 이메일 OTP 인증후 메일 확인을 통해 코드를 확인하고, 최초 가입 시 관리자 승인, 사내망 접근 제한을 적용했습니다. 사용자 Q&A를 통해 로그인할 때마다 이메일 인증 코드를 입력하는 불편함과 외부 환경에서 접근할 수 없다는 의견을 확인했습니다. 현재는 세 가지 접근 통제 방식이 의도대로 동작하는 것을 확인한 상태이며, PoC 단계에서 수집한 의견을 바탕으로 인증 절차와 접근 정책의 개선 방향을 고려하고 있습니다.\n[Claude Code 토큰 사용량 분석 및 최적화]\nClaude Code를 제공한 이후 개발 직군, 특히 웹 개발 업무에서 토큰 사용 비용이 높게 발생하는 현상을 확인했습니다. 1M 토큰 컨텍스트 환경에서 대화 기록이 누적되면서 매 요청마다 대량의 컨텍스트가 반복 처리되는 문제를 확인했습니다. 이에 자동 컨텍스트 압축 기준을 약 40만 토큰으로 조정하고, 대규모 코드 분석 등 긴 컨텍스트가 필요한 경우에만 1M 토큰 환경을 활용하도록 사용 방식을 구분할 수 있도록 설정했습니다. 추가로 포니테일 Skill을 적용해 불필요한 출력과 코드 생성량을 줄이는 방향으로 개선했으며, 이를 통해 사용 비용을 약 30% 절감했습니다.\n[Bedrock 모델 호출 비용 검토]\nAmazon Bedrock의 글로벌 크로스 리전 추론을 활용하면 모델 호출 비용을 약 10% 절감할 수 있다는 점을 확인했습니다. 현재 사내 PoC는 비용 효율성을 우선하여 글로벌 크로스 리전 방식을 선택했습니다. 다만 향후 외부 고객사에 솔루션을 제공할 경우, 인증 및 데이터 처리 위치에 대한 요구사항을 고려해야 한다고 판단했습니다. 따라서 고객사 환경에서는 추가 비용이 발생하더라도 지정된 리전에서 모델을 호출하도록 구성하는 방향이 필요하다고 생각됩니다.\n[AI 서비스별 사용 패턴 분석]\nClaude Code와 비교해 Cowork 및 Chatbot은 상대적으로 짧은 작업과 질의응답 중심으로 사용되는 경향을 확인했습니다. 실제 PoC에서는 일일 사용 비용이 Claude Code 대비 약 10분의 1 수준인 사례도 확인했습니다. 이를 통해 AI 도구별 사용 목적과 컨텍스트 소비 특성에 따라 비용 관리 기준을 달리할 필요가 있다고 판단했습니다.\n[중앙 관리의 한계 및 향후 개선 방향]\n컨텍스트 압축 기준과 Skills 설정을 사용자 환경에 배포했지만, 개인 PC에서 root 권한을 활용하여, 설정을 변경할 수 있어 동일한 비용 관리 정책을 일관되게 적용하기 어려웠습니다. 일부 사용자는 설정 변경 이후 토큰 사용량과 비용이 다시 증가하는 현상도 확인했습니다. 이에 따라 사용자별 설정에 의존하는 방식에서 벗어나, 중앙 통제의 고도화 및 사용량과 예산을 관리하는 구조가 필요하다고 판단했습니다. LiteLLM에서는 Tool Policies를 통해 input과 output을 제한할 수 있지만, Claude 설정이나 내용은 제한하지 못하고 지속적으로 제한하는 데에도 한계가 있어, 향후 LiteLLM과 연계 가능한 모니터링 도구를 검토하고, 사용자별 요청 로그, 토큰 사용량, 컨텍스트 크기 등을 관찰하여 비용 예측과 중앙 관리 기능을 개선할 계획입니다.",
+        en: "[User authentication and access control]\nIn the initial PoC we applied internal Google-account email OTP authentication (checking the code in the mail), administrator approval at first sign-up, and internal-network-only access. User Q&A raised that entering an email code at every login is inconvenient and that access from outside is not possible. We have confirmed that these three access-control methods work as intended, and are considering improvements to the authentication flow and access policy based on the feedback collected during the PoC.\n[Claude Code token usage analysis and optimization]\nAfter providing Claude Code, we found that token costs were high among developers, especially in web development work. With a 1M-token context, conversation history accumulated and large amounts of context were repeatedly processed on every request. We therefore adjusted the automatic compaction threshold to about 400K tokens and configured usage so that the 1M-token environment is used only when long context is needed, such as large-scale code analysis. We also applied the Ponytail skill to reduce unnecessary output and code generation, which cut usage costs by about 30%.\n[Bedrock model invocation cost review]\nWe confirmed that Amazon Bedrock global cross-region inference can cut model invocation costs by about 10%. The current internal PoC chose global cross-region inference to prioritize cost efficiency. However, we judged that for solutions offered to external customers, requirements on authentication and data-processing location must be considered. We therefore think customer environments should call models in designated regions, even at additional cost.\n[Usage patterns by AI service]\nCompared with Claude Code, Cowork and chatbot usage tended to center on shorter tasks and Q&A. In the actual PoC we also saw cases where daily usage cost was about one tenth of Claude Code. We judged that cost management criteria should differ by the purpose and context-consumption characteristics of each AI tool.\n[Limits of central management and future improvements]\nWe deployed the context compaction threshold and Skills settings to user environments, but because users can change settings with root access on their own PCs, it was hard to apply the same cost policy consistently. Some users' token usage and costs rose again after changing settings. We therefore judged that we need stronger central control and a structure for managing usage and budgets, rather than relying on per-user settings. LiteLLM can restrict input and output through Tool Policies, but it cannot restrict Claude settings or content, and restricting them continuously has its limits, so going forward we will review monitoring tools that work with LiteLLM and observe per-user request logs, token usage, and context size to improve cost forecasting and central management."
+      }
+    },
     featured: true,
     title: {
       ko: "nAI-Gateway 구축 및 사내 적용",
@@ -113,12 +131,10 @@ const portfolioProjects = [
     },
     outcome: {
       ko: [
-        "Gateway 및 관리 포털의 주요 기능 구현",
         "일부 사내 사용자 대상 PoC 진행 및 기능, 운영, 비용 구조 검증",
         "외부 고객 제공을 고려한 솔루션 고도화 진행 중"
       ],
       en: [
-        "Implemented the main features of the gateway and admin portal",
         "Ran a PoC with internal users and validated features, operations, and cost structure",
         "Advancing the solution for external customer delivery"
       ]
@@ -127,7 +143,7 @@ const portfolioProjects = [
       { ko: "로그인: 회사 메일 입력", en: "Sign-in: company email entry" },
       { ko: "사내 이메일 인증코드 메일 (Gmail SMTP 발송, Gmail 수신 화면)", en: "Internal email verification code message (sent via Gmail SMTP, shown in Gmail)" },
       { ko: "로그인: 인증코드 입력", en: "Sign-in: verification code entry" },
-      { ko: "개인 이메일 인증 완료 후 초기 가입시 관리자 승인 대기", en: "After email verification, first-time sign-up waits for administrator approval" },
+      { ko: "사내 이메일 인증 완료 후 초기 가입시 사용 신청", en: "After internal email verification, first-time sign-up submits an access request" },
       { ko: "신규 사용 신청 시 관리자에게 승인 요청 메일 발송 (Gmail)", en: "Approval request email sent to the administrator on a new access request (Gmail)" },
       { ko: "관리자 승인, 키 교체, 예산 관리", en: "Admin: approvals, key replacement, and budget management" },
       { ko: "관리자: 팀별 사용액 모니터링", en: "Admin: usage monitoring by team" },
