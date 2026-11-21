@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261123zs';
+const ASSET_V = '20261124a';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -252,6 +252,7 @@ const portfolioProjects = [
       "LangGraph",
       "LibreChat",
       "pgvector",
+      "Docker",
       "Amazon Titan Text Embeddings",
       "AWS"
     ]
@@ -500,14 +501,14 @@ const portfolioProjects = [
         "포트 개방, 라이선스 파일 교체, DB dump 생성, WAR 파일 교체 등 6단계로 나뉜 설치 절차를 원라인 설치로 간소화",
         "Docker 컨테이너(Tomcat, MariaDB, OZ Report, Shiny)로 애플리케이션 실행 환경을 구성해 병원별 환경 차이를 최소화",
         "On-premise 및 Air-gapped 환경에 대응하는 설치 절차 구성",
-        "구축 및 실행 방법 SOP와 폴더 구조(Folder tree) 문서 작성"
+        "설치 SOP 작성: 구축 및 실행 방법, 설치에 필요한 폴더 구성 정리"
       ],
       en: [
         "Independently designed and developed automated deployment scripts for each hospital environment (CentOS, Ubuntu)",
         "Simplified a 6-step installation (port opening, license file replacement, DB dump creation, WAR file replacement, etc.) into a one-line install",
         "Packaged the application as Docker containers (Tomcat, MariaDB, OZ Report, Shiny) to minimize differences between hospital environments",
         "Defined installation procedures for on-premise and air-gapped sites",
-        "Wrote the build-and-run SOP and the folder-structure (folder tree) documentation"
+        "Wrote the installation SOP: build-and-run procedure and the folder layout required for installation"
       ]
     },
     outcome: {
@@ -525,10 +526,10 @@ const portfolioProjects = [
       ]
     },
     gallery: [
-      { ko: "초기 설치 화면 (6단계 설치 절차를 원라인 설치로 간소화)", en: "Initial installer screen (simplifying a 6-step installation into a one-line install)" },
+      { ko: "초기 설치 화면 (선택형 설치 절차를 원라인 설치로 간소화)", en: "Initial installer screen (simplifying a menu-driven installation into a one-line install)" },
       { ko: "최종 설치 화면 (원라인 설치)", en: "Final installer screen (one-line install)" },
-      { ko: "SOP 표지", en: "SOP cover" },
-      { ko: "SOP 내용: 설치 폴더 구성 요소 정리", en: "SOP content: installation folder components" }
+      { ko: "설치 SOP 표지", en: "Installation SOP cover" },
+      { ko: "설치 SOP: 설치에 필요한 폴더 구성 정리", en: "Installation SOP: folder layout required for installation" }
     ],
     tools: [
       "CentOS",
@@ -671,22 +672,29 @@ const portfolioProjects = [
 ];
 
 const skillGroups = {
-  ai: locale('AI & LLM 엔지니어링', 'AI & LLM Engineering'),
-  data: locale('데이터 엔지니어링', 'Data Engineering'),
-  backend: locale('백엔드 엔지니어링', 'Backend Engineering'),
-  cloud: locale('클라우드 & 인프라', 'Cloud & Infrastructure'),
-  bio: locale('바이오인포매틱스', 'Bioinformatics'),
-  quality: locale('품질 & 운영', 'Quality & Operations'),
+  lang: locale('Languages', 'Languages'),
+  db: locale('DB', 'DB'),
+  ai: locale('AI', 'AI'),
+  container: locale('Container', 'Container'),
+  cloud: locale('Cloud', 'Cloud'),
+  workflow: locale('Workflow', 'Workflow'),
 };
 
 const skills = [
-  ['cloud', 'production', 'AWS', 'aws', '클라우드 환경 구축 및 서비스 운영', 'Cloud environment setup and service operations'],
-  ['data', 'production', 'SQL', 'sql', '분석 결과 저장 구조 설계 및 컬럼 제약 개선', 'Result data modeling and database constraint remediation'],
+  ['lang', 'production', 'Python', 'python', '분석 파이프라인과 AI 서비스 개발', 'Analysis pipelines and AI services'],
+  ['lang', 'implemented', 'R', 'r', 'R 기반 데이터 분석', 'Data analysis with R'],
+  ['db', 'production', 'MariaDB', 'mariadb', 'LIMS 데이터베이스를 Docker 컨테이너로 구성', 'LIMS database packaged as a Docker container'],
+  ['db', 'implemented', 'SQLite', 'sqlite', 'nAI-Gateway 사용자와 사용량 데이터 저장', 'User and usage data storage for nAI-Gateway'],
+  ['db', 'implemented', 'pgvector', 'pgvector', '규정 문서 임베딩 저장과 유사도 검색', 'Embedding storage and similarity search for policy documents'],
   ['ai', 'implemented', 'LiteLLM', 'litellm', 'AWS 기반 AI Gateway로 LLM 사용 환경과 비용 관리', 'AI Gateway on AWS for managing LLM access and costs'],
-  ['ai', 'implemented', 'Claude Code', 'claude-code', '사내 AI 개발 도구 도입과 사용 환경 구성', 'Introduced and configured AI development tooling for the company'],
-  ['ai', 'exploring', 'LangChain', 'langchain', 'LLM 애플리케이션과 RAG 구성 학습 및 검토', 'Exploring LLM applications and RAG pipelines'],
+  ['ai', 'implemented', 'LibreChat', 'librechat', '사내 AI 챗봇 서비스 구성과 AI Gateway 연동', 'Internal AI chatbot service integrated with the AI Gateway'],
   ['ai', 'exploring', 'LangGraph', 'langgraph', 'AI Agent 워크플로 설계 학습 및 검토', 'Exploring AI agent workflow design'],
+  ['ai', 'implemented', 'Claude Code Skills', 'claude-code', '사내 AI 개발 도구 도입과 사용 환경 구성', 'Introduced and configured AI development tooling for the company'],
   ['ai', 'exploring', 'MCP', 'mcp', 'Tool Calling과 MCP 기반 도구 연동 학습 및 검토', 'Exploring tool calling and MCP-based integrations'],
+  ['container', 'production', 'Docker', 'docker', '컨테이너 기반 분석 환경 구성과 자동 배포', 'Container-based analysis environments and automated deployment'],
+  ['container', 'production', 'Singularity', 'singularity', '분석 모듈 컨테이너화와 서버 실행 환경 구성', 'Containerizing analysis modules and server runtime setup'],
+  ['cloud', 'production', 'AWS', 'aws', '클라우드 환경 구축 및 서비스 운영', 'Cloud environment setup and service operations'],
+  ['workflow', 'production', 'Snakemake', 'snakemake', '분석 파이프라인 워크플로우 자동화', 'Automating analysis pipeline workflows'],
 ].map(([c, level, n, icon, ko, en]) => ({ c, level, n, icon, d: locale(ko, en) }));
 
 const milestones = [
@@ -694,7 +702,7 @@ const milestones = [
     text: locale('AI 솔루션, AI Agent 플랫폼, B2B 솔루션, 클라우드 아키텍처 분야를 담당합니다.', 'Working on AI solutions, AI agent platforms, B2B solutions, and cloud architecture.'),
     projects: ['nai-gateway', 'ai-re', 'rag-chatbot'],
     children: [
-      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), compact: true },
+      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), desc: locale('현재 NDA(비밀유지계약) 및 MOU(업무협약)에 따라 업무를 수행하고 있습니다.', 'Currently working under an NDA (non-disclosure agreement) and an MOU (memorandum of understanding).'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), compact: true },
       { start: '2026-04', end: '2026-04', logo: 'inocras.png', org: locale('이노크라스 미국 파견', 'Inocras (US assignment)'), role: locale('농심데이터시스템 재직 중 해외 고객사 파견', 'Assigned to an overseas customer while at Nongshim Data System'), projects: ['cgn-aacr'] },
     ] },
   { f: 'exp', start: '2022-03', end: '2025-11', logo: 'geninus.png', org: locale('지니너스', 'GENINUS'), role: locale('유전체 분석 소프트웨어 및 시스템 개발', 'Genomic analysis software and system development'),
@@ -736,7 +744,7 @@ const axAreas = [
   },
   {
     title: locale('학습 및 검토', 'Learning and exploration'),
-    text: locale('LLM, RAG, Tool Calling, MCP, LLMOps와 LangChain, LangGraph를 학습하고 검토하고 있습니다.', 'Exploring LLMs, RAG, tool calling, MCP, LLMOps, LangChain, and LangGraph.'),
+    text: locale('LLM, RAG, Tool Calling, MCP, LLMOps와 LangGraph를 학습하고 검토하고 있습니다.', 'Exploring LLMs, RAG, tool calling, MCP, LLMOps, and LangGraph.'),
   },
   {
     title: locale('설계 방향', 'Design direction'),

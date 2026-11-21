@@ -384,3 +384,5 @@ footer{text-align:left;padding:28px 20px}
 .timeline .tl-note{margin:26px 0 0;font-size:.85rem;color:var(--muted)}
 
 .deck-btn{margin-left:8px}.card-foot .deck-btn{margin-left:0}
+
+.timeline .tl-sub-title .tl-desc{margin:6px 0 0;font-size:.95rem;color:var(--ink);line-height:1.55}

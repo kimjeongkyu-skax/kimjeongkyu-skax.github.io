@@ -8,12 +8,12 @@ const I18N = {
     'nav.home': '홈', 'nav.projects': '프로젝트', 'nav.skills': '기술', 'nav.about': '소개', 'nav.cv': '이력서', 'nav.contact': '연락',
     cord: '줄을\n당기세요!',
     'hero.chip': 'AI ENGINEERING | BIOINFORMATICS ENGINEERING', 'hero.name': '김정규', 'hero.title': '현장의 요구사항을 구현하는 엔지니어',
-    'hero.lead': 'Python, LangGraph, LiteLLM을 활용해 AI Agent와 RAG 서비스, AI Gateway를 개발하고 있습니다. AWS 기반 서비스 설계와 데이터 파이프라인 자동화, 국내외 시스템 구축 및 운영 경험을 보유하고 있습니다.',
+    'hero.lead': 'Python, LangGraph, LiteLLM을 활용해 AI Agent와 AI Gateway를 개발하고 있습니다. AWS 기반 서비스 설계와 데이터 파이프라인 자동화, 국내외 시스템 구축 및 운영 경험을 보유하고 있습니다.',
     'hero.stack': '기술 스택', 'hero.know': '나를 알아보기 ↘', 'hero.cv': '이력서 다운로드 ↗', 'hero.pf': '포트폴리오 다운로드 ↗', 'loc.label': '위치', 'loc.city': '서울, 대한민국', 'loc.based': '서울에 거주하고 있습니다',
     'hero.hlTitle': '약 5년의 경력', 'hero.hlText': '바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
     'hero.focus': 'AI Agent 개발자', 'hero.focusSub': '바이오 × AI 엔지니어링', 'hero.role': 'AI, AX Engineering',
-    'proj.chip': '대표 작업', 'proj.title': 'AI Agent와 AI 플랫폼을 실제 서비스로 구현한 프로젝트', 'proj.lead': 'LangGraph 기반 RAG Agent, Claude Code Skills를 적용한 연구 지원 Agent, AI Gateway를 구축했습니다. 병원 폐쇄망과 해외 법인처럼 제약이 다른 환경에서 시스템을 구축한 경험도 함께 담았습니다.', 'proj.details': '프로젝트 상세', 'proj.deck': '발표자료 상세', 'proj.demo': '데모',
-    'skills.chip': '기술 스택 & 도구', 'skills.title': '실무에서 다루는 기술',
+    'proj.chip': '대표 작업', 'proj.title': 'AI Agent와 AI 플랫폼을 실제 서비스로 구현한 프로젝트', 'proj.lead': 'LangGraph 기반 AI Agent, Claude Code Skills를 적용한 연구 지원 Agent, AI Gateway를 구축했습니다. 병원 폐쇄망과 해외 법인처럼 제약이 다른 환경에서 시스템을 구축한 경험도 함께 담았습니다.', 'proj.details': '프로젝트 상세', 'proj.deck': '발표자료 상세', 'proj.demo': '데모',
+    'skills.chip': '기술 스택 & 도구', 'skills.title': 'Tools Behind the Work',
     'skills.note': '실무 개발, 운영, 직접 구현, 학습 및 검토 경험을 표시했습니다.',
     'skills.hint': '화살표나 마우스 드래그로 넘겨볼 수 있습니다.',
     'auto.on': '자동 스크롤 켜짐', 'auto.off': '자동 스크롤 꺼짐', pause: '❚❚ 일시정지', play: '▶ 재생',
@@ -43,12 +43,12 @@ const I18N = {
     'nav.home': 'Home', 'nav.projects': 'Projects', 'nav.skills': 'Skills', 'nav.about': 'About Me', 'nav.cv': 'Resume', 'nav.contact': 'Contact',
     cord: 'Pull the\ncord!',
     'hero.chip': 'AI ENGINEERING | BIOINFORMATICS ENGINEERING', 'hero.name': 'Kim Jeongkyu', 'hero.title': 'An engineer who implements on-site requirements',
-    'hero.lead': 'I develop AI agents, RAG services and an AI gateway using Python, LangGraph and LiteLLM. I have experience in AWS-based service design, data-pipeline automation, and building and operating systems at home and abroad.',
+    'hero.lead': 'I develop AI agents and an AI gateway using Python, LangGraph and LiteLLM. I have experience in AWS-based service design, data-pipeline automation, and building and operating systems at home and abroad.',
     'hero.stack': 'Tech Stack', 'hero.know': 'Know Me ↘', 'hero.cv': 'Download CV ↗', 'hero.pf': 'Download Portfolio ↗', 'loc.label': 'LOCATION', 'loc.city': 'Seoul, South Korea', 'loc.based': 'Based in Seoul, South Korea',
     'hero.hlTitle': 'Nearly 5 years of experience', 'hero.hlText': 'From developing and operating analysis systems for the bio and healthcare industries to building enterprise AI solutions',
     'hero.focus': 'AI Agent Developer', 'hero.focusSub': 'Bio × AI Engineering', 'hero.role': 'AI, AX Engineering',
-    'proj.chip': 'SELECTED WORK', 'proj.title': 'AI agents and AI platforms built into real services', 'proj.lead': 'I built a LangGraph-based RAG agent, a research-support agent using Claude Code Skills, and an AI gateway, drawing on experience delivering systems in constrained environments such as hospital air-gapped networks and an overseas subsidiary.', 'proj.details': 'Project details', 'proj.deck': 'Presentation details', 'proj.demo': 'Demo',
-    'skills.chip': 'TECHNICAL STACK & TOOLING', 'skills.title': 'Technologies I Work With',
+    'proj.chip': 'SELECTED WORK', 'proj.title': 'AI agents and AI platforms built into real services', 'proj.lead': 'I built a LangGraph-based AI agent, a research-support agent using Claude Code Skills, and an AI gateway, drawing on experience delivering systems in constrained environments such as hospital air-gapped networks and an overseas subsidiary.', 'proj.details': 'Project details', 'proj.deck': 'Presentation details', 'proj.demo': 'Demo',
+    'skills.chip': 'TECHNICAL STACK & TOOLING', 'skills.title': 'Tools Behind the Work',
     'skills.note': 'Production work, hands-on implementation, and areas of exploration.',
     'skills.hint': 'Use the arrow controls or drag with the mouse to browse.',
     'auto.on': 'Auto-scroll on', 'auto.off': 'Auto-scroll off', pause: '❚❚ Pause', play: '▶ Play',
@@ -238,7 +238,7 @@ requestAnimationFrame(drift);
 trackWrap.addEventListener('pointerenter', () => { hover = true; drawCtrl(); });
 trackWrap.addEventListener('pointerleave', () => { hover = false; drawCtrl(); });
 const drawSkills = () => {
-  track.innerHTML = visible().map((s) => `<div class="skill"><img class="tool-logo" src="assets/tools/${s.icon}.svg" alt="" loading="lazy"><small>${pick(skillGroups[s.c])}, ${tr('level.' + s.level)}</small><h3>${s.n}</h3><p>${pick(s.d)}</p></div>`).join('');
+  track.innerHTML = visible().map((s) => `<div class="skill"><img class="tool-logo" src="assets/tools/${s.icon}.svg?v=${ASSET_V}" alt="" loading="lazy"><small>${pick(skillGroups[s.c])}, ${tr('level.' + s.level)}</small><h3>${s.n}</h3><p>${pick(s.d)}</p></div>`).join('');
   $('#filters').innerHTML = cats.map((c) => {
     const n = c === 'all' ? skills.length : skills.filter((s) => s.c === c).length;
     return `<button class="${c === cat ? 'active' : ''}" data-c="${c}" aria-pressed="${c === cat}">${c === 'all' ? tr('cat.all') : pick(skillGroups[c])} (${n})</button>`;
@@ -326,7 +326,7 @@ const drawTl = () => {
     const projects = projHtml(m.projects);
     const subs = (m.children || []).map((c) => {
       const logo = c.logo ? `<img class="tl-logo tl-logo-sm" src="assets/orgs/${c.logo}" alt="" onerror="this.remove()">` : '';
-      if (c.compact) return `<div class="tl-sub tl-sub-compact"><div class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}</div></div>`;
+      if (c.compact) return `<div class="tl-sub tl-sub-compact"><div class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}</div></div>`;
       return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary>${projHtml(c.projects)}</details>`;
     }).join('');
     return `<li><article class="tl-card">${head}${name}${role}${m.text ? `<div class="tl-body"><p>${pick(m.text)}</p></div>` : ''}${projects || subs ? `<div class="tl-projects">${projects}${subs}</div>` : ''}</article></li>`;
