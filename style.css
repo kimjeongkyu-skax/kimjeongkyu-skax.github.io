@@ -74,7 +74,7 @@ h4{margin:0 0 10px;color:var(--ink)}
 .card h3{margin:0 0 8px;font-size:1.3rem;color:var(--ink)}
 .card p{margin:0 0 16px;flex:1}
 .card .tags{margin-bottom:16px}.card .tags li{font-size:.78rem;padding:2px 8px}
-.card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:14px}
+.card-foot{display:flex;justify-content:flex-start;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
 .card-foot a.l{color:var(--accent);font-weight:700}
 .card-foot a.b{background:var(--tint);color:var(--ink);font-weight:700;padding:10px 16px;border-radius:4px}
 
@@ -380,3 +380,7 @@ footer{text-align:left;padding:28px 20px}
 .gallery-wrap{margin-top:40px}
 .gallery-count{top:-28px;left:2px;padding:0;background:none;color:var(--muted);font-size:.9rem}
 @media (min-width:760px){.g-prev{left:-56px}.g-next{right:-56px}}
+.tl-sub-compact .tl-sub-head{cursor:default}
+.timeline .tl-note{margin:26px 0 0;font-size:.85rem;color:var(--muted)}
+
+.deck-btn{margin-left:8px}.card-foot .deck-btn{margin-left:0}

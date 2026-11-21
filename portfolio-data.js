@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261123q';
+const ASSET_V = '20261123zr';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -74,8 +74,8 @@ const portfolioProjects = [
     id: "nai-gateway",
     featured: true,
     title: {
-      ko: "nAI-Gateway 구축 및 전사 적용 PoC",
-      en: "nAI-Gateway build and company-wide PoC"
+      ko: "nAI-Gateway 구축 및 사내 적용",
+      en: "nAI-Gateway build and internal rollout"
     },
     client: {
       ko: "농심데이터시스템 및 농심 내부 / 기업 IT",
@@ -86,8 +86,8 @@ const portfolioProjects = [
       en: "Jun. 2026 – present"
     },
     overview: {
-      ko: "LiteLLM과 Amazon Bedrock 기반으로 사내 생성형 AI 사용 환경과 접근, 비용 관리 기능을 구축했습니다.",
-      en: "Built an internal generative-AI environment on LiteLLM and Amazon Bedrock with access control and cost management."
+      ko: "LiteLLM과 Amazon Bedrock 기반으로 사내 생성형 AI 사용 환경과 접근, 비용 관리 기능을 구축하고, 일부 사내 사용자를 대상으로 PoC를 진행해 기능, 운영, 비용 구조를 검증했습니다.",
+      en: "Built an internal generative-AI environment on LiteLLM and Amazon Bedrock with access control and cost management, and ran a PoC with some internal users to validate features, operations, and cost structure."
     },
     role: {
       ko: [
@@ -95,9 +95,9 @@ const portfolioProjects = [
         "Claude Code, Cowork, Chatbot 등의 사용자별 서비스 제공 방안 검토",
         "AWS IAM 인증을 활용한 LiteLLM–Amazon Bedrock 연동 및 서비스 환경 구성",
         "별도 사용자 및 관리자 포털 아키텍처 제안과 개발",
-        "사내 이메일 OTP 인증과 관리자 가입 승인 기능 구현",
+        "랜덤 코드 인증과 관리자 가입 승인 기능 구현",
         "PoC 사용자의 시간 단위 및 일별 사용량 모니터링, 비용 최적화 테스트 및 주요 기능 테스트",
-        "사용자 및 팀별 접근 권한, 예산, 사용 비용을 조회하는 관리자 모니터링 기능 구현",
+        "사용자 및 팀별 접근 권한, 예산, 사용 비용을 조회 및 통제하는 관리자 모니터링 기능 구현",
         "외부 접근 포털과 승인 검토 규칙 기획"
       ],
       en: [
@@ -105,9 +105,9 @@ const portfolioProjects = [
         "Evaluated per-user service options such as Claude Code, Cowork, and chatbots",
         "Integrated LiteLLM with Amazon Bedrock using AWS IAM authentication and configured the service environment",
         "Proposed and developed separate user and administrator portal architectures",
-        "Implemented internal email OTP authentication and administrator sign-up approval",
+        "Implemented random-code authentication and administrator sign-up approval",
         "Monitored hourly and daily usage of PoC users and ran cost-optimization and key-feature tests",
-        "Implemented administrator monitoring of permissions, budgets, and usage cost per user and team",
+        "Implemented administrator monitoring to view and control permissions, budgets, and usage cost per user and team",
         "Planned the external-access portal and its approval review rules"
       ]
     },
@@ -123,66 +123,71 @@ const portfolioProjects = [
         "Advancing the solution for external customer delivery"
       ]
     },
+    gallery: [
+      { ko: "로그인: 회사 메일 입력", en: "Sign-in: company email entry" },
+      { ko: "랜덤 인증코드 메일 (Gmail SMTP 발송, Gmail 수신 화면)", en: "Random verification code email (sent via Gmail SMTP, shown in Gmail)" },
+      { ko: "로그인: 인증코드 입력", en: "Sign-in: verification code entry" },
+      { ko: "내정보: 키 상태와 개인 및 팀 사용량", en: "My info: key status and personal/team usage" },
+      { ko: "관리자 페이지 전체 화면 (가입 승인, 키 교체 요청, 예산, 사용자 관리)", en: "Admin page overview (sign-up approval, key replacement, budget and user management)" },
+      { ko: "AWS 아키텍처 (서울/도쿄 리전, LiteLLM Gateway on ECS, Amazon Bedrock)", en: "AWS architecture (Seoul and Tokyo regions, LiteLLM gateway on ECS, Amazon Bedrock)" }
+    ],
     tools: [
-      "AWS",
-      "Amazon Bedrock",
-      "IAM",
+      "SMTP",
+      "SQLite",
       "LiteLLM",
       "Docker",
-      "SQLite",
-      "TypeScript",
-      "HTML",
-      "CSS",
-      "Gmail SMTP"
+      "AWS"
     ]
   },
   {
     id: "ai-re",
     featured: true,
+    deck: "assets/projects/ai-re/khf-2026-presentation.pdf",
     title: {
-      ko: "AI-RE 연구 환경 플랫폼 기획 및 AWS 아키텍처 설계",
-      en: "AI-RE research environment platform planning and AWS architecture design"
+      ko: "AI-RE 연구 환경 플랫폼 기획",
+      en: "AI-RE research environment platform planning"
     },
     client: {
-      ko: "연구기관 / 바이오 / 의료 연구",
-      en: "Research institutes / Bio / Medical research"
+      ko: "연구기관 / 바이오 및 의료 연구자",
+      en: "Research institutes / Bio and medical researchers"
     },
     period: {
       ko: "2026.01 ~ 2026.08 (KHF 2026 발표)",
       en: "Jan. – Aug. 2026 (presented at KHF 2026)"
     },
     overview: {
-      ko: "B2B 공동연구 플랫폼을 기획하고 AWS 인프라와 AI Gateway 연계 구조를 설계했습니다.",
-      en: "Planned a B2B joint-research platform and designed its AWS infrastructure and AI gateway integration."
+      ko: "B2B 공동연구 플랫폼을 기획하고, 의료 현장에서 도입할 수 있는 구조를 기획 중인 내용으로 KHF 2026에서 발표했습니다. 이후 nAI-Gateway 구축과 WGS 분석 AI Agent 데모를 PoC로 진행하며 AI Agent 플랫폼과 AWS 기반 웹 인프라로 확장하게 되었습니다.",
+      en: "Planned a B2B joint-research platform and presented the work-in-progress plan for a structure adoptable in clinical settings at KHF 2026. It then grew into an AI Agent platform and web-based AWS infrastructure through PoCs: building nAI-Gateway and a WGS analysis AI Agent demo."
     },
     role: {
       ko: [
-        "Bioinformatics Community 초기 아이디어 기획 및 연구환경 벤치마킹",
+        "Bioinformatics Community 초기 아이디어 기획 및 연구환경 벤치마킹 (Seqera, Basepair, Invisibl Cloud)",
         "임원회의 및 사업 방향 검토를 통해 B2B 공동연구 플랫폼으로 기획 구체화",
         "연구자별 독립 분석 환경, 프로젝트 권한, 데이터 반입 및 반출 승인 구조 기획",
-        "AWS 기반 인프라 아키텍처 및 Scientist AI Agent, AI Gateway 연계 구조 설계",
-        "KHF 2026 기술 발표 및 고객 대응"
+        "AWS 기반 연구 환경 인프라와 Scientist AI Agent, AI Gateway 연계 구조 구상",
+        "의료 현장 도입을 고려한 구조화 및 KHF 2026 기술 발표, 고객 대응"
       ],
       en: [
-        "Planned the initial Bioinformatics Community idea and benchmarked research environments",
+        "Planned the initial Bioinformatics Community idea and benchmarked research environments (Seqera, Basepair, Invisibl Cloud)",
         "Refined it into a B2B joint-research platform through executive meetings and business review",
         "Planned per-researcher isolated analysis environments, project permissions, and data in/out approval flows",
-        "Designed the AWS infrastructure architecture and its integration with the Scientist AI Agent and AI Gateway",
-        "Gave a technical presentation at KHF 2026 and handled customer inquiries"
+        "Conceived the AWS-based research-environment infrastructure and its integration with the Scientist AI Agent and AI Gateway",
+        "Structured the platform for clinical adoption, gave a technical presentation at KHF 2026, and handled customer inquiries"
       ]
     },
     outcome: {
       ko: [
         "연구 운영 관리, AI Governance, 클라우드 연구 환경의 주요 기능 정의",
-        "KHF 2026 발표와 고객 대응을 통해 팀 기준 리드 82건 확보에 기여 (이전 4개년 평균 9건)",
-        "리드 수는 개인 단독 실적이 아닌 팀 기준"
+        "KHF 2026 발표와 고객 대응을 통해 팀 기준 문의 고객 82건 확보에 기여 (이전 4개년 평균 9건)"
       ],
       en: [
         "Defined the main features of research operations management, AI governance, and the cloud research environment",
-        "Contributed to 82 team leads from the KHF 2026 presentation and customer handling (previous 4-year average: 9)",
-        "Lead count is a team figure, not an individual result"
+        "Contributed to 82 customer inquiries (team total) from the KHF 2026 presentation and customer handling (previous 4-year average: 9)"
       ]
     },
+    gallery: [
+      { ko: "벤치마킹 회사: Seqera, Basepair, Invisibl Cloud", en: "Benchmarked companies: Seqera, Basepair, Invisibl Cloud" }
+    ],
     tools: [
       "AWS Architecture",
       "AI Governance",
@@ -194,8 +199,8 @@ const portfolioProjects = [
     id: "rag-chatbot",
     featured: true,
     title: {
-      ko: "사내 규정문서 기반 RAG 챗봇 개발 및 배포",
-      en: "Internal policy-document RAG chatbot development and deployment"
+      ko: "사내 규정문서 기반 RAG 챗봇",
+      en: "Internal policy-document RAG chatbot"
     },
     client: {
       ko: "농심데이터시스템 내부 / 기업 IT",
@@ -237,13 +242,18 @@ const portfolioProjects = [
         "Developed and deployed a search UI that lets users check source documents"
       ]
     },
+    gallery: [
+      { ko: "답변과 근거 문서 표시 (여비규정 해당 페이지, 일부 모자이크 처리)", en: "Answer with cited source document (travel expense regulation page, partly blurred)" }
+    ],
     tools: [
       "Python",
+      "LiteLLM",
       "FastAPI",
       "LangGraph",
       "LibreChat",
       "pgvector",
-      "Amazon Titan Text Embeddings"
+      "Amazon Titan Text Embeddings",
+      "AWS"
     ]
   },
   {
@@ -487,14 +497,14 @@ const portfolioProjects = [
       ko: [
         "병원별 설치 환경(CentOS, Ubuntu)에 대응하는 자동 배포 스크립트를 단독으로 설계 및 개발",
         "포트 개방, 라이선스 파일 교체, DB dump 생성, WAR 파일 교체 등 6단계로 나뉜 설치 절차를 원라인 설치로 간소화",
-        "Ubuntu 및 Docker 기반 실행 환경 표준화",
+        "Docker 컨테이너(Tomcat, MariaDB, OZ Report, Shiny)로 애플리케이션 실행 환경을 구성해 병원별 환경 차이를 최소화",
         "On-premise 및 Air-gapped 환경에 대응하는 설치 절차 구성",
         "구축 및 실행 방법 SOP와 폴더 구조(Folder tree) 문서 작성"
       ],
       en: [
         "Independently designed and developed automated deployment scripts for each hospital environment (CentOS, Ubuntu)",
         "Simplified a 6-step installation (port opening, license file replacement, DB dump creation, WAR file replacement, etc.) into a one-line install",
-        "Standardized the Ubuntu and Docker-based execution environment",
+        "Packaged the application as Docker containers (Tomcat, MariaDB, OZ Report, Shiny) to minimize differences between hospital environments",
         "Defined installation procedures for on-premise and air-gapped sites",
         "Wrote the build-and-run SOP and the folder-structure (folder tree) documentation"
       ]
@@ -514,7 +524,7 @@ const portfolioProjects = [
       ]
     },
     gallery: [
-      { ko: "6단계 설치 절차를 원라인 설치로 간소화 · 초기 설치 화면", en: "Simplifying a 6-step installation into a one-line install · Initial installer screen" },
+      { ko: "초기 설치 화면 (6단계 설치 절차를 원라인 설치로 간소화)", en: "Initial installer screen (simplifying a 6-step installation into a one-line install)" },
       { ko: "최종 설치 화면 (원라인 설치)", en: "Final installer screen (one-line install)" },
       { ko: "SOP 표지", en: "SOP cover" },
       { ko: "SOP 내용: 설치 폴더 구성 요소 정리", en: "SOP content: installation folder components" }
@@ -542,33 +552,33 @@ const portfolioProjects = [
       en: "Mar. – Jul. 2022"
     },
     overview: {
-      ko: "주 100~300건 분석 수요에 대응하는 AWS 워크플로를 구성해 TAT와 비용을 줄였습니다.",
-      en: "Built an AWS workflow for 100–300 analyses per week, reducing turnaround time and cost."
+      ko: "신입 시절 팀원으로 참여해, 주 100~300건 분석 수요에 대응하는 AWS 전환과 분석 워크플로 구축을 함께 수행했습니다.",
+      en: "As a junior team member, helped build the AWS migration and analysis workflow that handled 100–300 analyses per week."
     },
     role: {
       ko: [
-        "주 100~300건 분석 수요 대응을 위한 AWS 전환 참여",
-        "EC2, S3, Step Functions 기반 분석 Workflow 구성",
-        "CLI Script로 반복 운영 자동화 및 Docker 실행 환경 표준화",
-        "병렬 분석 환경 구성 및 TAT 개선",
+        "팀원으로 참여해 주 100~300건 분석 수요에 대응하는 AWS 전환을 함께 구축",
+        "EC2, S3, Step Functions 기반 분석 워크플로 구성",
+        "CLI 스크립트로 반복 운영 작업 자동화 및 Docker 기반 분석 실행 환경 구성",
+        "병렬 분석 환경 구성 및 TAT 개선에 참여",
         "S3 Glacier 전환과 미사용 리소스 정리를 통한 비용 관리"
       ],
       en: [
-        "Took part in the AWS migration to handle 100–300 analyses per week",
+        "Joined the team and helped build the AWS migration to handle 100–300 analyses per week",
         "Built the analysis workflow on EC2, S3, and Step Functions",
-        "Automated repetitive operations with CLI scripts and standardized the Docker runtime",
-        "Set up parallel analysis and improved TAT",
+        "Automated repetitive operations with CLI scripts and set up a Docker-based analysis runtime",
+        "Took part in setting up parallel analysis and improving TAT",
         "Managed cost through S3 Glacier transitions and cleanup of unused resources"
       ]
     },
     outcome: {
       ko: [
-        "분석 TAT 14일에서 7일 이내로 단축하는 데 기여",
-        "월 AWS 비용 약 800~900만 원에서 400~500만 원 수준으로 절감"
+        "프로젝트 성과: 분석 TAT 14일에서 7일 이내로 단축",
+        "프로젝트 성과: 월 AWS 비용 약 800~900만 원에서 400~500만 원 수준으로 절감"
       ],
       en: [
-        "Contributed to cutting analysis TAT from 14 days to within 7 days",
-        "Reduced monthly AWS cost from about KRW 8–9 million to KRW 4–5 million"
+        "Project result: cut analysis TAT from 14 days to within 7 days",
+        "Project result: reduced monthly AWS cost from about KRW 8–9 million to KRW 4–5 million"
       ]
     },
     tools: [
@@ -578,55 +588,6 @@ const portfolioProjects = [
       "Step Functions",
       "Docker",
       "Bash"
-    ]
-  },
-  {
-    id: "cap",
-    title: {
-      ko: "CAP 인증 및 Proficiency Testing 대응",
-      en: "CAP accreditation and proficiency testing"
-    },
-    client: {
-      ko: "지니너스 내부 / 바이오 임상 진단 분석",
-      en: "GENINUS (internal) / Bio clinical diagnostic analysis"
-    },
-    period: {
-      ko: "2024.04 ~ 2025.11",
-      en: "Apr. 2024 – Nov. 2025"
-    },
-    overview: {
-      ko: "CAP 실사 대비 분석 시스템 점검과 문서 준비, PT 분석 및 기술 검증을 수행했습니다.",
-      en: "Prepared the analysis system and documents for CAP inspection and performed PT analysis and technical verification."
-    },
-    role: {
-      ko: [
-        "CAP 실사 대비 분석 시스템 점검, 증빙 문서 준비 및 실사 대응",
-        "CAP PT 분석 및 결과지 제출",
-        "분석 파이프라인, 데이터, 결과 및 서버 환경 검증",
-        "Software SOP, 형상관리 문서 작성 및 LOD 관련 결과 검증"
-      ],
-      en: [
-        "Checked the analysis system, prepared evidence documents, and handled the CAP inspection",
-        "Performed CAP PT analysis and submitted result reports",
-        "Verified the analysis pipeline, data, results, and server environment",
-        "Wrote software SOPs and configuration-management documents and verified LOD-related results"
-      ]
-    },
-    outcome: {
-      ko: [
-        "CAP 실사 대응을 위한 분석 시스템 및 문서 준비",
-        "숙련도 평가 분석 및 결과지 제출, 기술적 검증 수행"
-      ],
-      en: [
-        "Prepared the analysis system and documents for CAP inspection",
-        "Performed proficiency-testing analysis, submitted result reports, and performed technical verification"
-      ]
-    },
-    tools: [
-      "CAP PT",
-      "LOD Analysis",
-      "Data Validation",
-      "Software SOP"
     ]
   },
   {
@@ -732,13 +693,14 @@ const milestones = [
     text: locale('AI 솔루션, AI Agent 플랫폼, B2B 솔루션, 클라우드 아키텍처 분야를 담당합니다.', 'Working on AI solutions, AI agent platforms, B2B solutions, and cloud architecture.'),
     projects: ['nai-gateway', 'ai-re', 'rag-chatbot'],
     children: [
-      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), projects: ['b2b-analysis'] },
+      { start: '2026-10', logo: 'inocras.png', org: locale('이노크라스 국내 파견', 'Inocras (domestic assignment)'), role: locale('농심데이터시스템 재직 중 국내 고객사 파견', 'Assigned to a domestic customer while at Nongshim Data System'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), compact: true },
       { start: '2026-04', end: '2026-04', logo: 'inocras.png', org: locale('이노크라스 미국 파견', 'Inocras (US assignment)'), role: locale('농심데이터시스템 재직 중 해외 고객사 파견', 'Assigned to an overseas customer while at Nongshim Data System'), projects: ['cgn-aacr'] },
     ] },
   { f: 'exp', start: '2022-03', end: '2025-11', logo: 'geninus.png', org: locale('지니너스', 'GENINUS'), role: locale('유전체 분석 소프트웨어 및 시스템 개발', 'Genomic analysis software and system development'),
     text: locale('Bioinformatics Engineering, Workflow Automation, 의료기관 시스템 구축, AWS 전환을 담당했습니다.', 'Worked on bioinformatics engineering, workflow automation, medical-institution system delivery, and AWS migration.'),
-    projects: ['spatial', 'liquid-ldt', 'hospital', 'lims', 'aws-migration', 'cap'],
+    projects: ['spatial', 'liquid-ldt', 'hospital', 'lims', 'aws-migration'],
     children: [
+      { start: '2024-04', end: '2025-11', org: locale('CAP PT / 실사 대응 (미국병리학회 인증)', 'CAP PT / Inspection response (College of American Pathologists accreditation)'), role: locale('분석 시스템 점검, SOP 및 증빙 문서 준비, CAP PT 분석 및 결과지 제출', 'System checks, SOP and evidence documents, CAP PT analysis and result reports'), note: locale('* 회사 기밀 보호를 위해 세부 내용을 축약했습니다.', '* Details are abbreviated to protect confidential company information.'), compact: true },
       { start: '2023-11', end: '2024-03', logo: 'gxd.png', org: locale('GxD 株式会社 (일본 파견)', 'GxD 株式会社 (Japan assignment)'), role: locale('지니너스 재직 중 일본 자회사 파견 (NCCE MONSTAR SCREEN-3)', 'Assigned to the Japan subsidiary while at GENINUS (NCCE MONSTAR SCREEN-3)'), projects: ['gxd-japan'] },
     ] },
   { f: 'edu', link: 'assets/papers/dongguk-msc-thesis.pdf', start: '2019-03', end: '2021-02', org: locale('멀티미디어공학과 석사 (M.Sc.)', 'M.Sc., Multimedia Engineering'), inst: locale('동국대학교', 'Dongguk University'), text: locale('학점 4.39 / 4.5<br>석사 졸업 논문: Research on DNA Sequence Alignment Algorithm Based on Anchoring', 'GPA 4.39 / 4.5<br>Master’s thesis: Research on DNA Sequence Alignment Algorithm Based on Anchoring') },
@@ -759,9 +721,6 @@ const caseStudies = [
   ]],
   ['wgs', [
     ['decision', locale('단일 모듈의 출력만 보지 않고 외부 결과와 교차 비교했습니다.', 'Cross-checked outputs with external results.')],
-  ]],
-  ['cap', [
-    ['decision', locale('데이터와 분석 결과, 서버 환경을 함께 검증했습니다.', 'Verified data, analysis outputs, and server conditions together.')],
   ]],
   ['gateway', [
     ['decision', locale('사내 AI 사용 환경과 비용을 관리할 수 있도록 AWS 기반 게이트웨이를 구축했습니다.', 'Built an AWS-based gateway to manage the internal AI environment and costs.')],
