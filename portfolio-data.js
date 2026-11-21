@@ -310,7 +310,6 @@ const portfolioProjects = [
       "Python",
       "AWS",
       "Docker",
-      "LiteLLM",
       "LibreChat",
       "Claude Code Skills"
     ]

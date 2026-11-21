@@ -1,12 +1,12 @@
 // Project detail page: renders one entry of portfolioProjects (portfolio-data.js) chosen by ?id=
 const L = {
   ko: {
-    back: '← 프로젝트 목록', nav: '프로젝트', client: '고객사 / Domain', period: '수행 기간',
+    back: '← 프로젝트 목록', nav: '프로젝트', client: '고객사 / Domain', period: '수행 기간', story: '프로젝트 스토리', storyEmpty: '작성 예정',
     role: '업무 내용 및 담당 역할', outcome: '주요 성과', tools: '보유 및 활용 Skill', gallery: '관련 이미지', unavailable: '추가 확인 중',
     gPrev: '이전 이미지', gNext: '다음 이미지', prev: '← 이전 프로젝트', next: '다음 프로젝트 →', missing: '프로젝트를 찾을 수 없습니다.',
   },
   en: {
-    back: '← All projects', nav: 'Projects', client: 'Customer / Domain', period: 'Period',
+    back: '← All projects', nav: 'Projects', client: 'Customer / Domain', period: 'Period', story: 'Project story', storyEmpty: 'Coming soon',
     role: 'Work and responsibilities', outcome: 'Key results', tools: 'Skills used', gallery: 'Images', unavailable: 'Pending confirmation',
     gPrev: 'Previous image', gNext: 'Next image', prev: '← Previous project', next: 'Next project →', missing: 'Project not found.',
   },
@@ -16,7 +16,7 @@ try { lang = localStorage.getItem('lang') === 'en' ? 'en' : 'ko'; } catch {}
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const pick = (o) => (o && typeof o === 'object' && !Array.isArray(o) ? o[lang] : o);
-const FIELDS = ['client', 'period', 'role', 'outcome', 'tools'];
+const FIELDS = ['client', 'period', 'story', 'role', 'outcome', 'tools'];
 const id = new URLSearchParams(location.search).get('id');
 const index = portfolioProjects.findIndex((p) => p.id === id);
 
@@ -26,6 +26,7 @@ const field = (key, value) => {
   if (Array.isArray(value) && key === 'tools') body = `<ul class="tags">${value.map((v) => `<li>${esc(v)}</li>`).join('')}</ul>`;
   else if (Array.isArray(value)) body = esc(value.join(', '));
   else if (value && Array.isArray(pick(value))) body = `<ul class="duty-list">${pick(value).map((v) => `<li>${esc(v)}</li>`).join('')}</ul>`;
+  else if (key === 'story') body = value && pick(value) ? `<p class="story-text">${esc(pick(value))}</p>` : `<span class="story-empty">${t.storyEmpty}</span>`;
   else body = value ? esc(pick(value)) : t.unavailable;
   return `<div><dt>${t[key]}</dt><dd>${body}</dd></div>`;
 };
@@ -108,7 +109,7 @@ const render = () => {
     b.classList.toggle('on', on);
     b.setAttribute('aria-pressed', on);
   });
-  if (index < 0) { $('#project').innerHTML = `<p>${t.missing}</p>`; $('#pager').innerHTML = ''; return; }
+  if (index < 0) { $('#project').innerHTML = `<p>${t.missing}</p>`; return; }
   const p = portfolioProjects[index];
   document.title = `${pick(p.title)} | Kim Jeongkyu`;
   $('#project').innerHTML = `
@@ -124,10 +125,6 @@ const render = () => {
       <p class="gallery-caption" aria-live="polite" hidden></p>
     </div>`;
   setupGallery(p.gallery);
-  const prev = portfolioProjects[index - 1], next = portfolioProjects[index + 1];
-  $('#pager').innerHTML =
-    (prev ? `<a href="project.html?id=${esc(prev.id)}">${t.prev}</a>` : '<span></span>') +
-    (next ? `<a href="project.html?id=${esc(next.id)}">${t.next}</a>` : '<span></span>');
 };
 
 document.querySelectorAll('.flag').forEach((b) => b.addEventListener('click', () => {

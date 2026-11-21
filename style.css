@@ -505,3 +505,7 @@ footer{text-align:center}
 /* abbreviation note above the project facts (e.g. LIMS) */
 .abbr-note{margin:26px 0 0;padding:12px 0 2px;border-top:1px solid var(--line);color:#b42318;font-size:.92rem;font-weight:600;line-height:1.5}
 :root[data-theme=dark] .abbr-note{color:#ff8a80}
+
+/* project story slot (between period and work) */
+.story-text{margin:0;line-height:1.75}
+.story-empty{display:block;padding:12px 14px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:.92rem}
