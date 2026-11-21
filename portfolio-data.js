@@ -95,7 +95,7 @@ const portfolioProjects = [
         "Claude Code, Cowork, Chatbot 등의 사용자별 서비스 제공 방안 검토",
         "AWS IAM 인증을 활용한 LiteLLM–Amazon Bedrock 연동 및 서비스 환경 구성",
         "별도 사용자 및 관리자 포털 아키텍처 제안과 개발",
-        "랜덤 코드 인증과 관리자 가입 승인 기능 구현",
+        "사내 이메일 인증과 관리자 가입 승인 기능 구현",
         "PoC 사용자의 시간 단위 및 일별 사용량 모니터링, 비용 최적화 테스트 및 주요 기능 테스트",
         "사용자 및 팀별 접근 권한, 예산, 사용 비용을 조회 및 통제하는 관리자 모니터링 기능 구현",
         "외부 접근 포털과 승인 검토 규칙 기획"
@@ -105,7 +105,7 @@ const portfolioProjects = [
         "Evaluated per-user service options such as Claude Code, Cowork, and chatbots",
         "Integrated LiteLLM with Amazon Bedrock using AWS IAM authentication and configured the service environment",
         "Proposed and developed separate user and administrator portal architectures",
-        "Implemented random-code authentication and administrator sign-up approval",
+        "Implemented internal email authentication and administrator sign-up approval",
         "Monitored hourly and daily usage of PoC users and ran cost-optimization and key-feature tests",
         "Implemented administrator monitoring to view and control permissions, budgets, and usage cost per user and team",
         "Planned the external-access portal and its approval review rules"
@@ -125,7 +125,7 @@ const portfolioProjects = [
     },
     gallery: [
       { ko: "로그인: 회사 메일 입력", en: "Sign-in: company email entry" },
-      { ko: "랜덤 인증코드 메일 (Gmail SMTP 발송, Gmail 수신 화면)", en: "Random verification code email (sent via Gmail SMTP, shown in Gmail)" },
+      { ko: "사내 이메일 인증코드 메일 (Gmail SMTP 발송, Gmail 수신 화면)", en: "Internal email verification code message (sent via Gmail SMTP, shown in Gmail)" },
       { ko: "로그인: 인증코드 입력", en: "Sign-in: verification code entry" },
       { ko: "내정보: 키 상태와 개인 및 팀 사용량", en: "My info: key status and personal/team usage" },
       { ko: "관리자 페이지 전체 화면 (가입 승인, 키 교체 요청, 예산, 사용자 관리)", en: "Admin page overview (sign-up approval, key replacement, budget and user management)" },
@@ -259,6 +259,7 @@ const portfolioProjects = [
   },
   {
     id: "cgn-aacr",
+    badge: { flag: "us", text: locale("미국 파견", "US assignment") },
     featured: true,
     links: [{ href: "https://www.aacr.org/meeting/aacr-annual-meeting-2026/", label: locale("AACR 2026", "AACR 2026") }],
     title: {
@@ -594,6 +595,7 @@ const portfolioProjects = [
   },
   {
     id: "gxd-japan",
+    badge: { flag: "jp", text: locale("일본 법인 파견", "Japan assignment") },
     featured: true,
     title: {
       ko: "NCCE MONSTAR SCREEN-3 분석 시스템 구축 및 운영 자동화",
@@ -676,7 +678,7 @@ const skillGroups = {
   frontend: locale('Frontend', 'Frontend'),
   db: locale('DB', 'DB'),
   cloud: locale('Cloud & Container', 'Cloud & Container'),
-  ai: locale('AI Gateway & Agent', 'AI Gateway & Agent'),
+  ai: locale('AI', 'AI'),
   workflow: locale('Workflow & Observation', 'Workflow & Observation'),
   devtools: locale('Developer Tools', 'Developer Tools'),
 };
@@ -704,8 +706,8 @@ const skills = [
   ['frontend', 'implemented', 'CSS', 'css', '웹 화면 스타일링', 'Web page styling'],
   ['devtools', 'production', 'Linux', 'linux', 'CentOS, Ubuntu 서버 환경 구성과 운영', 'CentOS and Ubuntu server setup and operation'],
   ['devtools', 'production', 'Git', 'git', '소스 버전 관리', 'Source version control'],
-  ['devtools', 'production', 'VS Code', 'vscode', '개발 환경', 'Development environment'],
   ['devtools', 'production', 'MobaXterm', 'mobaxterm', '서버 원격 접속과 작업', 'Remote server access and work'],
+  ['devtools', 'production', 'VS Code', 'vscode', '개발 환경', 'Development environment'],
   ['devtools', 'implemented', 'Orca', 'orca', 'AI 에이전트 개발 환경', 'Agent development environment'],
   ['devtools', 'implemented', 'T3 Code', 't3', '코딩 에이전트 운영 도구', 'Control plane for coding agents'],
 ].map(([c, level, n, icon, ko, en]) => ({ c, level, n, icon, d: locale(ko, en) }));

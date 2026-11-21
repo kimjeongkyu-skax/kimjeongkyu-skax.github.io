@@ -410,3 +410,12 @@ footer{text-align:left;padding:28px 20px}
 
 .sk-card.wide .sk-items.six .sk-item{width:calc(16.666% - 6px)}
 @media(max-width:520px){.sk-card.wide .sk-items.six .sk-item{width:calc(33.333% - 6px)}}
+
+/* overseas assignment sticker: hangs off the card's top-left corner */
+.card{position:relative}
+.dispatch{position:absolute;left:-9px;top:-11px;z-index:3;display:flex;align-items:center;gap:7px;padding:5px 12px 5px 6px;background:#fff;border:2px solid var(--dark);border-radius:9px;transform:rotate(-6deg);box-shadow:2px 3px 0 var(--dark),0 8px 14px rgba(0,0,0,.2);pointer-events:none}
+.dispatch-flag{display:block;line-height:0;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.dispatch b{font-size:.92rem;font-weight:800;color:var(--dark);white-space:nowrap}
+
+.flag img{display:block;height:20px;width:auto;border:1px solid #b9c2cc;border-radius:3px}
+.dispatch-flag img{display:block;height:18px;width:auto}
