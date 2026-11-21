@@ -183,7 +183,7 @@ const definition = (label, value, flow = false) => {
   return `<div><dt>${label}</dt><dd>${content}</dd></div>`;
 };
 
-const deckBtn = (p) => p.deck ? `<a class="btn soft deck-btn" href="${p.deck}" target="_blank" rel="noopener noreferrer">${tr('proj.deck')} ↗</a>` : '';
+const deckBtn = (p) => (p.deck ? `<a class="btn soft deck-btn" href="${p.deck}" target="_blank" rel="noopener noreferrer">${tr('proj.deck')} ↗</a>` : '') + (p.links || []).map((l) => `<a class="btn soft deck-btn" href="${l.href}" target="_blank" rel="noopener noreferrer">${pick(l.label)} ↗</a>`).join('');
 const drawProjects = () => {
   $('#projectGrid').innerHTML = portfolioProjects.filter((p) => p.featured).map((project) =>
     `<article class="card"><div class="project-media">${projectImg(project.id)}</div>

@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261123zr';
+const ASSET_V = '20261123zs';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -259,6 +259,7 @@ const portfolioProjects = [
   {
     id: "cgn-aacr",
     featured: true,
+    links: [{ href: "https://www.aacr.org/meeting/aacr-annual-meeting-2026/", label: locale("AACR 2026", "AACR 2026") }],
     title: {
       ko: "미국 이노크라스 AI 플랫폼 개발 및 AACR 학회 데모 지원",
       en: "Inocras US AI platform development and AACR conference demo support"
@@ -383,8 +384,8 @@ const portfolioProjects = [
       en: "Nov. 2024 – Jun. 2025"
     },
     overview: {
-      ko: "액체생검 분석 파이프라인을 컨테이너화하고 Snakemake로 자동화해 의료기관에 납품했습니다.",
-      en: "Containerized and automated the liquid biopsy pipeline with Snakemake and delivered it to medical institutions."
+      ko: "UMI 기반 액체생검 변이 분석 파이프라인(합의 서열 생성, 변이 검출, 주석)을 Snakemake 워크플로우로 자동화하고 컨테이너로 구성해, 의료기관에 납품하는 LDT 분석 시스템 구축에 참여했습니다.",
+      en: "Took part in building an LDT analysis system delivered to medical institutions, automating a UMI-based liquid biopsy variant-analysis pipeline (consensus generation, variant calling, annotation) as a Snakemake workflow and packaging it in containers."
     },
     role: {
       ko: [
