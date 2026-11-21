@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261124s">
+  <link rel="stylesheet" href="style.css?v=20261125k">
 </head>
 <body>
   <header class="nav">
@@ -93,7 +93,6 @@
         <h1 data-i18n="hero.name">김정규</h1>
         <h2 class="sub" data-i18n="hero.title">현장의 요구사항을 구현하는 엔지니어</h2>
         <p class="lead" data-i18n="hero.lead">Python, LangGraph, LiteLLM을 활용해 AI Agent와 AI Gateway를 개발하고 있습니다. AWS 기반 서비스 설계와 데이터 파이프라인 자동화, 국내외 시스템 구축 및 운영 경험을 보유하고 있습니다.</p>
-        <ul class="tags"><li>Python</li><li>R</li><li>MySQL</li><li>Docker</li><li>Singularity</li><li>AI Agent</li><li>Claude Skills</li><li>AWS</li><li>Workflow Automation</li><li>System Integration</li></ul>
         <aside class="highlight" aria-labelledby="exp-title">
           <span class="hl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg></span>
           <div><b id="exp-title" data-i18n="hero.hlTitle">약 5년의 경력</b><p data-i18n="hero.hlText">바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지</p></div>
@@ -147,29 +146,16 @@
       <div class="skills-head">
         <div>
           <span class="chip"><i></i><span data-i18n="skills.chip">TECHNICAL STACK &amp; TOOLING</span></span>
-          <h2 class="title" data-i18n="skills.title">Tools Behind the Work</h2>
-        </div>
-        <p class="note-r" data-i18n="skills.note">프로젝트에서 사용한 기술들입니다.</p>
-      </div>
-      <div class="skills-ctrl">
-        <div class="filters" id="filters"></div>
-        <div class="ctrl">
-          <span class="auto"><i></i><span id="autoLabel">Auto-scroll on</span></span>
-          <button class="sq" id="prev" aria-label="이전">‹</button>
-          <button class="sq" id="next" aria-label="다음">›</button>
-          <button class="sq wide" id="pause">❚❚ Pause</button>
+          <h2 class="title" data-i18n="skills.title">Skills &amp; Technologies</h2>
         </div>
       </div>
-      <p class="hint" data-i18n="skills.hint">화살표나 마우스 드래그로 넘겨볼 수 있습니다.</p>
-      <div class="track-wrap"><div class="track" id="track">
-        <div class="skill"><small>AI & LLM 엔지니어링, 직접 구현</small><h3>AI Gateway</h3><p>AWS 기반 AI 사용 환경 구축과 비용 관리</p></div><div class="skill"><small>AI & LLM 엔지니어링, 학습 및 검토</small><h3>LLM, RAG, AI Agent</h3><p>Tool Calling, MCP, LLMOps 및 LangGraph 학습 및 검토</p></div><div class="skill"><small>데이터 엔지니어링, 실무 개발, 운영</small><h3>ETL, Data Pipeline</h3><p>파이프라인 개발, 외부 시스템 연계, 데이터 정합성 검증</p></div><div class="skill"><small>백엔드 엔지니어링, 실무 개발, 운영</small><h3>SQL, Schema Design</h3><p>분석 결과 저장 구조 설계 및 컬럼 제약 개선</p></div><div class="skill"><small>클라우드 & 인프라, 실무 개발, 운영</small><h3>AWS</h3><p>클라우드 환경 구축 및 서비스 운영</p></div><div class="skill"><small>바이오인포매틱스, 실무 개발, 운영</small><h3>Bioinformatics</h3><p>액체생검, 조직생검, WGS 분석 파이프라인 개발</p></div><div class="skill"><small>품질 & 운영, 실무 개발, 운영</small><h3>Validation, Troubleshooting</h3><p>분석 교차 검증, CAP PT 관련 기술 검증, 병원 현장 운영</p></div>
-      </div></div>
+      <div class="skills-grid" id="skillsGrid"></div>
     </section>
 
     <section id="about">
       <span class="chip"><i></i><span data-i18n="about.chip">EXPERIENCE &amp; EDUCATION</span></span>
       <h2 class="title" data-i18n="about.title">Professional Milestones</h2>
-      <p class="about-summary" data-i18n="about.summary">바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지</p>
+      <p class="about-summary" data-i18n="about.summary">분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지</p>
       <div class="filters" id="tabs">
         <button class="active" data-f="all" aria-pressed="true" data-i18n="tab.all">All</button>
         <button data-f="exp" aria-pressed="false" data-i18n="tab.exp">Experience</button>
@@ -222,7 +208,7 @@
     </div>
   </footer>
   <a href="#home" class="totop" aria-label="맨 위로">↑</a>
-  <script src="portfolio-data.js?v=20261124s" defer></script>
-  <script src="script.js?v=20261124s" defer></script>
+  <script src="portfolio-data.js?v=20261125k" defer></script>
+  <script src="script.js?v=20261125k" defer></script>
 </body>
 </html>

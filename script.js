@@ -13,17 +13,16 @@ const I18N = {
     'hero.hlTitle': '약 5년의 경력', 'hero.hlText': '바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
     'hero.focus': 'AI Agent 개발자', 'hero.focusSub': '바이오 × AI 엔지니어링', 'hero.role': 'AI, AX Engineering',
     'proj.chip': '대표 작업', 'proj.title': 'AI Agent와 AI 플랫폼을 실제 서비스로 구현한 프로젝트', 'proj.lead': 'LangGraph 기반 AI Agent, Claude Code Skills를 적용한 연구 지원 Agent, AI Gateway를 구축했습니다. 병원 폐쇄망과 해외 법인처럼 제약이 다른 환경에서 시스템을 구축한 경험도 함께 담았습니다.', 'proj.details': '프로젝트 상세', 'proj.deck': '발표자료 상세', 'proj.demo': '데모',
-    'skills.chip': '기술 스택 & 도구', 'skills.title': 'Tools Behind the Work',
-    'skills.note': '실무 개발, 운영, 직접 구현, 학습 및 검토 경험을 표시했습니다.',
+    'skills.chip': '기술 스택 & 도구', 'skills.title': 'Skills & Technologies',
     'skills.hint': '화살표나 마우스 드래그로 넘겨볼 수 있습니다.',
     'auto.on': '자동 스크롤 켜짐', 'auto.off': '자동 스크롤 꺼짐', pause: '❚❚ 일시정지', play: '▶ 재생',
-    'cat.all': '전체', 'level.production': '실무 개발, 운영했습니다', 'level.implemented': '직접 구현했습니다', 'level.exploring': '학습 및 검토했습니다',
+    'cat.all': '전체', 'level.production': '실무 개발, 운영했습니다', 'level.exploring.short': '학습 및 검토', 'level.implemented': '직접 구현했습니다', 'level.exploring': '학습 및 검토했습니다',
     'nav.cases': '문제 해결', 'nav.ax': 'AI / AX', 'cases.title': '기술 문제 해결 사례', 'ax.title': 'AI Agent와 엔터프라이즈 AX',
     'project.close': '닫기', 'project.overview': '프로젝트 개요', 'project.problem': '문제', 'project.role': '담당 범위',
     'project.architecture': '시스템 아키텍처', 'project.implementation': '구현 및 해결', 'project.validation': '검증',
     'project.outcome': '결과', 'project.tools': '기술 스택', 'project.connection': 'SK AX 직무 연결',
     'case.investigation': '조사', 'case.decision': '판단', 'unavailable': '추가 확인 중',
-    'about.summary': '바이오 및 헬스케어 산업의 분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
+    'about.summary': '분석 시스템 개발과 운영부터 기업 AI 솔루션 구축까지',
     'about.chip': '경력 & 학력', 'about.title': '주요 이력',
     'tab.all': '전체', 'tab.exp': '경력', 'tab.edu': '학력', 'kind.exp': '경력', 'kind.edu': '학력', 'paper.view': '논문 보기', 'award.view': '보기', 'tab.pub': '해외 논문', 'kind.pub': '해외 논문', 'tab.award': '수상', 'kind.award': '수상', 'tab.conf': '학술대회', 'kind.conf': '학술대회 논문 및 발표',
     'contact.chip': '연락처', 'contact.title': '연락 기다리겠습니다',
@@ -48,17 +47,16 @@ const I18N = {
     'hero.hlTitle': 'Nearly 5 years of experience', 'hero.hlText': 'From developing and operating analysis systems for the bio and healthcare industries to building enterprise AI solutions',
     'hero.focus': 'AI Agent Developer', 'hero.focusSub': 'Bio × AI Engineering', 'hero.role': 'AI, AX Engineering',
     'proj.chip': 'SELECTED WORK', 'proj.title': 'AI agents and AI platforms built into real services', 'proj.lead': 'I built a LangGraph-based AI agent, a research-support agent using Claude Code Skills, and an AI gateway, drawing on experience delivering systems in constrained environments such as hospital air-gapped networks and an overseas subsidiary.', 'proj.details': 'Project details', 'proj.deck': 'Presentation details', 'proj.demo': 'Demo',
-    'skills.chip': 'TECHNICAL STACK & TOOLING', 'skills.title': 'Tools Behind the Work',
-    'skills.note': 'Production work, hands-on implementation, and areas of exploration.',
+    'skills.chip': 'TECHNICAL STACK & TOOLING', 'skills.title': 'Skills & Technologies',
     'skills.hint': 'Use the arrow controls or drag with the mouse to browse.',
     'auto.on': 'Auto-scroll on', 'auto.off': 'Auto-scroll off', pause: '❚❚ Pause', play: '▶ Play',
-    'cat.all': 'All', 'level.production': 'Production', 'level.implemented': 'Implemented', 'level.exploring': 'Exploring',
+    'cat.all': 'All', 'level.production': 'Production', 'level.exploring.short': 'Exploring', 'level.implemented': 'Implemented', 'level.exploring': 'Exploring',
     'nav.cases': 'Case studies', 'nav.ax': 'AI / AX', 'cases.title': 'Engineering case studies', 'ax.title': 'AI agents and enterprise AX',
     'project.close': 'Close', 'project.overview': 'Overview', 'project.problem': 'Problem', 'project.role': 'My role',
     'project.architecture': 'System architecture', 'project.implementation': 'Implementation', 'project.validation': 'Validation',
     'project.outcome': 'Outcome', 'project.tools': 'Technology', 'project.connection': 'Relevance to SK AX',
     'case.investigation': 'Investigation', 'case.decision': 'Decision', 'unavailable': 'Pending confirmation',
-    'about.summary': 'From developing and operating analysis systems for the bio and healthcare industries to building enterprise AI solutions',
+    'about.summary': 'From developing and operating analysis systems to building enterprise AI solutions',
     'about.chip': 'EXPERIENCE & EDUCATION', 'about.title': 'Professional Milestones',
     'tab.all': 'All', 'tab.exp': 'Experience', 'tab.edu': 'Education', 'kind.exp': 'Experience', 'kind.edu': 'Education', 'paper.view': 'View paper', 'award.view': 'View', 'tab.pub': 'International Papers', 'kind.pub': 'International paper', 'tab.award': 'Awards', 'kind.award': 'Award', 'tab.conf': 'Conferences', 'kind.conf': 'Conference paper',
     'contact.chip': 'CONTACT', 'contact.title': 'I look forward to hearing from you',
@@ -204,91 +202,15 @@ $('#projectGrid').addEventListener('click', (event) => {
   projectDialog.showModal();
 });
 
-// skills carousel + category filter
-const track = $('#track');
-const cats = ['all', ...new Set(skills.map((s) => s.c))];
-let cat = 'all', idx = 0, paused = true;
-const visible = () => skills.filter((s) => cat === 'all' || s.c === cat);
-const step = 266;
-const trackWrap = $('.track-wrap');
-const maxOffset = () => Math.max(0, track.scrollWidth - trackWrap.clientWidth);
-const max = () => Math.ceil(maxOffset() / step);
-const go = (i) => {
-  idx = i > max() ? 0 : i < 0 ? max() : i;
-  pos = Math.min(idx * step, maxOffset());
-  track.style.transition = '';
-  track.style.transform = `translateX(${-pos}px)`;
-};
-// smooth auto-scroll: slow continuous drift, reverses at the ends
-let pos = 0, dir = 1, last = 0, hover = false;
-const drift = (t) => {
-  const dt = Math.min(t - (last || t), 50);
-  last = t;
-  if (!paused && !hover && !trackWrap.matches(':hover') && maxOffset() > 0) {
-    pos += dir * dt * 0.03;
-    if (pos >= maxOffset()) { pos = maxOffset(); dir = -1; }
-    if (pos <= 0) { pos = 0; dir = 1; }
-    idx = Math.round(pos / step);
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${-pos}px)`;
-  }
-  requestAnimationFrame(drift);
-};
-requestAnimationFrame(drift);
-trackWrap.addEventListener('pointerenter', () => { hover = true; drawCtrl(); });
-trackWrap.addEventListener('pointerleave', () => { hover = false; drawCtrl(); });
+// skills grid: category cards with logos
 const drawSkills = () => {
-  track.innerHTML = visible().map((s) => `<div class="skill"><img class="tool-logo" src="assets/tools/${s.icon}.svg?v=${ASSET_V}" alt="" loading="lazy"><small>${pick(skillGroups[s.c])}, ${tr('level.' + s.level)}</small><h3>${s.n}</h3><p>${pick(s.d)}</p></div>`).join('');
-  $('#filters').innerHTML = cats.map((c) => {
-    const n = c === 'all' ? skills.length : skills.filter((s) => s.c === c).length;
-    return `<button class="${c === cat ? 'active' : ''}" data-c="${c}" aria-pressed="${c === cat}">${c === 'all' ? tr('cat.all') : pick(skillGroups[c])} (${n})</button>`;
+  $('#skillsGrid').innerHTML = Object.keys(skillGroups).map((g) => {
+    const items = skills.filter((s) => s.c === g);
+    if (!items.length) return '';
+    return `<div class="sk-card${items.length >= 5 ? ' wide' : ''}"><h3>${pick(skillGroups[g])}</h3><div class="sk-items${items.length === 4 ? ' four' : items.length === 6 ? ' six' : ''}">${items.map((s) =>
+      `<div class="sk-item" title="${pick(s.d)}"><img src="assets/tools/${s.icon}.svg?v=${ASSET_V}" alt="" loading="lazy"><span>${s.n}</span></div>`).join('')}</div></div>`;
   }).join('');
-  go(0);
 };
-const drawCtrl = () => {
-  $('#pause').textContent = paused ? tr('play') : tr('pause');
-  $('#autoLabel').textContent = paused || hover ? tr('auto.off') : tr('auto.on');
-};
-$('#filters').addEventListener('click', (e) => {
-  const b = e.target.closest('button');
-  if (b) { cat = b.dataset.c; drawSkills(); $('#filters button.active').focus(); }
-});
-window.addEventListener('resize', () => go(Math.min(idx, max())));
-$('#next').onclick = () => go(idx + 1);
-$('#prev').onclick = () => go(idx - 1);
-$('#pause').onclick = () => { paused = !paused; drawCtrl(); };
-$('#skills').addEventListener('keydown', (e) => {
-  if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
-  e.preventDefault();
-  if (e.key === 'ArrowRight') go(idx + 1);
-  if (e.key === 'ArrowLeft') go(idx - 1);
-});
-// 마우스/터치 드래그: 카드가 손을 따라 움직이고, 놓으면 가장 가까운 카드로 맞춘다
-let dragStartX = null, dragStartPos = 0, dragMoved = false;
-trackWrap.addEventListener('pointerdown', (e) => {
-  if (e.pointerType === 'mouse' && e.button !== 0) return;
-  dragStartX = e.clientX; dragStartPos = pos; dragMoved = false;
-  trackWrap.setPointerCapture(e.pointerId);
-});
-trackWrap.addEventListener('pointermove', (e) => {
-  if (dragStartX === null) return;
-  const dx = e.clientX - dragStartX;
-  if (!dragMoved && Math.abs(dx) < 4) return;
-  dragMoved = true;
-  pos = Math.max(0, Math.min(maxOffset(), dragStartPos - dx));
-  track.style.transition = 'none';
-  track.style.transform = `translateX(${-pos}px)`;
-  trackWrap.classList.add('dragging');
-});
-const endDrag = () => {
-  if (dragStartX === null) return;
-  dragStartX = null;
-  trackWrap.classList.remove('dragging');
-  if (dragMoved) go(Math.round(pos / step));
-};
-trackWrap.addEventListener('pointerup', endDrag);
-trackWrap.addEventListener('pointercancel', endDrag);
-trackWrap.addEventListener('dragstart', (e) => e.preventDefault());
 
 // timeline
 const tl = $('#timeline');
@@ -356,7 +278,7 @@ const applyLang = (l) => {
     b.classList.toggle('on', on);
     b.setAttribute('aria-pressed', on);
   });
-  drawProjects(); drawSkills(); drawTl(); drawCtrl();
+  drawProjects(); drawSkills(); drawTl();
 };
 $$('.flag').forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang)));
 
