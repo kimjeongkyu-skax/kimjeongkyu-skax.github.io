@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261129c';
+const ASSET_V = '20261129h';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -159,6 +159,20 @@ const portfolioProjects = [
   },
   {
     id: "ai-re",
+    story: {
+      situation: {
+        ko: "기존 MSP 사업을 수행하던 회사는 바이오헬스케어 시장으로 사업 영역을 확장하고자 했습니다. 이를 위해 기존 클라우드 인프라 역량을 활용하면서도 새로운 시장에서 경쟁력을 확보할 수 있는 제품과 서비스 방향을 모색하고 있었습니다. 입사 당시에는 바이오헬스케어 분야에 적용할 독자적인 소프트웨어 개발을 검토하고 있었습니다. 이후 벤치마킹 기업들과의 미팅과 기술 동향 조사를 거치며 Bioinformatics 연구자를 위한 솔루션 플랫폼으로 방향을 발전시켰습니다. 논의가 이어지면서 특정 분석 분야에 한정된 소프트웨어보다 다양한 연구자가 수집된 데이터를 관리하고 실제 연구에 활용할 수 있는 플랫폼의 필요성이 부각되었습니다. 이에 AWS 기반 연구 환경과 데이터 거버넌스, AI Agent 활용 방안을 결합한 AI-RE 플랫폼을 기획하게 되었습니다.",
+        en: "The company, which had been running an MSP business, wanted to expand into the bio-healthcare market. To do so it was looking for product and service directions that could leverage its existing cloud infrastructure capabilities while building competitiveness in a new market. When I joined, it was considering developing proprietary software for the bio-healthcare field. Through meetings with benchmarked companies and technology-trend research, the direction evolved into a solution platform for bioinformatics researchers. As discussions continued, the need grew for a platform where diverse researchers can manage collected data and use it in actual research, rather than software limited to a specific analysis field. This led to planning the AI-RE platform, combining an AWS-based research environment, data governance, and AI Agent use."
+      },
+      task: {
+        ko: "기존 MSP 사업 역량을 바이오헬스케어 분야의 새로운 서비스 모델로 발전시키기 위해서는 연구자의 업무 특성을 반영한 플랫폼 구조가 필요했습니다. 연구 분야와 프로젝트마다 데이터 특성, 분석 환경, 접근 권한이 다르기 때문에 프로젝트별 독립적인 연구 환경을 제공하면서도 데이터 접근과 자원 사용을 통제할 수 있어야 했습니다. 또한 연구 데이터의 반입과 반출에 대한 승인 절차를 통해 보안과 관리 체계를 마련해야 했습니다. 나아가 데이터를 단순히 보관하는 데서 그치지 않고 연구자가 축적된 데이터를 분석하고 활용할 수 있도록 AI 기술의 연계 가능성도 고려해야 했습니다. 핵심 과제는 연구자의 데이터 활용 환경과 AWS 인프라 거버넌스를 통합하고, AI 기반 연구 활동까지 지원할 수 있는 플랫폼의 서비스 방향과 아키텍처를 구체화하는 것이었습니다.",
+        en: "To turn the company's MSP capabilities into a new service model in bio-healthcare, a platform structure reflecting researchers' work characteristics was needed. Because data characteristics, analysis environments, and access permissions differ by research field and project, the platform had to provide an independent research environment per project while controlling data access and resource use. A security and management framework was also needed through approval procedures for bringing research data in and out. Beyond simply storing data, the possibility of integrating AI so researchers can analyze and use accumulated data also had to be considered. The core task was to define the service direction and architecture of a platform that integrates researchers' data-use environment with AWS infrastructure governance and supports AI-based research activities."
+      },
+      action: {
+        ko: "[시장 조사와 주간 임원회의를 통한 플랫폼 방향 구체화]\n벤치마킹 기업들과의 미팅, AWS 및 Microsoft 컨퍼런스, 바이오헬스케어 관련 행사에 참여하며 경쟁 솔루션과 클라우드 기반 연구 서비스의 기술 동향을 조사했습니다. 조사한 내용을 기존 Bioinformatics 개발 및 연구 환경 구축 경험과 연결해 기획 자료를 작성하고, 격주마다 임원회의에서 발표했습니다. 발표 후 받은 피드백을 다음 조사와 기획에 반영하며 서비스의 대상 사용자와 기능 범위를 구체화했습니다. 이러한 과정을 통해 Bioinformatics 중심의 솔루션 구상에서 다양한 분야의 연구자가 활용할 수 있는 연구 플랫폼으로 기획 범위를 확장했습니다.\n[연구자 중심의 AWS 인프라 및 거버넌스 구조 설계]\n실제 Bioinformatics 분석 파이프라인 개발과 연구 시스템 운영 경험을 바탕으로 연구자의 데이터 활용 방식과 분석 환경을 고려한 AWS 아키텍처를 설계했습니다.\n연구자 및 프로젝트별 접근 권한, 데이터 반입과 반출 승인 절차, 프로젝트별 독립적인 실행 환경을 주요 요구사항으로 정의했습니다. 또한, 웹 페이지를 위한 와이어 프레임 및 스토리 보드도 함께 작성했습니다. 이를 통해 연구자가 필요한 데이터와 인프라를 활용하면서도 관리자가 접근 권한과 자원 사용을 통제할 수 있는 연구 환경을 구상했습니다.\n[연구 데이터 활용을 위한 AI Agent 연계 설계]\n연구 데이터의 수집과 관리를 넘어 실제 연구 활용을 지원하기 위해 AI Agent 연계 방향을 검토했습니다. 사용자별 권한 및 비용 통제 방안을 연구 플랫폼에 반영하고, 연구자가 축적된 데이터를 AI Agent를 통해 분석하고 활용할 수 있는 구조를 구상했습니다. 이를 AWS 기반 연구 환경 및 데이터 거버넌스 설계와 결합하여 AI-RE의 전체 아키텍처를 구체화했습니다.\n[솔루션팀 개발 협업 및 바이오 도메인 요구사항 검토]\n기획한 플랫폼의 기능과 아키텍처를 기반으로 솔루션팀 동료들이 연구자용 웹 환경과 프로젝트 관리 기능을 개발하고 있습니다.\n개발 과정에서는 기존 Bioinformatics 개발 및 연구 현장 경험을 바탕으로 실제 사용 환경에서 발생할 수 있는 문제와 도메인별 요구사항을 검토하고 있습니다. 검토 내용을 솔루션팀 동료들과 공유하며 기능 및 설계의 보완 사항을 제안하고 있습니다. 또한 AI Agent 연계 방향을 함께 검토하며 플랫폼 기획이 실제 구현으로 이어질 수 있도록 협업하고 있습니다.\n[KHF 및 IHF를 통한 고객 발굴과 서비스 출시 준비]\nKHF 발표 및 IHF 컨퍼런스를 통해 잠재 고객에게 AI-RE의 기획 방향과 연구 데이터 활용 방안을 소개했습니다.\n행사에서 확인한 고객의 관심과 요구사항을 바탕으로 플랫폼 적용 및 협력 가능성에 대한 후속 논의가 이어지고 있습니다.\n현재 솔루션팀에서는 웹 기능 개발과 AI 연계 구조 구체화를 진행하고 있으며, 2027년 1분기 정식 서비스 배포를 목표로 준비하고 있습니다.",
+        en: "[Shaping the platform direction through market research and executive meetings]\nI joined meetings with benchmarked companies and attended AWS and Microsoft conferences and bio-healthcare events to research competing solutions and technology trends in cloud-based research services. I connected what I found with my prior experience in bioinformatics development and research-environment building to write planning documents, and presented them at executive meetings every other week. I reflected the feedback in the next round of research and planning, which clarified the target users and the feature scope. Through this process, the scope expanded from a bioinformatics-centered solution to a research platform that researchers in various fields can use.\n[Designing a researcher-centered AWS infrastructure and governance structure]\nBased on hands-on experience developing bioinformatics analysis pipelines and operating research systems, I designed an AWS architecture that takes researchers' data-use patterns and analysis environments into account.\nI defined per-researcher and per-project access permissions, approval procedures for bringing data in and out, and isolated per-project execution environments as the main requirements, and also wrote wireframes and storyboards for the web pages. This allowed me to conceive a research environment in which researchers can use the data and infrastructure they need while administrators control access and resource use.\n[Designing AI Agent integration for research data use]\nTo support actual research use beyond collecting and managing research data, I reviewed directions for integrating an AI Agent. I reflected per-user permission and cost-control measures in the research platform and conceived a structure in which researchers analyze and use accumulated data through the AI Agent. By combining this with the AWS-based research environment and data governance design, I defined the overall AI-RE architecture.\n[Collaborating with the Solutions team and reviewing bio-domain requirements]\nBased on the planned features and architecture, my colleagues on the Solutions team are developing the researcher web environment and project management features.\nDuring development I review problems that could arise in real usage environments and domain-specific requirements, drawing on my experience in bioinformatics development and research sites, share the findings with the team, and propose improvements to features and design. I also review the AI Agent integration direction together with them so that the plan leads to actual implementation.\n[Finding customers through KHF and IHF and preparing for launch]\nAt the KHF presentation and the IHF conference, I introduced AI-RE's planned direction and ways of using research data to potential customers.\nFollow-up discussions on applying the platform and cooperating are continuing, based on the interest and requirements customers showed at the events.\nThe Solutions team is currently developing web features and detailing the AI integration structure, and is preparing for an official service release targeted for Q1 2027."
+      }
+    },
     featured: true,
     deck: "assets/projects/ai-re/khf-2026-presentation.pdf",
     title: {
@@ -204,7 +218,14 @@ const portfolioProjects = [
       ]
     },
     gallery: [
-      { ko: "벤치마킹 회사: Seqera, Basepair, Invisibl Cloud", en: "Benchmarked companies: Seqera, Basepair, Invisibl Cloud" }
+      { ko: "서비스 흐름도 01: 데이터와 권한 (정보 거버넌스)", en: "Service flow 01: data and permissions (information governance)" },
+      { ko: "서비스 흐름도 02: 프로젝트 그룹과 권한", en: "Service flow 02: project groups and permissions" },
+      { ko: "서비스 흐름도 03: 파이프라인", en: "Service flow 03: pipelines" },
+      { ko: "데이터 업로드 및 다운로드 승인과 비용 관리 흐름", en: "Data upload and download approval and cost management flow" },
+      { ko: "와이어프레임: 메인 페이지", en: "Wireframe: main page" },
+      { ko: "커스텀 파이프라인 화면", en: "Custom pipeline screen" },
+      { ko: "화면 설계 작성 기준 (1): 표시 방법 정의", en: "Screen design guide (1): display conventions" },
+      { ko: "화면 설계 작성 기준 (2): UI 구성 요소 정의", en: "Screen design guide (2): UI components" }
     ],
     tools: [
       "AWS Architecture",
