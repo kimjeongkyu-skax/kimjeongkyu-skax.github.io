@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261126h';
+const ASSET_V = '20261127u';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -86,8 +86,8 @@ const portfolioProjects = [
       en: "Jun. 2026 – present"
     },
     overview: {
-      ko: "LiteLLM과 Amazon Bedrock 기반으로 사내 생성형 AI 사용 환경과 접근, 비용 관리 기능을 구축하고, 일부 사내 사용자를 대상으로 PoC를 진행해 기능, 운영, 비용 구조를 검증했습니다.",
-      en: "Built an internal generative-AI environment on LiteLLM and Amazon Bedrock with access control and cost management, and ran a PoC with some internal users to validate features, operations, and cost structure."
+      ko: "LiteLLM과 Bedrock 기반으로 사내 생성형 AI 사용 환경과 접근, 비용 관리 기능을 구축하고, 일부 사용자 PoC로 기능과 운영, 비용 구조를 검증했습니다.",
+      en: "Built an internal generative-AI environment with access and cost management on LiteLLM and Bedrock, and validated features, operations, and cost structure through a PoC with some users."
     },
     role: {
       ko: [
@@ -127,9 +127,11 @@ const portfolioProjects = [
       { ko: "로그인: 회사 메일 입력", en: "Sign-in: company email entry" },
       { ko: "사내 이메일 인증코드 메일 (Gmail SMTP 발송, Gmail 수신 화면)", en: "Internal email verification code message (sent via Gmail SMTP, shown in Gmail)" },
       { ko: "로그인: 인증코드 입력", en: "Sign-in: verification code entry" },
-      { ko: "내정보: 키 상태와 개인 및 팀 사용량", en: "My info: key status and personal/team usage" },
-      { ko: "관리자 페이지 전체 화면 (가입 승인, 키 교체 요청, 예산, 사용자 관리)", en: "Admin page overview (sign-up approval, key replacement, budget and user management)" },
-      { ko: "AWS 아키텍처 (서울/도쿄 리전, LiteLLM Gateway on ECS, Amazon Bedrock)", en: "AWS architecture (Seoul and Tokyo regions, LiteLLM gateway on ECS, Amazon Bedrock)" }
+      { ko: "개인 이메일 인증 완료 후 초기 가입시 관리자 승인 대기", en: "After email verification, first-time sign-up waits for administrator approval" },
+      { ko: "신규 사용 신청 시 관리자에게 승인 요청 메일 발송 (Gmail)", en: "Approval request email sent to the administrator on a new access request (Gmail)" },
+      { ko: "관리자 승인, 키 교체, 예산 관리", en: "Admin: approvals, key replacement, and budget management" },
+      { ko: "관리자: 팀별 사용액 모니터링", en: "Admin: usage monitoring by team" },
+      { ko: "AWS 아키텍처", en: "AWS architecture" }
     ],
     tools: [
       "SMTP",
