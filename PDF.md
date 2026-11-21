@@ -32,6 +32,20 @@ python3 -m venv .venv-pdf
 `assets/portfolio.pdf` 를 커밋하고 푸시한다 (GitHub Pages).
 캐시 때문에 이전 파일이 보이면 `index.html` 의 링크에 `?v=날짜` 를 붙인다.
 
+## PDF 생성 시 할 일 (아직 적용 전 메모)
+
+### Skills & Technologies 카드는 모두 ON(색 고정) 상태로 출력한다
+- 화면에서는 카드를 누르면 로고가 흰 타일 위에서 원래 색으로 고정(`.sk-card.on`)되고, 평소에는 회색이다.
+  PDF에서는 마우스가 없으므로 **모든 카드를 ON 상태로** 만든 뒤 출력해야 로고가 컬러로 나온다.
+- `scripts/build_portfolio_pdf.py` 에서 `<details>` 를 펼치는 줄 근처에 아래를 추가한다.
+
+  ```python
+  page.evaluate("document.querySelectorAll('.sk-card').forEach(c => c.classList.add('on'))")
+  ```
+- 라이트 화면(흰 배경) 기준으로 만든다. 다크 모드로 출력하지 않는다.
+- 출력 후 확인: 7개 카드(Languages, Frontend, DB, Cloud & Container, AI, Workflow & Observation,
+  Developer Tools)의 로고가 모두 컬러인지, 카드가 페이지 중간에서 잘리지 않는지 본다.
+
 ## 동작 방식과 주의점
 
 - 헤드리스 Chromium 으로 `index.html` 을 열고 `print` 미디어로 PDF 를 만든다.
