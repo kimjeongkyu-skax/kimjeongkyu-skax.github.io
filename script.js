@@ -192,7 +192,7 @@ const drawProjects = () => {
     `<article class="card">${badgeHtml(project)}<div class="project-media">${projectImg(project.id)}</div>
       <h3>${pick(project.title)}</h3><p>${pick(project.overview)}</p>
       ${project.tools && project.tools.length ? `<ul class="tags">${project.tools.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}
-      <div class="card-foot"><a class="btn soft" href="project.html?id=${project.id}">${tr('proj.details')} ↗</a>${deckBtn(project)}</div></article>`).join('');
+      <div class="card-foot"><a class="btn primary" href="project.html?id=${project.id}">${tr('proj.details')} ↗</a>${deckBtn(project)}</div></article>`).join('');
 };
 
 const drawProjectDetail = (project) => {
@@ -239,7 +239,7 @@ const fmtYM = (ym) => {
   const [y, mo] = ym.split('-').map(Number);
   return lang === 'en' ? `${MONTHS_EN[mo - 1]} ${y}` : `${y}.${String(mo).padStart(2, '0')}`;
 };
-const fmtPeriod = (m) => {
+const fmtPeriod = (m, showDur = true) => {
   if (!m.start) return m.date ? pick(m.date) : '';
   const [sy, sm] = m.start.split('-').map(Number);
   const now = new Date();
@@ -250,7 +250,7 @@ const fmtPeriod = (m) => {
     ? [yrs && `${yrs} year${yrs > 1 ? 's' : ''}`, mos && `${mos} month${mos > 1 ? 's' : ''}`].filter(Boolean).join(' ')
     : [yrs && `${yrs}년`, mos && `${mos}개월`].filter(Boolean).join(' ');
   const end = m.end ? fmtYM(m.end) : (lang === 'en' ? 'Present' : '현재');
-  return `${fmtYM(m.start)} — ${end} <span class="tl-dur">${dur}</span>`;
+  return showDur ? `${fmtYM(m.start)} — ${end} <span class="tl-dur">${dur}</span>` : `${fmtYM(m.start)} — ${end}`;
 };
 const drawTl = () => {
   tl.innerHTML = milestones.filter((m) => tlFilter === 'all' || m.f === tlFilter).map((m) => {
@@ -262,13 +262,13 @@ const drawTl = () => {
       : `<h3>${pick(m.org)}</h3>`;
     const role = m.role ? `<p class="tl-role">${pick(m.role)}</p>` : '';
     const projHtml = (ids) => (ids || []).map((id) => portfolioProjects.find((p) => p.id === id)).filter(Boolean).map((p) =>
-      `<section class="tl-project"><h4>${pick(p.title)}</h4><div class="tl-project-row">${projectImg(p.id)}<div class="tl-project-copy"><p>${pick(p.overview)}</p>${p.tools && p.tools.length ? `<ul class="tags">${p.tools.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}<a class="btn soft" href="project.html?id=${p.id}">${tr('proj.details')} ↗</a>${deckBtn(p)}</div></div></section>`).join('');
+      `<section class="tl-project"><div class="tl-phead"><h4>${pick(p.title)}</h4>${p.period ? `<time class="tl-ptime">${pick(p.period)}</time>` : ''}</div><div class="tl-project-row">${projectImg(p.id)}<div class="tl-project-copy"><p>${pick(p.overview)}</p>${p.tools && p.tools.length ? `<ul class="tags">${p.tools.map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}<a class="btn primary" href="project.html?id=${p.id}">${tr('proj.details')} ↗</a>${deckBtn(p)}</div></div></section>`).join('');
     const projects = projHtml(m.projects);
     const subs = (m.children || []).map((c) => {
       const logo = c.logo ? `<img class="tl-logo tl-logo-sm" src="assets/orgs/${c.logo}" alt="" onerror="this.remove()">` : '';
-      if (c.list || c.toggle) return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary><div class="tl-sub-body">${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.list ? `<ul class="tl-list">${pick(c.list).map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div></details>`;
-      if (c.compact) return `<div class="tl-sub tl-sub-compact"><div class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}</div></div>`;
-      return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c) ? `<time>${fmtPeriod(c)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary>${projHtml(c.projects)}</details>`;
+      if (c.list || c.toggle) return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c, false) ? `<time>${fmtPeriod(c, false)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary><div class="tl-sub-body">${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.list ? `<ul class="tl-list">${pick(c.list).map((t) => `<li>${t}</li>`).join('')}</ul>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div></details>`;
+      if (c.compact) return `<div class="tl-sub tl-sub-compact"><div class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}${c.desc ? `<p class="tl-desc">${pick(c.desc)}</p>` : ''}${c.note ? `<p class="tl-note">${pick(c.note)}</p>` : ''}</div>${fmtPeriod(c, false) ? `<time>${fmtPeriod(c, false)}</time>` : ''}</div></div>`;
+      return `<details class="tl-sub"><summary class="tl-sub-head">${logo}<div class="tl-sub-title"><h4>${pick(c.org)}</h4>${c.role ? `<p class="tl-role">${pick(c.role)}</p>` : ''}</div>${fmtPeriod(c, false) ? `<time>${fmtPeriod(c, false)}</time>` : ''}<span class="tl-chev" aria-hidden="true"></span></summary>${projHtml(c.projects)}</details>`;
     }).join('');
     return `<li><article class="tl-card">${head}${name}${role}${m.text ? `<div class="tl-body"><p>${pick(m.text)}</p></div>` : ''}${projects || subs ? `<div class="tl-projects">${projects}${subs}</div>` : ''}</article></li>`;
   }).join('');

@@ -115,7 +115,7 @@ const render = () => {
     <div class="project-hero">${projectImg(p.id)}</div>
     <h1 class="project-title">${esc(pick(p.title))}</h1>
     <p class="project-lead">${esc(pick(p.overview))}</p>
-    <dl class="definitions">${FIELDS.map((k) => field(k, p[k])).join('')}</dl>
+    ${p.abbr ? `<p class="abbr-note">* ${esc(pick(p.abbr))}</p>` : ''}<dl class="definitions">${FIELDS.map((k) => field(k, p[k])).join('')}</dl>
     <div class="gallery-wrap">
       <div class="project-gallery" aria-label="${t.gallery}">${Array.from({ length: 12 }, (_, i) => i + 1).map((n) => projectImg(p.id, String(n), 'png,webp,jpg', 'hide').replace('loading="lazy"', 'loading="eager"')).join('')}</div>
       <button type="button" class="g-btn g-prev" aria-label="${t.gPrev}" hidden>‹</button>

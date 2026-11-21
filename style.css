@@ -489,3 +489,19 @@ footer{text-align:center}
 .tl-sub[open]>.tl-sub-head{padding-bottom:14px}
 .timeline .tl-sub-body{margin-top:0;padding:16px 4px 14px 0;border-top:1px solid var(--line)}
 .timeline .tl-sub-body .tl-list{margin-top:0}
+
+/* timeline projects: period on the right of the title */
+.tl-phead{display:flex;justify-content:space-between;align-items:baseline;gap:6px 18px;margin:0 0 12px;flex-wrap:wrap}
+.tl-phead h4{margin:0;flex:1;min-width:220px}
+.tl-ptime{font-family:var(--mono);font-size:.8rem;color:var(--muted);text-align:right}
+@media (max-width:700px){.tl-ptime{text-align:left}}
+
+/* project buttons: primary blue for the main action, outlined for secondary links */
+.btn.primary{transition:background .2s,box-shadow .2s,transform .2s}
+.btn.primary:hover,.btn.primary:focus-visible{background:#0852a3;box-shadow:0 6px 16px rgba(10,102,200,.35);transform:translateY(-1px)}
+.btn.deck-btn{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent);transition:background .2s,color .2s}
+.btn.deck-btn:hover,.btn.deck-btn:focus-visible{background:var(--accent);color:#fff}
+
+/* abbreviation note above the project facts (e.g. LIMS) */
+.abbr-note{margin:26px 0 0;padding:12px 0 2px;border-top:1px solid var(--line);color:#b42318;font-size:.92rem;font-weight:600;line-height:1.5}
+:root[data-theme=dark] .abbr-note{color:#ff8a80}

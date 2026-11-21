@@ -27,8 +27,8 @@ const portfolioProjects = [
       en: "Inocras (domestic) / Bio clinical diagnostic analysis"
     },
     period: {
-      ko: "2026.10 ~ 현재 (국내 파견)",
-      en: "Oct. 2026 – present (domestic assignment)"
+      ko: "2026.10 ~ 현재",
+      en: "Oct. 2026 – present"
     },
     overview: {
       ko: "기존 분석 시스템의 문제를 분석하고 비용과 실행 속도를 개선하는 솔루션을 개발합니다.",
@@ -152,8 +152,8 @@ const portfolioProjects = [
       en: "Research institutes / Bio and medical researchers"
     },
     period: {
-      ko: "2026.01 ~ 2026.08 (KHF 2026 발표)",
-      en: "Jan. – Aug. 2026 (presented at KHF 2026)"
+      ko: "2026.01 ~ 2026.08",
+      en: "Jan. – Aug. 2026"
     },
     overview: {
       ko: "B2B 공동연구 플랫폼을 기획하고, 의료 현장에서 도입할 수 있는 구조를 기획 중인 내용으로 KHF 2026에서 발표했습니다. 이후 nAI-Gateway 구축과 WGS 분석 AI Agent 데모를 PoC로 진행하며 AI Agent 플랫폼과 AWS 기반 웹 인프라로 확장하게 되었습니다.",
@@ -271,8 +271,8 @@ const portfolioProjects = [
       en: "Inocras US / Bio genomics research"
     },
     period: {
-      ko: "2026.04 (미국 파견 및 AACR 데모)",
-      en: "Apr. 2026 (US assignment and AACR demo)"
+      ko: "2026.04",
+      en: "Apr. 2026"
     },
     overview: {
       ko: "WGS 코호트 데이터 기반 생성형 AI 연구지원 데모를 약 1개월 만에 개발해 AACR 2026에서 활용했습니다.",
@@ -434,8 +434,8 @@ const portfolioProjects = [
       en: "Domestic tertiary hospital / Bio clinical diagnostic analysis"
     },
     period: {
-      ko: "2023.06 ~ 2023.11 (재설치 및 현장 지원 기준)",
-      en: "Jun. – Nov. 2023 (reinstallation and on-site support)"
+      ko: "2023.06 ~ 2023.11",
+      en: "Jun. – Nov. 2023"
     },
     overview: {
       ko: "병원별 폐쇄망 환경에 분석 시스템을 배포하고 결과 검증과 운영 안정화를 수행했습니다.",
@@ -480,9 +480,10 @@ const portfolioProjects = [
   },
   {
     id: "lims",
+    abbr: locale("LIMS(Laboratory Information Management System, 실험실정보관리시스템)", "LIMS (Laboratory Information Management System)"),
     title: {
-      ko: "LIMS(Web) Docker 기반 자동 배포 시스템 구축",
-      en: "LIMS (Web) Docker-based automated deployment system"
+      ko: "LIMS System Docker 기반 자동 배포 시스템 구축",
+      en: "LIMS System Docker-based automated deployment system"
     },
     client: {
       ko: "국내 상급종합병원 / 바이오 임상 진단 분석",
@@ -606,8 +607,8 @@ const portfolioProjects = [
       en: "GxD 株式会社 / Bio genomics analysis"
     },
     period: {
-      ko: "2023.11 ~ 2024.03 (일본 파견 기간)",
-      en: "Nov. 2023 – Mar. 2024 (Japan assignment)"
+      ko: "2023.11 ~ 2024.03",
+      en: "Nov. 2023 – Mar. 2024"
     },
     overview: {
       ko: "일본 법인 초기 구축 멤버로 분석 시스템 구축과 이관, 파이프라인 자동화, 장비 이슈 분석, 현지 SOP 대응까지 수행했습니다.",
