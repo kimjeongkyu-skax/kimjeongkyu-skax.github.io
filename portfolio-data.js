@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261130r';
+const ASSET_V = '20261130t';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -340,8 +340,8 @@ const portfolioProjects = [
         en: "The main task was to apply the analysis result files for the 1,342 samples Inocras provided to the AI platform and develop it to a level usable in the AACR session talk and the on-site demo.\nWhen a user entered a natural-language prompt, the platform had to query the requested information from the real analysis data and generate visualizations such as waterfall plots or Circos plots together with an analytical explanation. The key was not to show prepared results, but to select and run the data and analysis functions each question required, from questions typed on site.\nThat meant connecting the analysis data to the LLM and implementing analysis-code execution and result visualization matching the user's request. It also meant verifying that the generated results matched the data and were sound from a bio-domain perspective, and building an interface where users could check results without writing any code."
       },
       action: {
-        ko: "[AACR 데모용 AI 플랫폼 기획 및 개발]\n미국 현지에서는 AACR 학회 발표와 데모에 사용할 AI 플랫폼이 필요했지만, 이를 개발할 별도의 인력이 없는 상황이었습니다. 이에 분석 기능뿐 아니라 사용자가 직접 Query를 입력하고 결과를 확인할 수 있는 화면까지 함께 구성해야 했습니다.\n저는 1,342개 샘플의 분석 결과를 바탕으로 사용자가 Query를 입력하면 관련 데이터와 Plot, 분석 설명을 확인할 수 있는 화면 구성을 제안했습니다. 학회 현장에서 직접 시연하는 것이 목적이었기 때문에 미리 만들어 놓은 결과를 보여주기보다는, 입력된 Query에 따라 실제 분석이 실행되고 결과가 화면에 표시되도록 개발했습니다.\n[Claude Code Skills 및 README.md 기반 실행 구조 설계]\n초기에는 AWS Bedrock을 통해 Claude Opus와 Sonnet을 활용했지만, 당시 모델만으로는 바이오 데이터를 정확하게 해석하거나 일관된 분석 결과를 생성하는 데 한계가 있었습니다. 특히 데이터 계산 과정에서 실행 조건이나 명령어를 구체적으로 지정하지 않으면 의도와 다른 결과가 나오는 경우가 있었습니다.\n학회 데모에서는 사용자가 어떤 Query를 입력하더라도 실제 데이터에 근거한 결과를 제공해야 했기 때문에, LLM이 매번 분석 방법과 코드를 결정하도록 하는 방식은 적합하지 않다고 판단했습니다. 이에 Claude Code Skills를 활용해 분석 기능을 분리하고, README.md로 각 기능을 연결하는 구조를 제안했습니다.\n상위 README.md를 Coordinator 역할로 사용해 각 Skill의 위치와 사용 조건을 정리했습니다. 예를 들어 Query에 Waterfall Plot이나 Circos Plot 관련 요청이 들어오면 해당 키워드를 트리거로 삼아 관련 Skill 문서를 참조하도록 했습니다. 바이오 관련 내용 검토에는 K-Dense를 활용하도록 연결했습니다.\n각 하위 폴더에도 Markdown 문서를 두어 필요한 입력 파일과 변수, 실행할 Python 스크립트의 위치를 안내했습니다. 이를 통해 Claude가 상위 문서를 참고해 필요한 Skill을 찾고, 하위 문서에 정의된 절차에 따라 작업하도록 구성했습니다.\n[Skills별 Python 분석 및 시각화 코드 구현]\nWaterfall Plot이나 Circos Plot처럼 정해진 계산 방식과 시각화 형식이 필요한 기능은 Python으로 미리 구현하고, 실행할 때 필요한 변수만 전달하도록 구성했습니다.\n각 Skill 폴더에는 실행 지침을 작성한 Markdown 문서와 Python 스크립트를 함께 배치했습니다. Markdown 문서에는 사용할 분석 파일과 입력 변수, 실행 방법을 정의했으며, 실제 데이터 계산과 Plot 생성은 Python 코드에서 처리하도록 했습니다.\n사용자 Query가 들어오면 Claude는 관련 Skill을 찾아 필요한 입력 변수를 전달하고, Python 스크립트가 분석 결과와 Plot을 생성하는 방식이었습니다.\n이렇게 LLM에는 Query 해석과 기능 선택을 맡기고, 계산과 시각화는 기존 Python 코드에서 처리하도록 구분했습니다. 이를 통해 Query 표현에 따라 분석 코드가 달라지는 문제를 줄이고, 동일한 데이터와 조건에서 결과를 재현할 수 있도록 했습니다.\n[현장 요구사항 반영 및 데모 준비]\n개발 과정에서는 이노크라스 관계자들과 필요한 기능과 화면 구성을 논의하면서 수정 작업을 진행했습니다.\nAACR 학회 세션 발표와 현장 데모에서 사용자가 직접 Query를 입력하고, 생성된 Plot과 분석 설명을 확인할 수 있도록 기능을 연결했습니다. 또한 AWS 기반 실행 환경 도입에도 참여하며 분석 코드와 플랫폼 구동에 필요한 부분을 함께 검토했습니다.",
-        en: "[Planning and building the AI platform for the AACR demo]\nOn site in the US, an AI platform was needed for the AACR talk and demo, but there was no separate engineer to build it. That meant putting together not only the analysis functions but also the screen where a user could enter a query themselves and see the result.\nBased on the analysis results of the 1,342 samples, I proposed a layout where a user enters a query and sees the related data, plots, and an analytical explanation. Because the point was to demonstrate it live at the conference, I built it so that the analysis actually ran against the query entered and the result appeared on screen, rather than showing pre-built results.\n[Designing the execution structure around Claude Code Skills and README.md]\nAt first we used Claude Opus and Sonnet through AWS Bedrock, but the models of the time had limits in interpreting bio data accurately and producing consistent analysis results. In particular, when execution conditions or commands were not specified concretely, the calculation step sometimes produced results that differed from what was intended.\nSince the demo had to return results grounded in the real data no matter what query a user typed, I judged that letting the LLM decide the analysis method and the code every time was not suitable. I therefore proposed separating the analysis functions as Claude Code Skills and wiring them together through README.md files.\nThe top-level README.md served as a coordinator, listing where each skill lived and the conditions for using it. For example, when a query involved a waterfall plot or a Circos plot, those keywords acted as triggers to consult the matching skill document. For review of bio-related content, it pointed to K-Dense.\nEach sub-folder also carried a Markdown document describing the input files and variables required and the location of the Python script to run. With this, Claude consults the top-level document to find the skill it needs and then works through the procedure defined in the sub-document.\n[Implementing the Python analysis and visualization code per skill]\nFunctions with a fixed calculation method and visual format, such as waterfall plots and Circos plots, were implemented in Python in advance, so that only the variables needed at run time were passed in.\nEach skill folder holds both a Markdown document with the execution instructions and the Python script. The Markdown defines the analysis files to use, the input variables, and how to run it, while the actual data calculation and plot generation happen in the Python code.\nWhen a user query arrives, Claude finds the relevant skill and passes the required input variables, and the Python script produces the analysis result and the plot.\nThis divided the work: the LLM handles interpreting the query and choosing the function, while the existing Python code handles calculation and visualization. It reduced the problem of the analysis code changing with how a query was phrased, and made results reproducible for the same data and conditions.\n[Reflecting on-site requirements and preparing the demo]\nDuring development I discussed the required functions and screen layout with people at Inocras and made revisions accordingly.\nFor the AACR session talk and the on-site demo, I connected the features so that a user could enter a query directly and see the generated plot and analytical explanation. I also took part in introducing the AWS-based execution environment, reviewing what the analysis code and the platform needed in order to run."
+        ko: "[AACR 데모용 AI 플랫폼 기획 및 개발]\n미국 현지에서는 AACR 학회 발표와 데모에 사용할 AI 플랫폼이 필요했지만, 이를 개발할 별도의 인력이 없는 상황이었습니다. 이에 분석 기능뿐 아니라 사용자가 직접 Query를 입력하고 결과를 확인할 수 있는 화면까지 함께 구성해야 했습니다.\n저는 1,342개 샘플의 분석 결과를 바탕으로 사용자가 Query를 입력하면 관련 데이터와 Plot, 분석 설명을 확인할 수 있는 화면 구성을 제안했습니다. 학회 현장에서 직접 시연하는 것이 목적이었기 때문에 미리 만들어 놓은 결과를 보여주기보다는, 입력된 Query에 따라 실제 분석이 실행되고 결과가 화면에 표시되도록 개발했습니다.\n[Claude Code Skills 및 SKILL.md 기반 실행 구조 설계]\n초기에는 AWS Bedrock을 통해 Claude Opus와 Sonnet을 활용했지만, 당시 모델만으로는 바이오 데이터를 정확하게 해석하거나 일관된 분석 결과를 생성하는 데 한계가 있었습니다. 특히 데이터 계산 과정에서 실행 조건이나 명령어를 구체적으로 지정하지 않으면 의도와 다른 결과가 나오는 경우가 있었습니다.\n학회 데모에서는 사용자가 어떤 Query를 입력하더라도 실제 데이터에 근거한 결과를 제공해야 했기 때문에, LLM이 매번 분석 방법과 코드를 결정하도록 하는 방식은 적합하지 않다고 판단했습니다. 이에 Claude Code Skills를 활용해 분석 기능을 분리하고, SKILL.md로 각 기능을 연결하는 구조를 제안했습니다.\n상위 SKILL.md를 Coordinator 역할로 사용해 각 Skill의 위치와 사용 조건을 정리했습니다. 예를 들어 Query에 Waterfall Plot이나 Circos Plot 관련 요청이 들어오면 해당 키워드를 트리거로 삼아 관련 Skill 문서를 참조하도록 했습니다. 바이오 관련 내용 검토에는 K-Dense를 활용하도록 연결했습니다.\n각 하위 폴더에도 Markdown 문서를 두어 필요한 입력 파일과 변수, 실행할 Python 스크립트의 위치를 안내했습니다. 이를 통해 Claude가 상위 문서를 참고해 필요한 Skill을 찾고, 하위 문서에 정의된 절차에 따라 작업하도록 구성했습니다.\n[Skills별 Python 분석 및 시각화 코드 구현]\nWaterfall Plot이나 Circos Plot처럼 정해진 계산 방식과 시각화 형식이 필요한 기능은 Python으로 미리 구현하고, 실행할 때 필요한 변수만 전달하도록 구성했습니다.\n각 Skill 폴더에는 실행 지침을 작성한 Markdown 문서와 Python 스크립트를 함께 배치했습니다. Markdown 문서에는 사용할 분석 파일과 입력 변수, 실행 방법을 정의했으며, 실제 데이터 계산과 Plot 생성은 Python 코드에서 처리하도록 했습니다. 사용자 Query가 들어오면 Claude는 관련 Skill을 찾아 필요한 입력 변수를 전달하고, Python 스크립트가 분석 결과와 Plot을 생성하는 방식이었습니다.\n이렇게 LLM에는 Query 해석과 기능 선택을 맡기고, 계산과 시각화는 기존 Python 코드에서 처리하도록 구분했습니다. 이를 통해 Query 표현에 따라 분석 코드가 달라지는 문제를 줄이고, 동일한 데이터와 조건에서 결과를 재현할 수 있도록 했습니다.\n[현장 요구사항 반영 및 데모 준비]\n개발 과정에서는 이노크라스 관계자들과 필요한 기능과 화면 구성을 논의하면서 수정 작업을 진행했습니다.\nAACR 학회 세션 발표와 현장 데모에서 사용자가 직접 Query를 입력하고, 생성된 Plot과 분석 설명을 확인할 수 있도록 기능을 연결했습니다. 또한 AWS 기반 실행 환경 도입에도 참여하며 분석 코드와 플랫폼 구동에 필요한 부분을 함께 검토했습니다.",
+        en: "[Planning and building the AI platform for the AACR demo]\nOn site in the US, an AI platform was needed for the AACR talk and demo, but there was no separate engineer to build it. That meant putting together not only the analysis functions but also the screen where a user could enter a query themselves and see the result.\nBased on the analysis results of the 1,342 samples, I proposed a layout where a user enters a query and sees the related data, plots, and an analytical explanation. Because the point was to demonstrate it live at the conference, I built it so that the analysis actually ran against the query entered and the result appeared on screen, rather than showing pre-built results.\n[Designing the execution structure around Claude Code Skills and SKILL.md]\nAt first we used Claude Opus and Sonnet through AWS Bedrock, but the models of the time had limits in interpreting bio data accurately and producing consistent analysis results. In particular, when execution conditions or commands were not specified concretely, the calculation step sometimes produced results that differed from what was intended.\nSince the demo had to return results grounded in the real data no matter what query a user typed, I judged that letting the LLM decide the analysis method and the code every time was not suitable. I therefore proposed separating the analysis functions as Claude Code Skills and wiring them together through SKILL.md files.\nThe top-level SKILL.md served as a coordinator, listing where each skill lived and the conditions for using it. For example, when a query involved a waterfall plot or a Circos plot, those keywords acted as triggers to consult the matching skill document. For review of bio-related content, it pointed to K-Dense.\nEach sub-folder also carried a Markdown document describing the input files and variables required and the location of the Python script to run. With this, Claude consults the top-level document to find the skill it needs and then works through the procedure defined in the sub-document.\n[Implementing the Python analysis and visualization code per skill]\nFunctions with a fixed calculation method and visual format, such as waterfall plots and Circos plots, were implemented in Python in advance, so that only the variables needed at run time were passed in.\nEach skill folder holds both a Markdown document with the execution instructions and the Python script. The Markdown defines the analysis files to use, the input variables, and how to run it, while the actual data calculation and plot generation happen in the Python code. When a user query arrives, Claude finds the relevant skill and passes the required input variables, and the Python script produces the analysis result and the plot.\nThis divided the work: the LLM handles interpreting the query and choosing the function, while the existing Python code handles calculation and visualization. It reduced the problem of the analysis code changing with how a query was phrased, and made results reproducible for the same data and conditions.\n[Reflecting on-site requirements and preparing the demo]\nDuring development I discussed the required functions and screen layout with people at Inocras and made revisions accordingly.\nFor the AACR session talk and the on-site demo, I connected the features so that a user could enter a query directly and see the generated plot and analytical explanation. I also took part in introducing the AWS-based execution environment, reviewing what the analysis code and the platform needed in order to run."
       }
     },
     badge: { flag: "us", text: locale("미국 파견", "US assignment") },
@@ -542,9 +542,23 @@ const portfolioProjects = [
   },
   {
     id: "hospital",
+    story: {
+      situation: {
+        ko: "자동 배포 체계를 만든 뒤, 실제 병원 현장에 새 버전을 올리는 단계였습니다. 레거시가 이미 설치되어 있었지만 도입 후 활용이 저조했던 병원들이 있었고, 그곳부터 새 버전으로 교체해 나갔습니다.\n현장은 폐쇄망이었고 병원마다 장비와 내부 절차, 승인 방식이 달랐습니다. 레거시는 DB를 들여다볼 화면이 없어 DBeaver나 리눅스로 직접 접속해 컬럼을 확인해야 했고, 오류가 나도 로그가 남지 않는 경우가 있어 원인을 좁히기 어려웠습니다.",
+        en: "With the automated deployment in place, the next phase was putting the new version onto the hospital floor. The legacy system was already installed at several sites, but adoption had been low at some of them, and those were the first to be replaced.\nThe sites ran on closed networks, and each hospital had different equipment, internal procedures, and approval routes. The legacy system had no screen for inspecting the database, so columns had to be checked by connecting directly through DBeaver or Linux, and some errors left no log at all, which made narrowing down a cause difficult."
+      },
+      task: {
+        ko: "새 버전을 설치하는 것만으로는 끝나지 않았습니다. 기존 결과와 동일한 결과가 나오는지 확인해야 했고, 운영 중 발생하는 장애에 현장에서 대응해야 했습니다.\n한 달에 적게는 20번, 많게는 30번 병원을 방문했습니다. 하루에 많게는 세 곳, 보통 두 곳을 다니며 장비 확인, 병원 내부 절차와 승인 확인, 프로그램 설치, 시스템 연동, 네트워크 마운팅을 함께 진행했습니다. 사용자는 병리과 소속 병리사와 병리의였기 때문에, 요구사항도 직접 듣고 판단해야 했습니다.",
+        en: "Installing the new version was not the end of it. Results had to match what the previous system produced, and failures during operation had to be handled on site.\nI visited hospitals 20 to 30 times a month — up to three sites in a day, usually two — checking equipment, confirming each hospital's internal procedures and approvals, installing the software, integrating systems, and mounting network storage. The users were pathologists and pathology technologists, so requirements came directly from them and had to be judged on the spot."
+      },
+      action: {
+        ko: "[현장 배포와 결과 검증]\n자동 배포 스크립트로 설치하고 네트워크 마운팅과 시스템 연동을 진행했습니다. 기존 시스템의 결과와 새 버전의 결과가 같은지 비교해 확인한 뒤 운영으로 넘겼습니다. 조직생검이 아닌 다른 검사 패널용으로 튜닝한 버전을 요청받았을 때도 설정과 DB dump만 교체해 같은 설치 절차를 그대로 활용했습니다.\n[MNP 저장 오류 추적]\n변이 분석 결과를 저장하는 과정에서 오류가 발생했습니다. MuTect이 call한 MNP 중 표현이 길게 나오는 건이 있었고, 저장 컬럼이 VARCHAR(50)으로 제한되어 있어 길이를 초과하는 값이 들어가지 못하고 있었습니다. 폐쇄망이라 자료를 찾아볼 수 없어 로그로 증상을 좁히고, 밖으로 나가 확인한 뒤 다시 들어와 적용하는 과정을 반복했습니다. 실제 데이터의 길이를 확인한 뒤 VARCHAR(200)으로 변경해 해결했습니다.\n[운영 기반 정비]\n레거시 스크립트를 모듈로 분리하고 실행 환경을 표준화했습니다. Daemon과 Logging을 구성해 오류가 났을 때 기록이 남도록 하고, DB Migration을 수행했습니다.\n[사용자 요구사항 반영]\n병리과 담당자의 요구사항이 많았습니다. 그중 실제로 필요하다고 판단한 기능은 따로 만들어 적용했습니다. IGV-Report를 모듈로 구성해, LIMS에서 스냅샷 이미지로 보던 것을 HTML로 바로 열어 볼 수 있도록 한 것이 그 사례입니다.\n[성능 한계 확인]\n한 병원에서 분석을 세 번 돌리면 한 번은 실패하는 문제가 있었습니다. 원인을 보니 2~5GB 수준이던 raw data가 어느 시점부터 7~10GB로 늘어나면서 메모리가 부족해진 것이었습니다. 개별 대응으로는 한계가 있다고 판단해, 파이프라인 전면 최적화와 Snakemake 전환이 필요하다는 결론을 냈습니다.\n[인수인계]\n운영상 이슈가 줄어든 시점에 담당 업무를 인수인계하고 일본 파견으로 이동했습니다.",
+        en: "[On-site deployment and result verification]\nInstalled with the automated deployment script, then handled network mounting and system integration. Before handing a site over to operations, I compared the new version's results against the previous system's to confirm they matched. When a version tuned for a test panel other than tissue biopsy was requested, the same installation procedure was reused by replacing only the configuration and the DB dump.\n[Tracing an MNP storage failure]\nStoring variant-analysis results was failing. Among the MNPs called by MuTect, some had unusually long representations, and the storage column was limited to VARCHAR(50), so values over that length could not be written. On a closed network there was no way to look anything up, so I narrowed the symptom down from the logs, stepped out to check, and came back in to apply what I found — repeatedly. After measuring the actual data lengths, I changed the column to VARCHAR(200), which resolved it.\n[Shoring up the operating base]\nSplit the legacy scripts into modules and standardized the execution environment. Configured a daemon and logging so that failures left a record, and carried out the DB migration.\n[Acting on user requirements]\nThe pathology staff raised a lot of requests. For the ones I judged genuinely necessary, I built the feature and rolled it out. One example: packaging IGV-Report as a module so that what had been viewed as a snapshot image in the LIMS could be opened directly as HTML.\n[Identifying a performance ceiling]\nAt one site, roughly one run in three failed. The cause was memory: raw data that had been 2–5 GB had grown to 7–10 GB. Case-by-case fixes were not going to hold, so I concluded that the pipeline needed a full optimization pass and a move to Snakemake.\n[Handover]\nOnce operational issues had settled down, I handed the work over and moved on to the assignment in Japan."
+      }
+    },
     title: {
-      ko: "국내 상급종합병원 분석 시스템 구축 및 운영",
-      en: "Tertiary hospital analysis system build and operation"
+      ko: "국내 상급종합병원 분석 시스템 구축 (파이프라인 배포 및 운영)",
+      en: "Tertiary hospital analysis system build (pipeline deployment and operation)"
     },
     client: {
       ko: "국내 상급종합병원 / 바이오 임상 진단 분석",
@@ -564,26 +578,39 @@ const portfolioProjects = [
         "레거시 스크립트 모듈화와 실행 환경 표준화",
         "분석 결과 동일성 검증 및 운영 안정화",
         "Daemon 및 Logging 구성, DB Migration 수행",
-        "현장 모니터링 및 장애 대응"
+        "현장 모니터링 및 장애 대응",
+        "병리과 사용자 요구사항 반영: IGV-Report 모듈화로 스냅샷 이미지를 HTML 조회로 전환",
+        "분석 실패 원인 분석: raw data 증가에 따른 메모리 부족 확인 및 파이프라인 최적화 방향 도출"
       ],
       en: [
         "Deployed the analysis system to per-hospital on-premise and air-gapped environments",
         "Modularized legacy scripts and standardized the execution environment",
         "Verified result identity and stabilized operations",
         "Configured daemons and logging and performed DB migration",
-        "On-site monitoring and incident response"
+        "On-site monitoring and incident response",
+        "Acted on pathology users' requirements: packaged IGV-Report as a module, moving from snapshot images to HTML viewing",
+        "Diagnosed analysis failures as memory exhaustion from growing raw data, and defined the pipeline optimization direction"
       ]
     },
     outcome: {
       ko: [
         "제한된 네트워크 환경에 맞춘 시스템 구축 및 운영",
-        "MNP 변이 저장 오류의 VARCHAR(50) 제약 확인 후 VARCHAR(200)으로 개선"
+        "MNP 변이 저장 오류의 VARCHAR(50) 제약 확인 후 VARCHAR(200)으로 개선",
+        "Daemon 및 Logging 구성으로 오류 발생 시 기록이 남도록 개선",
+        "사용자 요구를 반영한 IGV-Report 조회 기능 도입",
+        "분석 실패의 원인을 메모리 부족으로 규명하고 파이프라인 전면 최적화 및 Snakemake 전환 필요성 도출"
       ],
       en: [
         "Built and operated the system under restricted network conditions",
-        "Traced an MNP variant storage error to a VARCHAR(50) limit and raised it to VARCHAR(200)"
+        "Traced an MNP variant storage error to a VARCHAR(50) limit and raised it to VARCHAR(200)",
+        "Configured a daemon and logging so that failures leave a record",
+        "Introduced IGV-Report viewing in response to user requests",
+        "Identified memory exhaustion as the cause of failed runs and established the need for a full pipeline optimization and a move to Snakemake"
       ]
     },
+    gallery: [
+      { ko: "새로운 배포 체계 확립", en: "New deployment structure established" }
+    ],
     tools: [
       "Python",
       "Linux",
@@ -598,9 +625,23 @@ const portfolioProjects = [
   {
     id: "lims",
     abbr: locale("LIMS(Laboratory Information Management System, 실험실정보관리시스템)", "LIMS (Laboratory Information Management System)"),
+    story: {
+      situation: {
+        ko: "여러 상급종합병원에 레거시 버전의 LIMS가 이미 설치되어 운영되고 있었습니다. 회사의 주력이 분석 파이프라인이었던 만큼 파이프라인 수정이 잦았고, 수정한 뒤 LIMS의 DB나 웹 화면에서 데이터가 보이지 않는 문제가 반복되었습니다. 병원 측에서 IP가 변경되어 서버가 뜨지 않는 사고도 계속 있었습니다.\n문제는 고치기 전 단계에 있었습니다. 병원마다 폴더 구성과 저장 경로가 달랐고 업데이트 기록도 남아 있지 않아, 무엇이 어디에 있는지부터 찾아야 했습니다. 구조가 사내 개발 버전과 크게 달라 컨테이너 분리나 폴더 체계가 없었고, 전면 교체를 하려면 데이터베이스까지 변경해야 하는 규모였습니다.\n유지보수 한 건을 처리하는 데도 웹과 DB, 분석 파이프라인, 네트워크, 리눅스까지 여러 영역을 함께 다뤄야 했습니다. 증상만 보고는 어느 영역에서 비롯된 문제인지 알 수 없어, 원인을 가려내는 일부터 시작해야 했기 때문입니다. 게다가 현장은 외부망이 차단되어 참고 자료나 코드를 찾아볼 수 없었습니다. 로그를 보고 증상을 좁힌 뒤, 막히면 화장실이나 병원 복도로 나가 휴대폰으로 해결 방법을 찾아보고 다시 들어와 적용하는 식으로 작업했습니다. 배포와 테스트를 합쳐 약 7일이 걸렸습니다.\n기존에는 담당 파트가 나뉘어 있었지만 이 업무를 맡았던 전임자들이 연이어 퇴사한 상황이어서, 인계받을 자료 없이 전체를 혼자 맡게 되었습니다.",
+        en: "Legacy versions of the LIMS were already installed and running at several tertiary hospitals. Because the company's main product was the analysis pipeline, the pipeline changed often, and after each change data would stop appearing in the LIMS database or web screens. Servers also kept failing to come up because the hospital had changed its IP addresses.\nThe real problem came before the fix. Folder layouts and storage paths differed from hospital to hospital, and no update history had been kept, so the first task was always finding what was where. The structure differed substantially from the version we were developing in-house — no container separation, no folder conventions — and replacing it outright would have meant changing the database as well.\nA single maintenance item could span the web layer, the database, the analysis pipeline, the network, and Linux. The symptom alone never showed which layer it came from, so every fix started with isolating the cause. On top of that, the sites had no external network, so there was no way to look up reference material or code. I would narrow the symptom down from the logs and, when stuck, step out to a restroom or a hospital corridor to look up a solution on my phone, then come back in and apply it. Deployment and testing together took about seven days.\nThe work had previously been split among several people, but the predecessors who handled it had left one after another, so I ended up taking on the whole of it alone, with nothing handed over."
+      },
+      task: {
+        ko: "유지보수에 들어가는 맨먼스가 계속 늘어나는 상황이었습니다. 병원 수가 적지 않은데 그때마다 현장을 찾아가 같은 작업을 반복해야 했고, 이런 방식으로 유지보수를 계속하면 정작 사내 개발에 쓸 시간이 남지 않겠다고 판단했습니다. 그래서 설치와 운영 방식을 바꾸는 방향을 직접 제안했습니다.\n앞으로도 같은 시스템을 여러 병원에 배포해야 하는 상황이었기 때문에, 병원마다 달라지는 값만 교체해 같은 절차를 반복할 수 있어야 했습니다. 외부망이 없는 환경에서도 동작해야 했고, 담당자가 바뀌어도 같은 방식으로 설치할 수 있도록 절차를 문서로 남길 필요가 있었습니다.",
+        en: "The man-months going into maintenance kept growing. There were a fair number of hospitals, and each one meant travelling to the site to repeat the same work; I judged that keeping maintenance on this footing would leave no time for the in-house development we needed to do. So I proposed changing how the system was installed and operated.\nThe same system would have to be deployed to more hospitals, so the procedure had to be repeatable by swapping only the values that differed per site. It had to work where there was no external network, and it had to be written down so that a different engineer could install the system the same way."
+      },
+      action: {
+        ko: "[컨테이너로 묶어 한 번에 설치]\nTomcat, MariaDB, OZ Report, Shiny를 Docker 컨테이너로 구성하고 Docker 네트워크로 묶어, DB와 라이선스, 애플리케이션을 한 번에 설치하도록 했습니다. 병원의 OS와 기존에 설치된 라이브러리에 영향받지 않게 되었고, On-premise와 Air-gapped 환경 모두에 대응하는 절차를 정리했습니다. 병원에서 이미 쓰고 있는 포트와 겹치지 않도록, 설치할 때 포트를 지정할 수 있게 했습니다.\n[폴더 트리와 마운트 경로 통일]\n병원마다 다르던 폴더 구성과 저장 경로를 하나의 구조로 통일하고 마운트 경로를 맞췄습니다. 어느 병원이든 같은 위치를 보면 되므로, 장애가 생겼을 때 무엇이 어디에 있는지 찾는 작업이 없어졌습니다.\n[검증할 수 없는 환경은 단계를 나눠 대응]\n검증은 AWS에 환경을 만들어 설치 과정을 처음부터 끝까지 돌려 보는 방식으로 진행했습니다. 사내에 남는 PC를 활용해, 인터넷을 끊은 상태에서도 Docker 이미지나 패키지를 내려받지 않고 설치가 끝나는지 함께 확인했습니다. 다만 병원과 완전히 같은 환경을 사내에서 재현할 수는 없었습니다.\n그래서 첫 버전은 설치를 여섯 단계로 나눠 하나씩 골라 실행하는 선택형으로 만들었습니다. 검증하지 못한 환경에서 중간에 문제가 생기면 그 단계에서 멈추고 원인을 확인한 뒤 이어갈 수 있도록 한 것입니다.\n첫 병원 설치를 마치고 각 단계가 실제 환경에서 동작하는 것을 확인한 뒤, 원라인 설치로 합쳤습니다. 스크립트가 실행 환경을 먼저 확인하고, CentOS면 firewalld, Ubuntu면 ufw로 분기해 방화벽과 포트 설정을 스스로 처리하도록 했습니다. 1번, 2번을 차례로 입력하던 작업이 명령 한 줄로 끝나게 되었습니다.\n[병원별 값은 폴더 이름별로 구분하며, 반입은 tar.gz 파일 하나로 구성]\n병원마다 달라지는 부분은 폴더 구조로 분리했습니다. 병원별 디렉터리를 두고 그 안에 DB dump와 라이선스, 리포트 파일을 나눠 담았기 때문에, 설치할 때 해당 병원 디렉터리만 지정하면 같은 스크립트를 그대로 재사용할 수 있었습니다. 여기에 Docker 이미지까지 함께 담아 두어, 외부망이 없어 이미지를 내려받을 수 없는 병원에서도 같은 방식으로 설치할 수 있었습니다.\n결과적으로 현장 작업은 이렇게 정리되었습니다. 사전에 Docker 설치 여부를 확인하고 없으면 설치를 요청하고, IP와 포트를 미리 받아 둡니다. 그 뒤로는 압축 파일 하나를 들고 가 풀고 실행하면 설치가 끝났습니다. 설치마다 파일을 직접 고치던 작업이 없어졌습니다.\n[SOP에 장애 유형과 해결 방법 기록]\n구축 및 실행 방법과 설치에 필요한 폴더 구성을 SOP로 정리했습니다. 더해서 현장에서 겪은 장애를 유형별로 적어 두었습니다. 증상만 보고는 IP 문제인지, 라이선스 문제인지, 웹 쪽 문제인지, 데이터 문제인지 알 수 없었기 때문에, 무엇을 먼저 확인하면 되는지와 각 경우의 해결 방법을 겪은 대로 기록했습니다. 다른 담당자도 같은 절차로 설치하고, 같은 순서로 원인을 좁혀 해결할 수 있게 되었습니다.",
+        en: "[Bundling into containers for a single install]\nPackaged Tomcat, MariaDB, OZ Report, and Shiny as Docker containers and tied them together on a Docker network so the database, license, and application all installed in one pass. The system no longer depended on the hospital's OS or the libraries already installed there, and the procedure covered both on-premise and air-gapped sites. Ports could be assigned at install time so they would not collide with ports the hospital was already using.\n[Unifying folder trees and mount paths]\nConsolidated the folder layouts and storage paths that had differed per hospital into one structure and aligned the mount paths. Because every hospital now looked the same, troubleshooting no longer began with hunting for what was where.\n[Splitting into steps for an environment I could not replicate]\nValidation was done by building an environment on AWS and running the installation through it end to end. Using a spare office PC, I also checked that with the internet disconnected the install still finished without pulling down any Docker images or packages. Even so, the hospital environment could not be reproduced in full in-house.\nFor that reason the first version split the installation into six steps that were selected and run one at a time. If something broke partway through on an environment I had not been able to test, I could stop at that step, find the cause, and then carry on.\nAfter completing the first hospital and confirming each step worked on the real environment, I consolidated it into a one-line install. The script checked the runtime environment first and branched — firewalld on CentOS, ufw on Ubuntu — handling the firewall and port configuration itself. What had been typing option 1, then option 2, became a single command.\n[Per-hospital values separated by folder name, delivery as a single tar.gz]\nWhatever varied by hospital was separated out in the folder structure: a directory per site holding its DB dump, license, and report files, so installation only had to point at the right one and the same script was reused as-is. The Docker images were bundled in as well, so the same approach worked at hospitals with no external network, where images could not be pulled.\nThat left the on-site work looking like this: check in advance whether Docker is installed and request it if not, and get the IP and port ahead of time. After that, bring one archive, extract it, and run it — the install was done. No more editing files by hand for every install.\n[Recording failure types and their fixes in the SOP]\nWrote the build-and-run procedure and the folder layout required for installation as an SOP. On top of that, I recorded the failures encountered on site by type. A symptom alone never showed whether the cause lay in the IP, the license, the web layer, or the data, so I wrote down — from experience — what to check first and how each case had been resolved. Another engineer could then install the system the same way and work through causes in the same order."
+      }
+    },
     title: {
-      ko: "LIMS System Docker 기반 자동 배포 시스템 구축",
-      en: "LIMS System Docker-based automated deployment system"
+      ko: "LIMS System Docker 기반 자동 배포 시스템 구축 (웹 플랫폼 배포 및 운영)",
+      en: "LIMS System Docker-based automated deployment system (web platform deployment and operation)"
     },
     client: {
       ko: "국내 상급종합병원 / 바이오 임상 진단 분석",
@@ -611,20 +652,20 @@ const portfolioProjects = [
       en: "Sep. – Dec. 2022"
     },
     overview: {
-      ko: "병원별 설치 환경에 대응하는 자동 배포 스크립트를 단독으로 개발해, 6단계로 나뉜 설치 절차를 원라인 설치로 간소화하고 약 7일 걸리던 배포와 테스트를 30~40분으로 줄였습니다.",
-      en: "Independently developed automated deployment scripts for each hospital environment, simplifying a 6-step installation into a one-line install and cutting deployment and testing from about 7 days to 30–40 minutes."
+      ko: "병원마다 제각각이던 설치와 운영 방식을 하나의 자동 배포 체계로 만들어 단독으로 구축하고 현장에 적용했습니다. 수동으로 진행하던 설치가 명령 한 줄로 끝나면서, 약 7일 걸리던 배포와 테스트가 30~40분으로 줄었습니다.",
+      en: "Independently built an automated deployment system that replaced installation and operating practices which had differed from hospital to hospital, and rolled it out on site. What had been a manual installation came down to a single command, cutting deployment and testing from about seven days to 30–40 minutes."
     },
     role: {
       ko: [
         "병원별 설치 환경(CentOS, Ubuntu)에 대응하는 자동 배포 스크립트를 단독으로 설계 및 개발",
-        "포트 개방, 라이선스 파일 교체, DB dump 생성, WAR 파일 교체 등 6단계로 나뉜 설치 절차를 원라인 설치로 간소화",
+        "정보처의 열린 포트 확인, 라이선스 파일 교체, DB dump 생성, WAR 파일 교체 등 수동으로 진행하던 설치 작업을 스크립트로 자동화하고 원라인 설치로 통합",
         "Docker 컨테이너(Tomcat, MariaDB, OZ Report, Shiny)로 애플리케이션 실행 환경을 구성해 병원별 환경 차이를 최소화",
         "On-premise 및 Air-gapped 환경에 대응하는 설치 절차 구성",
         "설치 SOP 작성: 구축 및 실행 방법, 설치에 필요한 폴더 구성 정리"
       ],
       en: [
         "Independently designed and developed automated deployment scripts for each hospital environment (CentOS, Ubuntu)",
-        "Simplified a 6-step installation (port opening, license file replacement, DB dump creation, WAR file replacement, etc.) into a one-line install",
+        "Automated the installation work that had been done by hand — checking which ports the hospital IT department had opened, replacing the license file, creating the DB dump, replacing the WAR file — and consolidated it into a one-line install",
         "Packaged the application as Docker containers (Tomcat, MariaDB, OZ Report, Shiny) to minimize differences between hospital environments",
         "Defined installation procedures for on-premise and air-gapped sites",
         "Wrote the installation SOP: build-and-run procedure and the folder layout required for installation"
@@ -633,19 +674,23 @@ const portfolioProjects = [
     outcome: {
       ko: [
         "기존 약 7일 소요 배포 및 테스트 작업을 30~40분으로 단축",
-        "6단계 설치 절차를 원라인 설치로 간소화",
+        "병원마다 달랐던 설치와 운영 방식을 하나의 자동 배포 체계로 통일",
+        "병원별 폴더 구성과 마운트 경로를 통일해 장애 대응 시 경로를 찾는 작업 제거",
+        "장애 유형(IP, 라이선스, 웹, 데이터)별 확인 순서와 해결 방법을 SOP에 기록해 장애 대응 방식 표준화",
         "설치 환경 차이로 인한 반복 작업 감소",
         "구축 및 실행 SOP 문서화로 설치 절차 표준화"
       ],
       en: [
         "Reduced deployment and testing from about 7 days to 30–40 minutes",
-        "Simplified the 6-step installation into a one-line install",
+        "Unified installation and operating practices that had differed per hospital into a single automated deployment system",
+        "Unified folder layouts and mount paths across hospitals, removing the need to hunt for paths during incidents",
+        "Standardized incident response by recording, per failure type (IP, license, web, data), what to check and how it had been fixed",
         "Reduced repeated work caused by installation-environment differences",
         "Standardized the installation procedure by documenting it in a build-and-run SOP"
       ]
     },
     gallery: [
-      { ko: "초기 설치 화면 (선택형 설치 절차를 원라인 설치로 간소화)", en: "Initial installer screen (simplifying a menu-driven installation into a one-line install)" },
+      { ko: "초기 설치 화면 (단계별 선택형)", en: "Initial installer screen (step-by-step menu)" },
       { ko: "최종 설치 화면 (원라인 설치)", en: "Final installer screen (one-line install)" },
       { ko: "설치 SOP 표지", en: "Installation SOP cover" },
       { ko: "설치 SOP: 설치에 필요한 폴더 구성 정리", en: "Installation SOP: folder layout required for installation" }
