@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261130q';
+const ASSET_V = '20261130r';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -477,45 +477,57 @@ const portfolioProjects = [
   {
     id: "liquid-ldt",
     featured: true,
-    abbr: locale("LDT(Laboratory Developed Test, 실험실 자체개발 검사)", "LDT (Laboratory Developed Test)"),
+    abbr: locale("LDT(Laboratory Developed Test, 실험실 자체개발 검사), UMI(Unique Molecular Identifier, 고유 분자 식별자), LOD(Limit of Detection, 검출한계)", "LDT (Laboratory Developed Test), UMI (Unique Molecular Identifier), LOD (Limit of Detection)"),
     title: {
-      ko: "액체생검 LDT 분석 플랫폼 개발 및 사업화",
-      en: "Liquid biopsy LDT analysis platform development and commercialization"
+      ko: "액체생검 LDT 분석 플랫폼 개발 및 성능 검증",
+      en: "Liquid biopsy LDT analysis platform development and performance validation"
     },
     client: {
-      ko: "국내 상급종합병원 및 사업화 / 바이오 임상 진단 분석",
-      en: "Domestic tertiary hospitals and commercialization / Bio clinical diagnostic analysis"
+      ko: "국내 상급종합병원 / 바이오 임상 진단 분석",
+      en: "Domestic tertiary hospitals / Bio clinical diagnostic analysis"
     },
     period: {
       ko: "2024.11 ~ 2025.06",
       en: "Nov. 2024 – Jun. 2025"
     },
     overview: {
-      ko: "UMI 기반 액체생검 변이 분석 파이프라인(합의 서열 생성, 변이 검출, 주석)을 Snakemake 워크플로우로 자동화하고 컨테이너로 구성해, 의료기관에 납품하는 LDT 분석 시스템 구축에 참여했습니다.",
-      en: "Took part in building an LDT analysis system delivered to medical institutions, automating a UMI-based liquid biopsy variant-analysis pipeline (consensus generation, variant calling, annotation) as a Snakemake workflow and packaging it in containers."
+      ko: "UMI 기반 액체생검 변이 분석 파이프라인을 구축하고, 표준물질로 검출한계(LOD)를 직접 측정해 경쟁 제품 대비 성능을 개선했습니다. 범부처 국책과제의 핵심 요소로 기여했습니다.",
+      en: "Built a UMI-based liquid biopsy variant-analysis pipeline and measured its limit of detection directly with reference materials, improving performance against competing products. Contributed a core component to a national multi-ministry R&D project."
     },
     role: {
       ko: [
-        "액체생검 분석 소프트웨어 및 파이프라인 개발",
+        "UMI 기반 액체생검 변이 분석 파이프라인 개발 (합의 서열 생성, 변이 검출, 주석)",
         "분석 모듈 컨테이너화와 Snakemake 기반 워크플로우 자동화",
-        "레거시 파이프라인의 결과 데이터 문제 발견 및 개선",
+        "raw 데이터와 분석 결과 검증, 레거시 파이프라인의 결과 데이터 문제 발견 및 개선",
+        "표준물질 구입 및 실제 LOD 측정 수행",
+        "경쟁 제품 대비 분석 성능 비교 및 개선",
         "분석 진행 상황 모니터링 및 서버 CAPA 최적화",
-        "의료기관 대상 LDT 분석 시스템 배포 및 납품 지원"
+        "의료기관 대상 LDT 분석 시스템 배포 및 납품 지원",
+        "범부처전주기의료기기연구개발사업 ‘전립선암의 맞춤형 치료를 위한 전주기 진단용 액체생검 통합 플랫폼 개발’ 과제의 핵심 요소 기여"
       ],
       en: [
-        "Developed liquid biopsy analysis software and pipelines",
+        "Developed a UMI-based liquid biopsy variant-analysis pipeline (consensus generation, variant calling, annotation)",
         "Containerized analysis modules and automated workflows with Snakemake",
-        "Found and fixed result-data problems in the legacy pipeline",
+        "Verified raw data and analysis results; found and fixed result-data problems in the legacy pipeline",
+        "Purchased reference materials and measured the actual limit of detection",
+        "Compared and improved analysis performance against competing products",
         "Monitored analysis progress and optimized server capacity",
-        "Supported deployment and delivery of the LDT analysis system to medical institutions"
+        "Supported deployment and delivery of the LDT analysis system to medical institutions",
+        "Contributed a core component to the Korea Medical Device Development Fund project ‘Development of an integrated full-cycle diagnostic liquid biopsy platform for personalized treatment of prostate cancer’"
       ]
     },
     outcome: {
       ko: [
+        "표준물질 기반 LOD 측정으로 분석 성능을 실측 검증",
+        "경쟁 제품 대비 분석 성능 개선 확인",
+        "범부처전주기의료기기연구개발사업 과제의 핵심 요소로 기여",
         "분석 실행 환경 표준화 및 반복 작업 자동화",
         "의료기관 대상 분석 시스템 구축, 납품과 운영 개선 지원"
       ],
       en: [
+        "Validated analysis performance by measuring the limit of detection with reference materials",
+        "Confirmed improved analysis performance against competing products",
+        "Contributed a core component to the Korea Medical Device Development Fund project",
         "Standardized the execution environment and automated repetitive work",
         "Supported building, delivering, and improving operations of the analysis system for medical institutions"
       ]
@@ -844,18 +856,3 @@ const milestones = [
 
 // 학력 카드: inst(학교명)와 date(기간)를 locale('한글','English')로 추가하면 카드에 표시됩니다.
 
-// NOTE: 화면에서는 제외한 "AI Agent와 엔터프라이즈 AX" 섹션 내용입니다.
-const axAreas = [
-  {
-    title: locale('구축 경험', 'Built in practice'),
-    text: locale('AWS 기반 AI Gateway를 구축하고 기업 내 AI 도구 도입과 비용 관리를 담당했습니다.', 'Built an AWS AI Gateway and worked on internal AI tool adoption and cost management.'),
-  },
-  {
-    title: locale('학습 및 검토', 'Learning and exploration'),
-    text: locale('LLM, RAG, Tool Calling, MCP, LLMOps와 LangGraph를 학습하고 검토하고 있습니다.', 'Exploring LLMs, RAG, tool calling, MCP, LLMOps, and LangGraph.'),
-  },
-  {
-    title: locale('설계 방향', 'Design direction'),
-    text: locale('업무를 단계별 Agent 워크플로로 나누고, ETL 경험을 RAG의 수집 및 정제에 적용합니다. 시스템 연동 경험은 MCP 도구 설계에, 결과 교차 검증 경험은 Agent 평가 설계에 활용할 수 있습니다.', 'Break business processes into agent workflows, apply ETL experience to RAG ingestion and cleaning, and use system integration and cross-validation experience to inform MCP tools and agent evaluation.'),
-  },
-];
