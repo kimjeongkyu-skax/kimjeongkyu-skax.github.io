@@ -252,8 +252,14 @@ const fmtPeriod = (m, showDur = true) => {
   const end = m.end ? fmtYM(m.end) : (lang === 'en' ? 'Present' : '현재');
   return showDur ? `${fmtYM(m.start)} — ${end} <span class="tl-dur">${dur}</span>` : `${fmtYM(m.start)} — ${end}`;
 };
+// 주요 이력 정렬: 분류 순서(경력 → 해외 논문 → 학술대회 → 학력 → 수상), 같은 분류 안에서는 최신순.
+// 날짜 기준은 start('YYYY-MM') 또는 date.ko('YYYY.MM').
+const TL_ORDER = ['exp', 'pub', 'conf', 'edu', 'award'];
+const tlRank = (m) => { const i = TL_ORDER.indexOf(m.f); return i < 0 ? TL_ORDER.length : i; };
+const tlDate = (m) => m.start || (m.date ? m.date.ko.replace(/\./g, '-') : '');
+const tlSorted = () => [...milestones].sort((a, b) => tlRank(a) - tlRank(b) || tlDate(b).localeCompare(tlDate(a)));
 const drawTl = () => {
-  tl.innerHTML = milestones.filter((m) => tlFilter === 'all' || m.f === tlFilter).map((m) => {
+  tl.innerHTML = tlSorted().filter((m) => tlFilter === 'all' || m.f === tlFilter).map((m) => {
     const head = `<div class="tl-top"><span class="k">${tr('kind.' + m.f)}</span>${fmtPeriod(m) ? `<time>${fmtPeriod(m)}</time>` : ''}</div>`;
     const name = m.f !== 'exp'
       ? `<div class="tl-titlerow"><h3>${pick(m.org)}</h3>${m.link ? `<a class="btn soft tl-link" href="${m.link}" target="_blank" rel="noopener noreferrer">${tr(m.f === 'award' || m.f === 'edu' ? 'award.view' : 'paper.view')} ↗</a>` : ''}</div>${m.inst ? `<p class="tl-inst">${pick(m.inst)}</p>` : ''}`

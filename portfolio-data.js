@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261130i';
+const ASSET_V = '20261130n';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -254,8 +254,8 @@ const portfolioProjects = [
         en: "First, the policy documents scattered across the legacy website had to be collected and the ones needed for actual work selected. I narrowed them to 112 work-related documents, organized them into 44 latest versions, and chose 6 documents suitable for initial testing. Since the PoC had to be built quickly, I used LibreChat, which I had used during the US assignment. At first I used its basic RAG feature, which automatically embeds and searches PDFs after upload, but it had limits in an environment like policy documents where accurate answers and source verification matter. In particular, several problems occurred: content from multiple policies got mixed into a single answer, damaged PDF table structures made the first row's content overlap with the next, and amounts and family relationships were misinterpreted. To solve this, I judged that we needed a structure that reuses the existing document-processing features while letting us directly control question classification, search-result verification, answer generation, and calculation."
       },
       action: {
-        ko: "[LibreChat 문서 처리는 활용하고, 질의 처리는 직접 개발]\n문서 업로드와 벡터 저장은 LibreChat의 문서 처리 구성(rag_api)을 그대로 활용하고, 임베딩 모델만 Amazon Bedrock Titan으로 지정했습니다. 벡터 저장소는 pgvector입니다. 질문이 들어온 뒤의 처리는 LangGraph 기반 서비스를 직접 개발해, LibreChat 에이전트가 이 서비스를 거쳐 답하도록 연결했습니다. 기본 방식은 모델이 검색 도구를 부를지 스스로 판단하지만, 이 구조에서는 접수 단계에서 질문을 일반 대화, 규정 질문, 후보 선택, 계산으로 나누고 규정 질문이면 반드시 검색합니다.\n[검색 정확도 개선]\n질문을 규정 검색에 맞는 검색어로 바꾸고, 관련도가 낮은 조각과 개정 이력 표는 걸러내며, 한 문서에서 가져오는 조각 수에 상한을 두었습니다. 남은 후보 16개는 Sonnet으로 다시 정렬해 5개만 답변에 쓰고, 결과가 부족하면 검색어를 고쳐 한 번 더 검색합니다.\n[표 보정]\nPDF에서 글자만 뽑으면 표의 칸 구분이 사라져 한 줄로 이어 붙는 문제가 있어서, 표가 깨지는 쪽은 직접 옮겨 적은 표 텍스트로 교체해 답변에 사용합니다.\n[근거 확인과 후보 선택]\n여러 문서가 걸리는 질문에는 답을 섞지 않고 문서 후보 버튼을 보여 주어 사용자가 고르게 했습니다. 답변에는 문서명과 쪽 번호를 출처로 붙이고, 화면의 근거 패널에서 해당 쪽을 PDF로 미리 볼 수 있게 했습니다.\n[계산과 모델 분기]\n금액 계산이 필요한 질문은 규칙을 추출한 뒤 계산기로 직접 계산해 숫자 오류를 줄였고, 경조사 친족 관계는 별도 코드로 풀이합니다. 숫자가 틀리면 안 되는 접수 판정, 재정렬, 규칙 추출에는 Sonnet을, 검색어 변환, 일반 대화, 답변에는 Haiku를 사용해 비용을 나눴습니다. 모든 AI 호출은 LiteLLM을 거쳐 사용자별 사용량이 기록됩니다.\n[운영과 남은 과제]\n사내에 배포한 뒤 기능을 개선하며 사용 비용을 모니터링하고 있습니다. 문서 읽기와 자르기(1500자 단위, 100자 겹침)는 LibreChat 기본값 그대로라서 표 처리나 조각 방식을 바꾸려면 해당 구성요소를 직접 고쳐야 하며, 품질 평가 결과를 보고 개선 방향을 정할 예정입니다.",
-        en: "[Reusing LibreChat's document handling, building query handling in-house]\nDocument upload and vector storage reuse LibreChat's document-processing component (rag_api), with only the embedding model set to Amazon Bedrock Titan. The vector store is pgvector. For everything after a question arrives, I built a LangGraph-based service and connected the LibreChat agent to answer through it. By default the model itself decides whether to call a search tool, but in this structure an intake step classifies each question as general chat, policy question, candidate selection, or calculation, and always searches for policy questions.\n[Improving search accuracy]\nThe question is rewritten into a query suited to policy search, low-relevance chunks and revision-history tables are filtered out, and the number of chunks taken from one document is capped. The remaining 16 candidates are re-ranked with Sonnet and only 5 are used in the answer; if the result is insufficient, the query is revised and searched once more.\n[Table correction]\nExtracting only text from a PDF loses table cell boundaries and runs the contents together on one line, so pages where tables break are replaced with hand-transcribed table text before answering.\n[Source checking and candidate selection]\nWhen a question matches several documents, the answers are not blended; candidate document buttons are shown so the user chooses. Answers carry the document name and page number as the source, and a source panel lets users preview the matching page as a PDF.\n[Calculation and model routing]\nFor questions that need amounts, rules are extracted and then computed with a calculator to reduce numeric errors, and family-relationship rules for condolence and congratulatory events are resolved by separate code. Sonnet handles intake classification, re-ranking, and rule extraction, where wrong numbers are unacceptable, while Haiku handles query rewriting, general chat, and answers, splitting the cost. All AI calls go through LiteLLM so usage is recorded per user.\n[Operations and remaining work]\nAfter internal deployment, I keep improving features and monitoring usage cost. Document reading and splitting (1,500-character chunks with 100-character overlap) use LibreChat's defaults, so changing table handling or chunking requires modifying that component directly; the direction will be decided after a quality evaluation."
+        ko: "[LibreChat 문서 처리는 활용하고, 질의 처리는 직접 개발]\n문서 업로드와 벡터 저장은 LibreChat의 문서 처리 구성(rag_api)을 그대로 활용하고, 임베딩 모델만 Amazon Bedrock Titan으로 지정했습니다. 벡터 저장소는 pgvector입니다. 질문이 들어온 뒤의 처리는 LangGraph 기반 서비스를 직접 개발해, LibreChat 에이전트가 이 서비스를 거쳐 답하도록 연결했습니다. 기본 방식은 모델이 검색 도구를 부를지 스스로 판단하지만, 이 구조에서는 접수 단계에서 질문을 일반 대화, 규정 질문, 후보 선택, 계산으로 나누고 규정 질문이면 반드시 검색합니다.\n[검색 정확도 개선]\n질문을 규정 검색에 맞는 검색어로 바꾸고, 관련도가 낮은 조각과 개정 이력 표는 걸러내며, 한 문서에서 가져오는 조각 수에 상한을 두었습니다. 남은 후보 16개는 Sonnet으로 다시 정렬해 5개만 답변에 쓰고, 결과가 부족하면 검색어를 고쳐 한 번 더 검색합니다.\n[표 보정]\nPDF에서 글자만 뽑으면 표의 칸 구분이 사라져 한 줄로 이어 붙는 문제가 있어서, 표가 깨지는 쪽은 직접 옮겨 적은 표 텍스트로 교체해 답변에 사용합니다.\n[근거 확인과 후보 선택]\n여러 문서가 걸리는 질문에는 답을 섞지 않고 문서 후보 버튼을 보여 주어 사용자가 고르게 했습니다. 다만 매번 되묻는 것이 실사용에서 가장 큰 불만이었기 때문에, 후보가 하나이거나 1등이 확실히 앞서거나 직전에 고른 문서가 후보에 있으면 AI를 거치지 않고 코드로 판단해 바로 답하도록 바꿨습니다. 조건이 질문에 없을 때도 되묻고 끝내지 않고 갈래별 값을 먼저 보여 줍니다. 답변에는 문서명과 쪽 번호를 출처로 붙이고, 화면의 근거 패널에서 해당 쪽을 PDF로 미리 볼 수 있게 했습니다. 직접 연동한 방식이라 LibreChat의 기본 인용 기능을 쓸 수 없어서, 근거 정보를 답변 끝의 보이지 않는 주석으로 넘기고 화면 스크립트가 패널을 그리도록 했습니다.\n[계산과 모델 분기]\n금액 계산이 필요한 질문은 규칙을 추출한 뒤 계산기로 직접 계산해 숫자 오류를 줄였고, 경조사 친족 관계는 별도 코드로 풀이합니다. 숫자가 틀리면 안 되는 접수 판정, 재정렬, 규칙 추출에는 Sonnet을, 검색어 변환, 일반 대화, 답변에는 Haiku를 사용해 비용을 나눴습니다. 모든 AI 호출은 LiteLLM을 거쳐 사용자별 사용량이 기록됩니다.\n[운영과 남은 과제]\n사내에 배포한 뒤 기능을 개선하며 사용 비용을 모니터링하고 있습니다. 문서 읽기와 자르기(1500자 단위, 100자 겹침)는 LibreChat 기본값 그대로라서 표 처리나 조각 방식을 바꾸려면 해당 구성요소를 직접 고쳐야 하며, 품질 평가 결과를 보고 개선 방향을 정할 예정입니다.",
+        en: "[Reusing LibreChat's document handling, building query handling in-house]\nDocument upload and vector storage reuse LibreChat's document-processing component (rag_api), with only the embedding model set to Amazon Bedrock Titan. The vector store is pgvector. For everything after a question arrives, I built a LangGraph-based service and connected the LibreChat agent to answer through it. By default the model itself decides whether to call a search tool, but in this structure an intake step classifies each question as general chat, policy question, candidate selection, or calculation, and always searches for policy questions.\n[Improving search accuracy]\nThe question is rewritten into a query suited to policy search, low-relevance chunks and revision-history tables are filtered out, and the number of chunks taken from one document is capped. The remaining 16 candidates are re-ranked with Sonnet and only 5 are used in the answer; if the result is insufficient, the query is revised and searched once more.\n[Table correction]\nExtracting only text from a PDF loses table cell boundaries and runs the contents together on one line, so pages where tables break are replaced with hand-transcribed table text before answering.\n[Source checking and candidate selection]\nWhen a question matches several documents, the answers are not blended; candidate document buttons are shown so the user chooses. But since being asked every time was the biggest complaint in real use, code — not a model — now decides to answer directly when there is only one candidate, when the top candidate is clearly ahead, or when the document chosen in the previous turn is among the candidates. When the question omits a qualifying condition, the answer leads with the values per case instead of only asking back. Answers carry the document name and page number as the source, and a source panel lets users preview the matching page as a PDF. Because this is a custom integration, LibreChat's built-in citation feature is unavailable, so source data is passed as invisible comments at the end of the answer and a front-end script draws the panel.\n[Calculation and model routing]\nFor questions that need amounts, rules are extracted and then computed with a calculator to reduce numeric errors, and family-relationship rules for condolence and congratulatory events are resolved by separate code. Sonnet handles intake classification, re-ranking, and rule extraction, where wrong numbers are unacceptable, while Haiku handles query rewriting, general chat, and answers, splitting the cost. All AI calls go through LiteLLM so usage is recorded per user.\n[Operations and remaining work]\nAfter internal deployment, I keep improving features and monitoring usage cost. Document reading and splitting (1,500-character chunks with 100-character overlap) use LibreChat's defaults, so changing table handling or chunking requires modifying that component directly; the direction will be decided after a quality evaluation."
       },
       test: {
         ko: "실무자들이 확인하고 싶은 부분만 채팅으로 확인하는 작업이 대부분이었고, 코드를 구현하거나 같은 질문과 꼬리 질문을 반복하는 일이 예상보다 적어서 비용은 Claude Code PoC 때보다 현저히 낮았습니다. 하지만 여러 질문과 단답형 질문, 실제 가족 관계 요청 등에서 잘못된 답변이 나온다는 Q&A가 들어왔고, 이 이슈들을 해결하는 작업이 필요했습니다.",
@@ -276,35 +276,39 @@ const portfolioProjects = [
       en: "Aug. 2026 – present"
     },
     overview: {
-      ko: "LibreChat에 자체 Agent 서비스를 연동해 규정 검색과 근거 문서 확인이 가능한 챗봇을 배포했습니다.",
-      en: "Deployed a chatbot with policy search and source-document viewing by connecting a custom agent service to LibreChat."
+      ko: "레거시 홈페이지에 흩어져 있던 규정문서를 선별하고, LibreChat의 문서 처리는 활용하면서 질의 처리는 LangGraph로 직접 개발해 근거를 확인할 수 있는 사내 챗봇을 배포했습니다.",
+      en: "Selected the policy documents scattered across the legacy website, then deployed an internal chatbot with verifiable sources — reusing LibreChat's document handling while building the query handling in-house with LangGraph."
     },
     role: {
       ko: [
-        "LibreChat에 FastAPI 기반 자체 Agent 서비스 연동",
-        "LangGraph를 활용한 질의 처리 흐름 개발",
-        "일반 대화에는 Haiku, 규정 검색 및 결과 재정렬에는 Sonnet을 적용하는 모델 분기 구조 구현",
-        "Sonnet 기반 리랭킹으로 관련 규정문서 후보 최대 3개를 제시하고 사용자가 선택하는 흐름 구현",
-        "PDF 페이지 미리보기 및 인용 구간 강조 UI 구현",
-        "사내 배포 후 기능 개선과 사용 비용 모니터링"
+        "레거시 홈페이지의 실무 규정문서 112개를 최신 버전 44개로 정리, 초기 테스트용 6개 선정",
+        "LibreChat 문서 처리(rag_api)는 활용하고, 질의 처리는 FastAPI·LangGraph 기반 서비스로 직접 개발",
+        "질문을 일반 대화, 규정 질문, 후보 선택, 계산으로 나누는 접수 분류 구현",
+        "검색어 변환, 저관련 조각 및 개정 이력 표 필터링, Sonnet 재정렬(후보 16개 중 5개 사용) 구현",
+        "PDF 표 깨짐 보정, 금액 계산기, 경조사 친족 관계 풀이 구현",
+        "문서 후보 버튼, 문서명·쪽 번호 출처 표시, PDF 미리보기 근거 패널 구현",
+        "Sonnet·Haiku 모델 분기와 LiteLLM 사용량 기록 적용, 사내 배포 후 기능 개선과 비용 모니터링"
       ],
       en: [
-        "Connected a FastAPI-based custom agent service to LibreChat",
-        "Built the query-handling flow with LangGraph",
-        "Implemented model routing: Haiku for general chat, Sonnet for policy search and reranking",
-        "Implemented Sonnet-based reranking that offers up to 3 candidate policy documents for the user to choose",
-        "Built a PDF page preview with highlighted cited passages",
-        "Improved features and monitored usage cost after internal deployment"
+        "Narrowed the legacy site's work-related policy documents from 112 to 44 latest versions and chose 6 for initial testing",
+        "Reused LibreChat's document handling (rag_api) and built the query handling in-house as a FastAPI/LangGraph service",
+        "Implemented intake classification into general chat, policy question, candidate selection, and calculation",
+        "Implemented query rewriting, filtering of low-relevance chunks and revision-history tables, and Sonnet re-ranking (16 candidates down to 5 used)",
+        "Implemented PDF table correction, an amount calculator, and kinship resolution for condolence and congratulatory leave",
+        "Built candidate document buttons, document-name and page-number citations, and a PDF preview source panel",
+        "Applied Sonnet/Haiku model routing with LiteLLM usage logging; improved features and monitored cost after internal deployment"
       ]
     },
     outcome: {
       ko: [
-        "저비용 모델 분기를 고려한 질의 처리 구조 구현",
-        "근거 문서를 확인할 수 있는 검색 UI 개발 및 서비스 배포"
+        "사내 배포 후 실무자 대상 PoC 진행, 모델 분기로 Claude Code PoC보다 현저히 낮은 운영 비용 확인",
+        "답변마다 문서명과 쪽 번호, PDF 미리보기를 제공해 근거를 직접 확인할 수 있는 구조 구현",
+        "PoC Q&A로 접수된 오답(다중 질문, 단답형, 친족 관계)을 표 보정, 계산기, 친족 관계 풀이로 개선"
       ],
       en: [
-        "Implemented a query-handling structure with low-cost model routing",
-        "Developed and deployed a search UI that lets users check source documents"
+        "Ran a PoC with practitioners after internal deployment and confirmed operating cost far below the Claude Code PoC thanks to model routing",
+        "Implemented a structure where every answer carries the document name, page number, and a PDF preview so sources can be checked directly",
+        "Resolved wrong answers reported in PoC Q&A (multi-part questions, short answers, kinship) with table correction, a calculator, and kinship resolution"
       ]
     },
     gallery: [
@@ -325,6 +329,20 @@ const portfolioProjects = [
   },
   {
     id: "cgn-aacr",
+    story: {
+      situation: {
+        ko: "농심데이터시스템 입사 후 바이오 분야의 신규 사업 타당성을 검토하는 업무를 맡았습니다. 기존 바이오인포매틱스 파이프라인 개발과 국내외 병원 및 실험실 운영 경험을 바탕으로, 이노크라스가 제안한 사업 모델의 분석 비용, 운영 방식, 예상 수익성 및 기술적 실현 가능성을 검토하고 격주 임원회의에서 관련 내용을 보고했습니다.\n이 과정에서 기존 고객사인 이노크라스의 공동대표와 CTO를 비롯한 임원진이 방문해 사업 방향과 AACR 학회 계획을 설명했습니다. 이노크라스는 AACR을 중요한 사업적 기회로 보고 있었으며, 이를 준비하는 과정에서 농심데이터시스템이 지원할 수 있는 부분을 논의했습니다.\n농심데이터시스템 역시 이번 협업을 통해 바이오 AI 솔루션의 사업 가능성을 확인하고, AACR 현장 데모와 세션 발표의 반응, 미국 본사의 규모 및 운영 현황 등을 신규 사업 검토에 참고하고자 했습니다. 이후 AI 플랫폼 개발 협업이 진행되면서 동료 1명과 함께 미국 샌디에이고 이노크라스 본사에 약 한 달간 파견되었습니다.",
+        en: "After joining Nongshim Data System, I was assigned to assess the feasibility of new business in the bio field. Drawing on my experience developing bioinformatics pipelines and working in hospitals and laboratories in Korea and abroad, I reviewed the analysis costs, operating model, expected profitability, and technical feasibility of the business model Inocras proposed, and reported the findings at the biweekly executive meeting.\nDuring that work, executives from Inocras — an existing customer — including the co-CEO and the CTO, visited to present their business direction and their plans for the AACR conference. Inocras saw AACR as an important business opportunity, and we discussed which parts of the preparation Nongshim Data System could support.\nFor Nongshim Data System, the collaboration was likewise a way to confirm the business potential of bio AI solutions and to draw on the response to the AACR on-site demo and session talk, along with the scale and operations of the US headquarters, in its new-business review. As the AI platform development collaboration moved forward, I was assigned with one colleague to the Inocras headquarters in San Diego for about a month."
+      },
+      task: {
+        ko: "프로젝트의 주요 과제는 이노크라스가 제공한 1,342개 샘플의 분석 결과 파일을 AI 플랫폼에 적용하고, AACR 학회 세션 발표 및 현장 데모에서 활용할 수 있는 수준으로 개발하는 것이었습니다.\n사용자가 자연어 프롬프트를 입력하면 실제 분석 데이터를 바탕으로 원하는 정보를 조회하고, Waterfall Plot이나 Circos Plot 등의 시각화 결과와 분석 설명을 생성할 수 있어야 했습니다. 사전에 준비된 결과를 보여주는 것이 아니라, 현장에서 입력한 질문에 따라 필요한 데이터와 분석 기능을 선택하고 실행하는 것이 핵심이었습니다.\n이를 위해 분석 데이터와 LLM을 연결하고, 사용자 요청에 맞는 분석 코드 실행 및 결과 시각화 기능을 구현해야 했습니다. 또한 생성된 결과의 데이터 일치 여부와 바이오 도메인 관점의 적절성을 확인하고, 사용자가 별도의 코드 작성 없이 결과를 확인할 수 있도록 화면을 구성해야 했습니다.",
+        en: "The main task was to apply the analysis result files for the 1,342 samples Inocras provided to the AI platform and develop it to a level usable in the AACR session talk and the on-site demo.\nWhen a user entered a natural-language prompt, the platform had to query the requested information from the real analysis data and generate visualizations such as waterfall plots or Circos plots together with an analytical explanation. The key was not to show prepared results, but to select and run the data and analysis functions each question required, from questions typed on site.\nThat meant connecting the analysis data to the LLM and implementing analysis-code execution and result visualization matching the user's request. It also meant verifying that the generated results matched the data and were sound from a bio-domain perspective, and building an interface where users could check results without writing any code."
+      },
+      action: {
+        ko: "[AACR 데모용 AI 플랫폼 기획 및 개발]\n미국 현지에서는 AACR 학회 발표와 데모에 사용할 AI 플랫폼이 필요했지만, 이를 개발할 별도의 인력이 없는 상황이었습니다. 이에 분석 기능뿐 아니라 사용자가 직접 Query를 입력하고 결과를 확인할 수 있는 화면까지 함께 구성해야 했습니다.\n저는 1,342개 샘플의 분석 결과를 바탕으로 사용자가 Query를 입력하면 관련 데이터와 Plot, 분석 설명을 확인할 수 있는 화면 구성을 제안했습니다. 학회 현장에서 직접 시연하는 것이 목적이었기 때문에 미리 만들어 놓은 결과를 보여주기보다는, 입력된 Query에 따라 실제 분석이 실행되고 결과가 화면에 표시되도록 개발했습니다.\n[Claude Code Skills 및 README.md 기반 실행 구조 설계]\n초기에는 AWS Bedrock을 통해 Claude Opus와 Sonnet을 활용했지만, 당시 모델만으로는 바이오 데이터를 정확하게 해석하거나 일관된 분석 결과를 생성하는 데 한계가 있었습니다. 특히 데이터 계산 과정에서 실행 조건이나 명령어를 구체적으로 지정하지 않으면 의도와 다른 결과가 나오는 경우가 있었습니다.\n학회 데모에서는 사용자가 어떤 Query를 입력하더라도 실제 데이터에 근거한 결과를 제공해야 했기 때문에, LLM이 매번 분석 방법과 코드를 결정하도록 하는 방식은 적합하지 않다고 판단했습니다. 이에 Claude Code Skills를 활용해 분석 기능을 분리하고, README.md로 각 기능을 연결하는 구조를 제안했습니다.\n상위 README.md를 Coordinator 역할로 사용해 각 Skill의 위치와 사용 조건을 정리했습니다. 예를 들어 Query에 Waterfall Plot이나 Circos Plot 관련 요청이 들어오면 해당 키워드를 트리거로 삼아 관련 Skill 문서를 참조하도록 했습니다. 바이오 관련 내용 검토에는 K-Dense를 활용하도록 연결했습니다.\n각 하위 폴더에도 Markdown 문서를 두어 필요한 입력 파일과 변수, 실행할 Python 스크립트의 위치를 안내했습니다. 이를 통해 Claude가 상위 문서를 참고해 필요한 Skill을 찾고, 하위 문서에 정의된 절차에 따라 작업하도록 구성했습니다.\n[Skills별 Python 분석 및 시각화 코드 구현]\nWaterfall Plot이나 Circos Plot처럼 정해진 계산 방식과 시각화 형식이 필요한 기능은 Python으로 미리 구현하고, 실행할 때 필요한 변수만 전달하도록 구성했습니다.\n각 Skill 폴더에는 실행 지침을 작성한 Markdown 문서와 Python 스크립트를 함께 배치했습니다. Markdown 문서에는 사용할 분석 파일과 입력 변수, 실행 방법을 정의했으며, 실제 데이터 계산과 Plot 생성은 Python 코드에서 처리하도록 했습니다.\n사용자 Query가 들어오면 Claude는 관련 Skill을 찾아 필요한 입력 변수를 전달하고, Python 스크립트가 분석 결과와 Plot을 생성하는 방식이었습니다.\n이렇게 LLM에는 Query 해석과 기능 선택을 맡기고, 계산과 시각화는 기존 Python 코드에서 처리하도록 구분했습니다. 이를 통해 Query 표현에 따라 분석 코드가 달라지는 문제를 줄이고, 동일한 데이터와 조건에서 결과를 재현할 수 있도록 했습니다.\n[현장 요구사항 반영 및 데모 준비]\n개발 과정에서는 이노크라스 관계자들과 필요한 기능과 화면 구성을 논의하면서 수정 작업을 진행했습니다.\nAACR 학회 세션 발표와 현장 데모에서 사용자가 직접 Query를 입력하고, 생성된 Plot과 분석 설명을 확인할 수 있도록 기능을 연결했습니다. 또한 AWS 기반 실행 환경 도입에도 참여하며 분석 코드와 플랫폼 구동에 필요한 부분을 함께 검토했습니다.",
+        en: "[Planning and building the AI platform for the AACR demo]\nOn site in the US, an AI platform was needed for the AACR talk and demo, but there was no separate engineer to build it. That meant putting together not only the analysis functions but also the screen where a user could enter a query themselves and see the result.\nBased on the analysis results of the 1,342 samples, I proposed a layout where a user enters a query and sees the related data, plots, and an analytical explanation. Because the point was to demonstrate it live at the conference, I built it so that the analysis actually ran against the query entered and the result appeared on screen, rather than showing pre-built results.\n[Designing the execution structure around Claude Code Skills and README.md]\nAt first we used Claude Opus and Sonnet through AWS Bedrock, but the models of the time had limits in interpreting bio data accurately and producing consistent analysis results. In particular, when execution conditions or commands were not specified concretely, the calculation step sometimes produced results that differed from what was intended.\nSince the demo had to return results grounded in the real data no matter what query a user typed, I judged that letting the LLM decide the analysis method and the code every time was not suitable. I therefore proposed separating the analysis functions as Claude Code Skills and wiring them together through README.md files.\nThe top-level README.md served as a coordinator, listing where each skill lived and the conditions for using it. For example, when a query involved a waterfall plot or a Circos plot, those keywords acted as triggers to consult the matching skill document. For review of bio-related content, it pointed to K-Dense.\nEach sub-folder also carried a Markdown document describing the input files and variables required and the location of the Python script to run. With this, Claude consults the top-level document to find the skill it needs and then works through the procedure defined in the sub-document.\n[Implementing the Python analysis and visualization code per skill]\nFunctions with a fixed calculation method and visual format, such as waterfall plots and Circos plots, were implemented in Python in advance, so that only the variables needed at run time were passed in.\nEach skill folder holds both a Markdown document with the execution instructions and the Python script. The Markdown defines the analysis files to use, the input variables, and how to run it, while the actual data calculation and plot generation happen in the Python code.\nWhen a user query arrives, Claude finds the relevant skill and passes the required input variables, and the Python script produces the analysis result and the plot.\nThis divided the work: the LLM handles interpreting the query and choosing the function, while the existing Python code handles calculation and visualization. It reduced the problem of the analysis code changing with how a query was phrased, and made results reproducible for the same data and conditions.\n[Reflecting on-site requirements and preparing the demo]\nDuring development I discussed the required functions and screen layout with people at Inocras and made revisions accordingly.\nFor the AACR session talk and the on-site demo, I connected the features so that a user could enter a query directly and see the generated plot and analytical explanation. I also took part in introducing the AWS-based execution environment, reviewing what the analysis code and the platform needed in order to run."
+      }
+    },
     badge: { flag: "us", text: locale("미국 파견", "US assignment") },
     featured: true,
     links: [{ href: "https://www.aacr.org/meeting/aacr-annual-meeting-2026/", label: locale("AACR 2026", "AACR 2026") }],
@@ -365,19 +383,28 @@ const portfolioProjects = [
     outcome: {
       ko: [
         "약 1개월 내 AACR 2026 컨퍼런스에서 활용할 데모 완성",
-        "연구자 사용 환경을 고려한 UI 및 Agent 작업 지침 개선"
+        "1,342개 샘플의 분석 결과를 자연어 질문만으로 조회, 분석, 시각화하는 흐름을 AACR 세션 발표와 현장 데모에서 시연"
       ],
       en: [
         "Completed a demo within about a month for the AACR 2026 conference",
-        "Improved the UI and agent task instructions for researchers"
+        "Demonstrated querying, analyzing, and visualizing the analysis results of 1,342 samples through natural-language questions alone, in the AACR session talk and the on-site demo"
       ]
     },
+    gallery: [
+      { ko: "AACR 학회 소개", en: "AACR conference introduction" },
+      { ko: "데모 시연: 세션에서 사용할 WGS 코호트 데이터셋 선택", en: "Demo walkthrough: selecting the WGS cohort datasets for a session" },
+      { ko: "데모 시연: HRD 상위 5개 샘플의 Circos plot 생성 과정과 이미지", en: "Demo walkthrough: generating Circos plots for the top 5 HRD samples, with the images produced" },
+      { ko: "데모 시연: 고객의 요청사항 자동 plot화 및 실제 데이터 적용", en: "Demo walkthrough: automated plotting of the customer's request, applied to real data" },
+      { ko: "AWS 아키텍처: 초기 구성도", en: "AWS architecture: initial design" },
+      { ko: "AWS 아키텍처: 보안 및 운영 제안", en: "AWS architecture: security and operations proposal" }
+    ],
     tools: [
       "Python",
       "AWS",
       "Docker",
       "LibreChat",
-      "Claude Code Skills"
+      "Claude Code Skills",
+      "Bioinformatics"
     ]
   },
   {
@@ -424,6 +451,16 @@ const portfolioProjects = [
         "Standardized the execution environment and reduced dependence on per-user local setups"
       ]
     },
+    gallery: [
+      { ko: "메인 페이지", en: "Main page" },
+      { ko: "Streamlit 활용 LLM 파일 조회", en: "LLM-driven file lookup built with Streamlit" },
+      { ko: "모니터링", en: "Monitoring" },
+      { ko: "샘플 단계 확인", en: "Per-sample stage tracking" },
+      // 5번은 Jupyter + RStudio 화면을 합친 "초기 작업 과정" 이미지 자리 (5.png 추가 예정)
+      { ko: "초기 작업 과정: Jupyter와 RStudio에서 개별 수행", en: "Initial way of working: analyses run individually in Jupyter and RStudio" },
+      { ko: "파이프라인화: singlecell 전처리", en: "Converted to a pipeline: single-cell preprocessing" },
+      { ko: "파이프라인화: visium 전처리", en: "Converted to a pipeline: Visium preprocessing" }
+    ],
     tools: [
       "Python",
       "R",
@@ -432,6 +469,7 @@ const portfolioProjects = [
       "Snakemake",
       "Singularity",
       "Docker",
+      "Streamlit",
       "Ollama"
     ]
   },
@@ -796,6 +834,7 @@ const milestones = [
   { f: 'edu', link: 'assets/papers/dongguk-bsc-report.pdf', start: '2013-03', end: '2019-02', org: locale('컴퓨터공학과 학사 (B.Sc.)', 'B.Sc., Computer Science and Engineering'), inst: locale('동국대학교', 'Dongguk University'), text: locale('학점 3.24 / 4.5<br>학사 졸업 논문: A domestic crime information system by year. (web site)', 'GPA 3.24 / 4.5<br>Bachelor’s thesis: A domestic crime information system by year. (web site)') },
   { f: 'pub', link: 'https://acsjournals.onlinelibrary.wiley.com/doi/full/10.1002/cncr.35609', date: locale('2025.01', 'Jan. 2025'), org: locale('Phase II Trial of Avelumab in Combination with Gemcitabine in Advanced Leiomyosarcoma as a Second-line Treatment (EAGLES, KCSG UN18-09)', 'Phase II Trial of Avelumab in Combination with Gemcitabine in Advanced Leiomyosarcoma as a Second-line Treatment (EAGLES, KCSG UN18-09)'), inst: locale('Cancer, vol. 131, Issue 1, e35609', 'Cancer, vol. 131, Issue 1, e35609'), text: locale('Miso Kim MD, PhD, …, <b>Jeongkyu Kim</b> MS, Young Saing Kim MD, PhD, Jin-Hee Ahn MD, PhD', 'Miso Kim MD, PhD, …, <b>Jeongkyu Kim</b> MS, Young Saing Kim MD, PhD, Jin-Hee Ahn MD, PhD') },
   { f: 'pub', link: 'https://ieeexplore.ieee.org/document/9223667', date: locale('2020.12', '2020'), org: locale('A Review on Sequence Alignment Algorithms for Short Reads Based on Next-Generation Sequencing', 'A Review on Sequence Alignment Algorithms for Short Reads Based on Next-Generation Sequencing'), inst: locale('IEEE Access, vol. 8, pp. 189811–189822', 'IEEE Access, vol. 8, pp. 189811–189822'), text: locale('<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
+    { f: 'award', link: 'assets/awards/wngp-2025.jpg', date: locale('2025.08', 'Aug. 2025'), org: locale('스포츠모델 AGE 3위', 'Sports Model AGE, 3rd place'), inst: locale('천안 WNGP (World Natural Grand Prix)', 'WNGP Cheonan (World Natural Grand Prix)'), text: locale('<b>Jeongkyu Kim</b>', '<b>Jeongkyu Kim</b>') },
     { f: 'award', link: 'assets/awards/kms-best-paper-2020.pdf', date: locale('2020.08', 'Aug. 2020'), org: locale('우수논문상', 'Best Paper Award'), inst: locale('Korea Multimedia Society', 'Korea Multimedia Society'), text: locale('<b>Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads</b><br><b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads</b><br><b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
 { f: 'conf', link: 'assets/papers/kms-hash-sorting-2020.pdf', date: locale('2020.08', 'Aug. 2020'), org: locale('Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads', 'Research on Hash Table-Based Sorting Process Using k-mer Approach with Short Reads'), inst: locale('Korea Multimedia Society', 'Korea Multimedia Society'), text: locale('<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi', '<b>Jeongkyu Kim</b>, Mingeun Ji, Gangman Yi') },
   { f: 'conf', link: 'assets/papers/kips-seed-aligner-2019.pdf', date: locale('2019.11', 'Nov. 2019'), org: locale('A Study on the Implementation of a Seed-Based Short Read Aligner', 'A Study on the Implementation of a Seed-Based Short Read Aligner'), inst: locale('Korea Information Processing Society, vol. 26, no. 2, pp. 1107–1109', 'Korea Information Processing Society, vol. 26, no. 2, pp. 1107–1109'), text: locale('Mingeun Ji, <b>Jeongkyu Kim</b>, Gangman Yi', 'Mingeun Ji, <b>Jeongkyu Kim</b>, Gangman Yi') },
