@@ -366,8 +366,16 @@ footer{text-align:left;padding:28px 20px}
 @media print{
   @page{size:A4;margin:12mm}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  header,nav,.cta,.totop,.cord-wrap,.flag,.navbtn,#filters{display:none!important}
-  article,.card,.tl-item{break-inside:avoid}
+  header,nav,.cta,.totop,.cord-wrap,.flag,.navbtn,.filters{display:none!important}
+  /* 긴 경력 카드는 쪼개지게 두고, 안쪽의 작은 덩어리만 묶는다 (안 그러면 카드가 통째로 밀려 빈 공간이 생긴다) */
+  .card,.tl-item,.tl-project,.tl-sub,.sk-card,#contact,.panel{break-inside:avoid}
+  .tl-card{break-inside:auto}
+  /* chip 은 장식용 라벨인데 혼자 이전 페이지 끝에 남는 일이 생긴다
+     (break-after:avoid 는 크로미움에서 제대로 지켜지지 않음). 의미는 h2 제목이 담으므로 숨긴다 */
+  section > .chip{display:none!important}
+  /* 카드 그리드는 크로미움에서 쪼개지지 않고 통째로 밀린다. 제목이 이전 페이지에
+     혼자 남지 않도록 제목부터 새 페이지에서 시작시킨다 */
+  #projects .title{break-before:page}
   .float-card{position:static}
   .track{flex-wrap:wrap;transform:none!important}
   .track .skill{flex:0 0 calc(25% - 12px)}
