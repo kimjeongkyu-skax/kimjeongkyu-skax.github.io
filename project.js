@@ -33,7 +33,7 @@ const field = (key, value) => {
       : [];
     if (rows.length) body = `<div class="star">${rows.join('')}</div>`;
     else if (value && pick(value)) body = `<p class="story-text">${esc(pick(value))}</p>`;
-    else body = `<span class="story-empty">${t.storyEmpty}</span>`;
+    else return ''; // 스토리가 없으면 "프로젝트 스토리" 항목 자체를 숨긴다
   }
   else body = value ? esc(pick(value)) : t.unavailable;
   return `<div><dt>${t[key]}</dt><dd>${body}</dd></div>`;

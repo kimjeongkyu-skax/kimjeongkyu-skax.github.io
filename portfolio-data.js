@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261130t';
+const ASSET_V = '20261201h';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -459,8 +459,8 @@ const portfolioProjects = [
       { ko: "샘플 단계 확인", en: "Per-sample stage tracking" },
       // 5번은 Jupyter + RStudio 화면을 합친 "초기 작업 과정" 이미지 자리 (5.png 추가 예정)
       { ko: "초기 작업 과정: Jupyter와 RStudio에서 개별 수행", en: "Initial way of working: analyses run individually in Jupyter and RStudio" },
-      { ko: "파이프라인화: singlecell 전처리", en: "Converted to a pipeline: single-cell preprocessing" },
-      { ko: "파이프라인화: visium 전처리", en: "Converted to a pipeline: Visium preprocessing" }
+      { ko: "파이프라인화: singlecell 전처리 (DAG)", en: "Converted to a pipeline: single-cell preprocessing (DAG)" },
+      { ko: "파이프라인화: visium 전처리 (DAG)", en: "Converted to a pipeline: Visium preprocessing (DAG)" }
     ],
     tools: [
       "Python",
@@ -477,6 +477,20 @@ const portfolioProjects = [
   {
     id: "liquid-ldt",
     featured: true,
+    story: {
+      situation: {
+        ko: "액체생검은 혈액에서 암 변이를 찾는 검사입니다. 조직을 떼어내는 검사와 달리 혈액에 아주 적게 섞여 있는 변이를 잡아내야 해서, 분석이 맞게 돌아가고 있는지 확인할 기준이 필요했습니다. 회사는 이 검사를 의료기관에 제공하는 LDT 분석 시스템으로 만들려 했고, 저는 분석 파이프라인 개발과 성능 검증을 맡았습니다.",
+        en: "A liquid biopsy looks for cancer variants in blood. Unlike a tissue biopsy it has to pick up variants present in very small amounts, so we needed a reference point for confirming the analysis was working correctly. The company set out to turn the test into an LDT analysis system for medical institutions, and I took on the pipeline development and the performance validation."
+      },
+      task: {
+        ko: "기존 레거시 액체생검 파이프라인의 데이터를 검수하면서, 데이터의 세 번째 base 구간에서 에러율이 높게 나오는 것을 확인했습니다. UMI 쪽도 조합 수가 적어 정확도를 더 끌어올리기 어려운 상태였습니다. 정확도를 높일 새로운 방법론이 필요하다고 판단해, 레거시 파이프라인을 걷어내고 신규 파이프라인으로 전환하면서 개발에 착수했습니다.",
+        en: "Reviewing the data from the legacy liquid biopsy pipeline, I found a high error rate at the third base position. The UMI side also had too few combinations to push accuracy any further. Judging that a new methodology was needed to raise accuracy, I began development by stripping out the legacy pipeline and moving to a new one."
+      },
+      action: {
+        ko: "UMI 기반 변이 분석 파이프라인을 개발하고, 분석 모듈을 컨테이너로 묶어 Snakemake 워크플로우로 자동화했습니다. raw 데이터부터 결과까지 단계별로 검증하면서 레거시 파이프라인의 결과 데이터 문제를 찾아 고쳤습니다.\n성능 검증은 표준물질을 구입해 진행했습니다. 변이가 어느 수준까지 검출되는지 직접 측정해 LOD를 확인하고, 같은 조건에서 경쟁 제품과 비교했습니다. 이 결과는 범부처전주기의료기기연구개발사업 과제의 핵심 요소로 제공했습니다.\n* 사업화와 범부처 과제에 관련된 내용이어서 세부 사항은 축약했습니다.",
+        en: "Developed a UMI-based variant-analysis pipeline, packaged the analysis modules as containers, and automated them as a Snakemake workflow. Verifying each stage from the raw data through to the results surfaced problems in the legacy pipeline's output, which I then fixed.\nPerformance validation was done with purchased reference material: I measured directly how far down variants could still be detected to establish the limit of detection, and compared that against competing products under the same conditions. Those results went into the Korea Medical Device Development Fund project as a core component.\n* Details are abbreviated because this work relates to commercialization and to a national multi-ministry R&D project."
+      }
+    },
     abbr: locale("LDT(Laboratory Developed Test, 실험실 자체개발 검사), UMI(Unique Molecular Identifier, 고유 분자 식별자), LOD(Limit of Detection, 검출한계)", "LDT (Laboratory Developed Test), UMI (Unique Molecular Identifier), LOD (Limit of Detection)"),
     title: {
       ko: "액체생검 LDT 분석 플랫폼 개발 및 성능 검증",
@@ -532,6 +546,11 @@ const portfolioProjects = [
         "Supported building, delivering, and improving operations of the analysis system for medical institutions"
       ]
     },
+    gallery: [
+      { ko: "납품용 일체형 파이프라인을 모듈로 나누고 모듈별 CPU/Memory 최적화", en: "Splitting the all-in-one delivery pipeline into modules and optimizing CPU and memory per module" },
+      { ko: "Snakemake 워크플로우 실행 로그", en: "Snakemake workflow run log" },
+      { ko: "Snakemake module DAG 구조", en: "Snakemake module DAG structure" }
+    ],
     tools: [
       "Python",
       "Linux",
@@ -544,16 +563,16 @@ const portfolioProjects = [
     id: "hospital",
     story: {
       situation: {
-        ko: "자동 배포 체계를 만든 뒤, 실제 병원 현장에 새 버전을 올리는 단계였습니다. 레거시가 이미 설치되어 있었지만 도입 후 활용이 저조했던 병원들이 있었고, 그곳부터 새 버전으로 교체해 나갔습니다.\n현장은 폐쇄망이었고 병원마다 장비와 내부 절차, 승인 방식이 달랐습니다. 레거시는 DB를 들여다볼 화면이 없어 DBeaver나 리눅스로 직접 접속해 컬럼을 확인해야 했고, 오류가 나도 로그가 남지 않는 경우가 있어 원인을 좁히기 어려웠습니다.",
-        en: "With the automated deployment in place, the next phase was putting the new version onto the hospital floor. The legacy system was already installed at several sites, but adoption had been low at some of them, and those were the first to be replaced.\nThe sites ran on closed networks, and each hospital had different equipment, internal procedures, and approval routes. The legacy system had no screen for inspecting the database, so columns had to be checked by connecting directly through DBeaver or Linux, and some errors left no log at all, which made narrowing down a cause difficult."
+        ko: "자동 배포 체계를 만든 뒤, 실제 병원 현장에 새 버전을 올리는 단계였습니다. 레거시가 설치되어 있었지만 활용이 저조했던 병원부터 교체해 나갔습니다. 현장은 폐쇄망이었고 병원마다 장비와 내부 절차, 승인 방식이 달랐습니다. 레거시는 DB를 볼 화면이 없어 DBeaver나 리눅스로 직접 컬럼을 확인해야 했고, 오류가 나도 로그가 남지 않는 경우가 있었습니다.\n분석 파이프라인이 병원 서버 스펙에 맞지 않고 최적화되지 않아 문제가 계속 발생했습니다. 여러 병원에서 컴플레인이 들어왔고, 분석이 중간에 죽으면 실무자가 직접 가서 DB의 run 코드를 수정하고 분석을 모두 지운 뒤 다시 돌리는 일이 반복되었습니다. 이에 사내 사수와 서버 관리자와 함께 개선 방향을 모색했습니다.",
+        en: "With the automated deployment in place, the next stage was rolling the new version out at the hospitals themselves. Legacy installs were already running, and I started with the hospitals where adoption had been low. The sites ran on a closed network, and equipment, internal procedures, and approval routes differed from hospital to hospital. The legacy system had no screen for inspecting the database, so columns had to be checked directly through DBeaver or Linux, and errors sometimes left no log at all.\nProblems kept recurring because the analysis pipeline did not fit the specifications of the hospital servers and had not been optimized. Complaints came in from several hospitals, and whenever a run died midway an operator had to go on site, edit the run code in the database, delete the whole analysis, and start it over. I began looking for a way to improve this together with my senior colleague and the server administrator."
       },
       task: {
-        ko: "새 버전을 설치하는 것만으로는 끝나지 않았습니다. 기존 결과와 동일한 결과가 나오는지 확인해야 했고, 운영 중 발생하는 장애에 현장에서 대응해야 했습니다.\n한 달에 적게는 20번, 많게는 30번 병원을 방문했습니다. 하루에 많게는 세 곳, 보통 두 곳을 다니며 장비 확인, 병원 내부 절차와 승인 확인, 프로그램 설치, 시스템 연동, 네트워크 마운팅을 함께 진행했습니다. 사용자는 병리과 소속 병리사와 병리의였기 때문에, 요구사항도 직접 듣고 판단해야 했습니다.",
-        en: "Installing the new version was not the end of it. Results had to match what the previous system produced, and failures during operation had to be handled on site.\nI visited hospitals 20 to 30 times a month — up to three sites in a day, usually two — checking equipment, confirming each hospital's internal procedures and approvals, installing the software, integrating systems, and mounting network storage. The users were pathologists and pathology technologists, so requirements came directly from them and had to be judged on the spot."
+        ko: "배포 방식을 정하고, 정해진 날 정해진 시간에 작업을 끝내는 것이 과제였습니다. 기존 레거시와 동등한 결과가 나오는지 데이터와 성능을 평가해야 했고, 오류가 발생하지 않는 상태에서 병원의 LIMS와 EMR 연동까지 마쳐야 했습니다.\n한 달에 적게는 20번, 많게는 30번 병원을 방문했습니다. 하루에 많게는 세 곳, 보통 두 곳을 다니며 장비 확인, 병원 내부 절차와 승인 확인, 프로그램 설치, 시스템 연동, 네트워크 마운팅을 진행했습니다. 사용자가 병리과 병리사와 병리의였기 때문에 요구사항도 직접 듣고 판단했습니다.",
+        en: "The task was to settle on a deployment approach and finish the work on a fixed date, within a fixed window. The data and the performance had to be evaluated to show the new version matched the legacy system, and the integration with the hospital's LIMS and EMR had to be completed with no errors along the way.\nI visited hospitals 20 to 30 times a month — up to three sites in a day, usually two — checking equipment, confirming each hospital's internal procedures and approvals, installing the software, integrating systems, and mounting network storage. The users were pathologists and pathology technologists, so I took their requirements directly and decided on them myself."
       },
       action: {
-        ko: "[현장 배포와 결과 검증]\n자동 배포 스크립트로 설치하고 네트워크 마운팅과 시스템 연동을 진행했습니다. 기존 시스템의 결과와 새 버전의 결과가 같은지 비교해 확인한 뒤 운영으로 넘겼습니다. 조직생검이 아닌 다른 검사 패널용으로 튜닝한 버전을 요청받았을 때도 설정과 DB dump만 교체해 같은 설치 절차를 그대로 활용했습니다.\n[MNP 저장 오류 추적]\n변이 분석 결과를 저장하는 과정에서 오류가 발생했습니다. MuTect이 call한 MNP 중 표현이 길게 나오는 건이 있었고, 저장 컬럼이 VARCHAR(50)으로 제한되어 있어 길이를 초과하는 값이 들어가지 못하고 있었습니다. 폐쇄망이라 자료를 찾아볼 수 없어 로그로 증상을 좁히고, 밖으로 나가 확인한 뒤 다시 들어와 적용하는 과정을 반복했습니다. 실제 데이터의 길이를 확인한 뒤 VARCHAR(200)으로 변경해 해결했습니다.\n[운영 기반 정비]\n레거시 스크립트를 모듈로 분리하고 실행 환경을 표준화했습니다. Daemon과 Logging을 구성해 오류가 났을 때 기록이 남도록 하고, DB Migration을 수행했습니다.\n[사용자 요구사항 반영]\n병리과 담당자의 요구사항이 많았습니다. 그중 실제로 필요하다고 판단한 기능은 따로 만들어 적용했습니다. IGV-Report를 모듈로 구성해, LIMS에서 스냅샷 이미지로 보던 것을 HTML로 바로 열어 볼 수 있도록 한 것이 그 사례입니다.\n[성능 한계 확인]\n한 병원에서 분석을 세 번 돌리면 한 번은 실패하는 문제가 있었습니다. 원인을 보니 2~5GB 수준이던 raw data가 어느 시점부터 7~10GB로 늘어나면서 메모리가 부족해진 것이었습니다. 개별 대응으로는 한계가 있다고 판단해, 파이프라인 전면 최적화와 Snakemake 전환이 필요하다는 결론을 냈습니다.\n[인수인계]\n운영상 이슈가 줄어든 시점에 담당 업무를 인수인계하고 일본 파견으로 이동했습니다.",
-        en: "[On-site deployment and result verification]\nInstalled with the automated deployment script, then handled network mounting and system integration. Before handing a site over to operations, I compared the new version's results against the previous system's to confirm they matched. When a version tuned for a test panel other than tissue biopsy was requested, the same installation procedure was reused by replacing only the configuration and the DB dump.\n[Tracing an MNP storage failure]\nStoring variant-analysis results was failing. Among the MNPs called by MuTect, some had unusually long representations, and the storage column was limited to VARCHAR(50), so values over that length could not be written. On a closed network there was no way to look anything up, so I narrowed the symptom down from the logs, stepped out to check, and came back in to apply what I found — repeatedly. After measuring the actual data lengths, I changed the column to VARCHAR(200), which resolved it.\n[Shoring up the operating base]\nSplit the legacy scripts into modules and standardized the execution environment. Configured a daemon and logging so that failures left a record, and carried out the DB migration.\n[Acting on user requirements]\nThe pathology staff raised a lot of requests. For the ones I judged genuinely necessary, I built the feature and rolled it out. One example: packaging IGV-Report as a module so that what had been viewed as a snapshot image in the LIMS could be opened directly as HTML.\n[Identifying a performance ceiling]\nAt one site, roughly one run in three failed. The cause was memory: raw data that had been 2–5 GB had grown to 7–10 GB. Case-by-case fixes were not going to hold, so I concluded that the pipeline needed a full optimization pass and a move to Snakemake.\n[Handover]\nOnce operational issues had settled down, I handed the work over and moved on to the assignment in Japan."
+        ko: "[레거시 장애 분석 및 파이프라인 개선 방향 수립]\n기존 분석 파이프라인은 오류가 발생해도 로그가 제대로 남지 않아 원인을 확인하기 어려웠습니다. 분석이 중단되면 현장에서 DB의 Run 상태를 수정하고 기존 분석 결과를 정리한 뒤 다시 실행해야 하는 경우도 있었습니다.\n특히 서울성모병원에서는 분석을 세 번 실행하면 한 번 정도 실패하는 문제가 반복됐습니다. 원인을 확인한 결과, 기존 2~5GB 수준이던 Raw Data가 실험 건수에 따라 7~10GB까지 증가하면서 서버 메모리가 부족해지는 문제였습니다.\n기존 스크립트를 부분적으로 수정하는 방식으로는 대응에 한계가 있다고 판단했습니다. 이에 사수와 서버 관리자와 함께 파이프라인의 모듈화, 실행 환경 분리, 형상관리 및 워크플로 도구 도입을 검토했습니다.\n[Snakemake 및 Singularity 기반 파이프라인 재구성]\n파이프라인 개선을 위해 Snakemake와 Nextflow 등을 검토했고, 기존에 Snakemake를 사용해 본 서버 관리자와 사수의 의견을 참고해 Snakemake를 선택했습니다.\n레거시 분석 스크립트를 기능별 모듈로 분리하고, Singularity SIF 파일을 활용해 각 모듈의 실행 환경을 구성했습니다. 이후 Snakemake Rule로 모듈 간 실행 순서와 의존성을 정의하고, 전체 분석 과정이 하나의 워크플로로 동작하도록 재구성했습니다. 또한 Daemon과 Logging을 구성해 분석 실행 상태와 오류 기록을 확인할 수 있도록 개선했습니다.\n[병원별 분석 파이프라인 배포 및 결과 검증]\n병원마다 서버 사양과 폐쇄망 환경이 달랐기 때문에 설치 과정과 실행 설정을 현장 환경에 맞춰 진행해야 했습니다. 기존에 개발한 자동 배포 스크립트를 활용해 Singularity SIF 파일과 Snakemake Rule, 분석에 필요한 설정 파일을 배포했습니다. 데이터 접근을 위한 네트워크 마운팅과 실행 환경 설정을 진행하고, Crontab을 등록해 정해진 일정에 따라 필요한 작업이 실행되도록 구성했습니다.\n배포 후에는 기존 레거시 파이프라인과 신규 파이프라인의 분석 결과를 비교해 동일성을 검증했습니다. 분석이 정상적으로 완료되는지 확인한 뒤 현장 운영으로 전환했습니다. 이후 오전마다 분석 실행 상태와 오류 발생 여부를 점검하며 운영을 안정화했습니다.\n[병리과 사용자 요구사항 반영]\n병원 현장을 방문하면서 병리사와 병리의에게 시스템 사용 과정의 불편 사항과 개선 요청을 직접 전달받았습니다. 수집한 요구사항은 신규 버전 배포 시 함께 반영할 수 있도록 정리했습니다. 대표적인 사례가 IGV 조회 기능이었습니다. 기존에는 분석 결과를 스냅샷 이미지로 제공하고 있어 변이 위치와 주변 서열을 자세히 확인하기 어렵다는 의견이 있었습니다.\n이 부분을 개선하기 위해 분석 파이프라인에 오픈소스 IGV-Report 모듈을 추가했습니다. 분석 과정에서 IGV-Report를 통해 HTML 결과물을 생성하고, 생성된 파일을 LIMS와 연동해 사용자가 직접 조회할 수 있도록 구성했습니다. 이를 통해 기존의 정적인 스냅샷 이미지 대신 HTML 기반의 IGV 결과를 확인할 수 있도록 개선했습니다.",
+        en: "[Analyzing legacy failures and setting the direction for the pipeline]\nThe existing analysis pipeline did not leave proper logs when something went wrong, which made causes hard to establish. When a run stopped, there were cases where someone had to go on site, correct the run status in the database, clear out the previous results, and start it again.\nAt Seoul St. Mary's Hospital in particular, roughly one run in three kept failing. On investigation, raw data that had been 2-5 GB was growing to 7-10 GB depending on the number of experiments, leaving the server short of memory.\nPatching the existing scripts piece by piece was clearly not going to keep up. Together with my senior colleague and the server administrator, I looked into modularizing the pipeline, isolating its runtime, and adopting configuration management and a workflow tool.\n[Rebuilding the pipeline on Snakemake and Singularity]\nI reviewed Snakemake, Nextflow, and others, and chose Snakemake on the advice of the server administrator and my senior colleague, who had both used it before.\nI split the legacy analysis scripts into modules by function and built the runtime for each module using Singularity SIF images. Snakemake rules then defined the execution order and the dependencies between modules, so the whole analysis ran as a single workflow. I also configured a daemon and logging so that run status and error records could be inspected.\n[Deploying the pipeline per hospital and verifying results]\nServer specifications and closed-network conditions differed from hospital to hospital, so the installation steps and runtime settings had to be matched to each site. Using the automated deployment script built earlier, I deployed the Singularity SIF images, the Snakemake rules, and the configuration files the analysis required. I set up the network mounting for data access and the runtime configuration, and registered Crontab entries so the necessary jobs ran on schedule.\nAfter deployment, I compared the results of the legacy pipeline and the new one to verify they matched. Once runs were completing normally, the site switched over to the new pipeline. From then on I checked run status and errors every morning until operations had settled.\n[Acting on requirements from pathology users]\nOn site visits, pathology technologists and pathologists told me directly about friction in using the system and what they wanted improved. I collected those requirements so they could be folded into the next version release. The main example was IGV viewing. Results had been provided as snapshot images, and users said it was hard to examine variant positions and the surrounding sequence in any detail.\nTo address that, I added the open-source IGV-Report module to the analysis pipeline. The pipeline generates an HTML output through IGV-Report, and the generated file is linked into the LIMS so users can open it themselves. This replaced the static snapshot images with HTML-based IGV results."
       }
     },
     title: {
@@ -595,21 +614,21 @@ const portfolioProjects = [
     outcome: {
       ko: [
         "제한된 네트워크 환경에 맞춘 시스템 구축 및 운영",
-        "MNP 변이 저장 오류의 VARCHAR(50) 제약 확인 후 VARCHAR(200)으로 개선",
         "Daemon 및 Logging 구성으로 오류 발생 시 기록이 남도록 개선",
         "사용자 요구를 반영한 IGV-Report 조회 기능 도입",
-        "분석 실패의 원인을 메모리 부족으로 규명하고 파이프라인 전면 최적화 및 Snakemake 전환 필요성 도출"
+        "분석 실패의 원인을 메모리 부족으로 규명하고, Module 분리와 Snakemake 전환으로 파이프라인을 전면 개편해 배포 완료"
       ],
       en: [
         "Built and operated the system under restricted network conditions",
-        "Traced an MNP variant storage error to a VARCHAR(50) limit and raised it to VARCHAR(200)",
         "Configured a daemon and logging so that failures leave a record",
         "Introduced IGV-Report viewing in response to user requests",
-        "Identified memory exhaustion as the cause of failed runs and established the need for a full pipeline optimization and a move to Snakemake"
+        "Traced failed runs to memory exhaustion and reworked the pipeline end to end - splitting it into modules and moving it to Snakemake - through to deployment"
       ]
     },
     gallery: [
-      { ko: "새로운 배포 체계 확립", en: "New deployment structure established" }
+      { ko: "새로운 배포 체계 확립", en: "New deployment structure established" },
+      { ko: "현장 Node의 동시 분석 시 메모리 부족", en: "Memory running short when analyses ran concurrently on the on-site nodes" },
+      { ko: "기존 분석에서 Module을 분리한 이유", en: "Why the modules were separated out of the original analysis" }
     ],
     tools: [
       "Python",
@@ -618,6 +637,10 @@ const portfolioProjects = [
       "DBeaver",
       "Panoptes",
       "Snakemake",
+      "Miniconda",
+      "MariaDB",
+      "SGE",
+      "Singularity",
       "On-premise",
       "Air-gapped"
     ]
@@ -705,6 +728,20 @@ const portfolioProjects = [
   },
   {
     id: "aws-migration",
+    story: {
+      situation: {
+        ko: "당시 회사에서는 여러 부서가 하나의 분석 서버를 공유하고 있었으며, 부서별로 서버를 사용할 수 있는 날짜가 정해져 있었습니다. 이 때문에 일주일에 처리할 수 있는 분석은 최대 10~12건 정도였습니다.\n그러던 중 마케팅과 영업 부서에서 200건 이상의 신규 분석 계약이 가능하다는 이야기가 나왔습니다. 기존 서버로는 늘어나는 분석 물량을 처리하기 어려웠고, 분석 일정도 지연될 수 있어 AWS로 분석 환경을 전환하기로 했습니다. 저는 신입으로 입사한 직후 해당 프로젝트에 팀원으로 참여했습니다.",
+        en: "At the time several departments shared a single analysis server, with set days for each department to use it. That limited throughput to roughly 10 to 12 analyses a week.\nThen marketing and sales reported that more than 200 new analysis contracts were possible. The existing server could not absorb the rising volume and schedules were likely to slip, so we decided to move the analysis environment to AWS. I joined the project as a team member right after starting as a new graduate."
+      },
+      task: {
+        ko: "기존 사내 서버에서 운영하던 WGS, WES, WTS 연구용 분석 파이프라인을 AWS로 이전하고, 증가하는 분석 물량을 처리할 수 있는 환경을 구축해야 했습니다.\n당시 여러 부서에서 분석 파이프라인을 개별적으로 운영하고 있었기 때문에, 이를 분석 유형별로 대표 파이프라인 하나씩으로 정리해야 했습니다. 기존 분석 모듈은 Docker 이미지로 제작하고, 여러 분석 작업을 병렬로 실행할 수 있도록 워크플로를 구축하는 것도 필요했습니다.\n또한 부서별로 분산된 분석 데이터를 정리하고, 장기 보관할 데이터를 구분해야 했습니다. 특히 AWS 전환 이후 스토리지 비용이 증가할 수 있어, S3 Glacier를 활용한 장기 보관과 미사용 리소스 정리도 주요 과제였습니다.",
+        en: "The WGS, WES, and WTS research analysis pipelines running on the in-house server had to be moved to AWS, with an environment capable of handling the growing volume.\nBecause several departments were each running their own pipelines, these had to be consolidated into one representative pipeline per analysis type. The existing analysis modules needed to be built as Docker images, and a workflow had to be in place to run multiple analyses in parallel.\nAnalysis data scattered across departments also had to be organized, separating what was still in use from what should go to long-term storage. Storage costs could rise after the move to AWS, so long-term archiving with S3 Glacier and cleanup of unused resources were key parts of the task."
+      },
+      action: {
+        ko: "[WGS, WES, WTS 분석 파이프라인 통합 및 Docker 이미지 구성]\n여러 부서에서 운영하던 WGS, WES, WTS 분석 파이프라인을 확인하고, 분석 유형별로 대표 파이프라인 하나씩으로 통합했습니다.\n이 과정에서 GATK, STAR, Manta, RSEM 등 분석에 필요한 모듈의 실행 환경을 Docker 이미지로 제작하고 AWS ECR에 등록했습니다. 기존 서버에서 사용하던 분석 도구를 AWS 환경에서도 동일하게 실행할 수 있도록 정리했습니다.\n[AWS Batch 및 Step Functions 기반 워크플로 구축]\n팀장님과 함께 AWS Batch와 Step Functions를 활용해 분석 워크플로를 구축했습니다.\n분석 모듈별로 AWS Batch Job Definition을 구성하고, 작업에 필요한 EC2 인스턴스 사양과 Compute Environment를 연결했습니다. Step Functions에서는 분석 단계별 실행 순서와 조건 분기를 정의했습니다. WTS 분석의 경우 S3에 기존 분석 결과가 있는지 확인하고, 필요한 경우 STAR와 RSEM을 실행하도록 구성했습니다. 이를 통해 분석 단계별 실행 여부를 확인하고 필요한 작업을 수행할 수 있도록 했습니다.\n[CLI 기반 분석 실행 자동화]\n분석을 실행할 때마다 여러 명령어와 파라미터를 직접 입력해야 하는 불편함이 있어 Bash와 AWS CLI를 활용한 실행 스크립트를 제작했습니다. oneline.sh에서 WGS, WES, WTS 및 Normal, Tumor, Paired 등의 분석 유형을 선택하고, 각 분석에 필요한 Sample ID, Flowcell 정보, Target Depth, Reference Version 등을 입력받도록 했습니다. 입력된 값은 분석별 실행 스크립트로 전달해 AWS Step Functions를 호출하도록 구성했습니다. 이를 통해 AWS 콘솔에서 작업을 일일이 설정하지 않고도 CLI에서 분석을 실행할 수 있도록 했습니다.\n[분석 데이터 정리 및 S3 Glacier 기반 비용 관리]\n여러 부서에 분산되어 있던 분석 데이터를 정리하고, 현재 분석에 필요한 데이터와 장기 보관할 데이터를 구분했습니다. 분석이 완료되어 자주 사용하지 않는 데이터는 S3 Glacier로 옮겨 장기 보관하도록 했습니다. 또한 사용하지 않는 AWS 리소스를 정리하면서 스토리지와 컴퓨팅 비용을 줄이는 작업에 참여했습니다.",
+        en: "[Consolidating the WGS, WES, and WTS pipelines and building Docker images]\nI went through the WGS, WES, and WTS pipelines each department was running and consolidated them into one representative pipeline per analysis type.\nIn the process I built Docker images for the runtime of the modules the analyses needed - GATK, STAR, Manta, RSEM and others - and registered them in AWS ECR, so the tools used on the old server ran identically on AWS.\n[Building the workflow on AWS Batch and Step Functions]\nTogether with the team lead, I built the analysis workflow on AWS Batch and Step Functions.\nI defined an AWS Batch job definition per analysis module and tied each to the EC2 instance type and compute environment the job required. Step Functions then defined the execution order of the analysis stages and the conditional branches. For WTS, the workflow checks whether prior results already exist in S3 and runs STAR and RSEM when they are needed, so each stage runs only if it has to.\n[Automating analysis runs from the CLI]\nRunning an analysis meant typing out a series of commands and parameters every time, so I wrote execution scripts using Bash and the AWS CLI. In oneline.sh the user selects the analysis type - WGS, WES, WTS and normal, tumor, or paired - and enters the sample ID, flowcell information, target depth, and reference version the analysis needs. Those values are passed to the per-analysis execution script, which calls AWS Step Functions. This made it possible to launch an analysis from the CLI without configuring each job by hand in the AWS console.\n[Organizing analysis data and managing cost with S3 Glacier]\nI organized the analysis data that had been scattered across departments, separating what was needed for current analyses from what should be kept long term. Completed data that was no longer accessed often was moved to S3 Glacier for long-term storage. I also took part in cleaning up unused AWS resources to bring down storage and compute costs."
+      }
+    },
     title: {
       ko: "연구용 분석 서비스 AWS 전환 및 운영 자동화",
       en: "Research analysis service AWS migration and operations automation"
@@ -747,12 +784,22 @@ const portfolioProjects = [
         "Project result: reduced monthly AWS cost from about KRW 8–9 million to KRW 4–5 million"
       ]
     },
-    tools: [
+        gallery: [
+      { ko: "저장할 S3 폴더 구성", en: "S3 folder layout for stored data" },
+      { ko: "Bio tool에 대한 Docker 이미지 (AWS ECR)", en: "Docker images for the bio tools (AWS ECR)" },
+      { ko: "AWS Batch 컴퓨팅 환경", en: "AWS Batch compute environments" },
+      { ko: "AWS Batch 작업 정의", en: "AWS Batch job definitions" },
+      { ko: "최초 버전의 원라인 실행 스크립트 (oneline.sh)", en: "First version of the one-line run script (oneline.sh)" },
+      { ko: "WTS 초기 테스트 Step Functions 호출 예시", en: "Example Step Functions run for the initial WTS test" }
+    ],
+tools: [
       "AWS EC2",
+      "AWS Batch",
       "S3",
       "S3 Glacier",
       "Step Functions",
       "Docker",
+      "AWS ECR",
       "Bash"
     ]
   },
