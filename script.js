@@ -183,7 +183,7 @@ const definition = (label, value, flow = false) => {
 
 const deckBtn = (p) => (p.deck ? `<a class="btn soft deck-btn" href="${p.deck}" target="_blank" rel="noopener noreferrer">${tr('proj.deck')} ↗</a>` : '') + (p.links || []).map((l) => `<a class="btn soft deck-btn" href="${l.href}" target="_blank" rel="noopener noreferrer">${pick(l.label)} ↗</a>`).join('');
 const FLAGS = {
-  us: '<img src="assets/flags/us.png?v=20261125q" alt="" height="18">',
+  us: `<img src="assets/flags/us.png?v=${ASSET_V}" alt="" height="18">`,
   jp: '<svg viewBox="0 0 30 20" width="27" height="18" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg>',
 };
 const badgeHtml = (p) => p.badge ? `<span class="dispatch"><i class="dispatch-flag">${FLAGS[p.badge.flag]}</i><b>${pick(p.badge.text)}</b></span>` : '';

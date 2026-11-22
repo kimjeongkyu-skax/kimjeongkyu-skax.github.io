@@ -135,9 +135,29 @@ const render = () => {
   setupGallery(p.gallery);
 };
 
+// 화면 밝기 전환: 메인의 램프 줄과 같은 'theme' 값을 쓴다 (초기 적용은 project.html 의 head 스크립트)
+// 아이콘은 CSS 가 바꾼다. 여기서는 읽어 주는 이름만 현재 언어와 상태에 맞춘다.
+const themeBtn = $('#theme-btn');
+const syncTheme = () => {
+  if (!themeBtn) return;
+  const dark = document.documentElement.dataset.theme === 'dark';
+  themeBtn.setAttribute('aria-label', lang === 'en'
+    ? (dark ? 'Switch to light mode' : 'Switch to dark mode')
+    : (dark ? '밝게 전환' : '어둡게 전환'));
+};
+if (themeBtn) themeBtn.addEventListener('click', () => {
+  const r = document.documentElement;
+  r.dataset.theme = r.dataset.theme === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('theme', r.dataset.theme); } catch {}
+  syncTheme();
+});
+
 document.querySelectorAll('.flag').forEach((b) => b.addEventListener('click', () => {
   lang = b.dataset.lang;
   try { localStorage.setItem('lang', lang); } catch {}
   render();
+  syncTheme();
 }));
+syncTheme();
+
 render();

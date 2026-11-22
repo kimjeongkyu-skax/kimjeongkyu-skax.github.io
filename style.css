@@ -24,6 +24,13 @@ section{padding:72px 0}
 .flag{display:grid;place-items:center;border:0;background:none;border-radius:8px;width:44px;height:44px;padding:0}
 .flag.on{background:var(--tint)}
 .flag svg{display:block}
+/* 상세 페이지 내비의 화면 밝기 전환 버튼 (메인은 램프 줄이 같은 일을 한다) */
+.navbtn{display:grid;place-items:center;border:0;background:none;border-radius:8px;width:44px;height:44px;padding:0;color:var(--ink);cursor:pointer}
+.navbtn:hover{background:var(--tint)}
+.navbtn svg{display:block}
+.theme-ico.to-light{display:none}
+:root[data-theme=dark] .theme-ico.to-dark{display:none}
+:root[data-theme=dark] .theme-ico.to-light{display:block}
 
 /* cord */
 .cord-wrap{position:fixed;right:44px;top:0;z-index:15;display:flex;flex-direction:column;align-items:center;font:italic .72rem/1.1 Georgia,serif;color:var(--muted);text-align:center}
@@ -359,7 +366,7 @@ footer{text-align:left;padding:28px 20px}
 @media print{
   @page{size:A4;margin:12mm}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  header,nav,.cta,.totop,.cord-wrap,.flag,#filters{display:none!important}
+  header,nav,.cta,.totop,.cord-wrap,.flag,.navbtn,#filters{display:none!important}
   article,.card,.tl-item{break-inside:avoid}
   .float-card{position:static}
   .track{flex-wrap:wrap;transform:none!important}
