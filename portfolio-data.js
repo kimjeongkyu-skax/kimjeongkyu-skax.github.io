@@ -5,7 +5,7 @@ const locale = (ko, en) => ({ ko, en });
 // Project: id, title, client/domain, period (null = to be added), overview, duties[], results[], tools[]
 // Project images live in assets/projects/<id>/ : cover.jpg (or .png/.webp/.svg) and optional gallery 1.jpg ... 6.jpg (or .png)
 // 이미지 주소에 붙이는 버전: 같은 파일명으로 사진을 바꿨을 때 브라우저 캐시를 무효화한다
-const ASSET_V = '20261201n';
+const ASSET_V = '20261201o';
 function imgFallback(el) {
   const exts = el.dataset.exts.split(',');
   const n = Number(el.dataset.n || 0);
@@ -254,8 +254,8 @@ const portfolioProjects = [
         en: "First, the policy documents scattered across the legacy website had to be collected and the ones needed for actual work selected. I narrowed them to 112 work-related documents, organized them into 44 latest versions, and chose 6 documents suitable for initial testing. Since the PoC had to be built quickly, I used LibreChat, which I had used during the US assignment. At first I used its basic RAG feature, which automatically embeds and searches PDFs after upload, but it had limits in an environment like policy documents where accurate answers and source verification matter. In particular, several problems occurred: content from multiple policies got mixed into a single answer, damaged PDF table structures made the first row's content overlap with the next, and amounts and kinship relations were misinterpreted. To solve this, I judged that we needed a structure that reuses the existing document-processing features while letting us directly control question classification, search-result verification, answer generation, and calculation."
       },
       action: {
-        ko: "[LibreChat 문서 처리는 활용하고, 질의 처리는 직접 개발]\n문서 업로드와 벡터 저장은 LibreChat의 문서 처리 구성(rag_api)을 그대로 활용하고, 임베딩 모델만 Amazon Bedrock Titan으로 지정했습니다. 벡터 저장소는 pgvector입니다. 질문이 들어온 뒤의 처리는 LangGraph 기반 서비스를 직접 개발해, LibreChat 에이전트가 이 서비스를 거쳐 답하도록 연결했습니다. 기본 방식은 모델이 검색 도구를 부를지 스스로 판단하지만, 이 구조에서는 접수 단계에서 질문을 일반 대화, 규정 질문, 후보 선택, 계산으로 나누고 규정 질문이면 반드시 검색합니다.\n[검색 정확도 개선]\n질문을 규정 검색에 맞는 검색어로 바꾸고, 관련도가 낮은 조각과 개정 이력 표는 걸러내며, 한 문서에서 가져오는 조각 수에 상한을 두었습니다. 남은 후보 16개는 Sonnet으로 다시 정렬해 5개만 답변에 쓰고, 결과가 부족하면 검색어를 고쳐 한 번 더 검색합니다.\n[표 보정]\nPDF에서 글자만 뽑으면 표의 칸 구분이 사라져 한 줄로 이어 붙는 문제가 있어서, 표가 깨지는 쪽은 직접 옮겨 적은 표 텍스트로 교체해 답변에 사용합니다.\n[근거 확인과 후보 선택]\n여러 문서가 걸리는 질문에는 답을 섞지 않고 문서 후보 버튼을 보여 주어 사용자가 고르게 했습니다. 다만 매번 되묻는 것이 실사용에서 가장 큰 불만이었기 때문에, 후보가 하나이거나 1등이 확실히 앞서거나 직전에 고른 문서가 후보에 있으면 AI를 거치지 않고 코드로 판단해 바로 답하도록 바꿨습니다. 조건이 질문에 없을 때도 되묻고 끝내지 않고 갈래별 값을 먼저 보여 줍니다. 답변에는 문서명과 쪽 번호를 출처로 붙이고, 화면의 근거 패널에서 해당 쪽을 PDF로 미리 볼 수 있게 했습니다. 직접 연동한 방식이라 LibreChat의 기본 인용 기능을 쓸 수 없어서, 근거 정보를 답변 끝의 보이지 않는 주석으로 넘기고 화면 스크립트가 패널을 그리도록 했습니다.\n[계산과 모델 분기]\n금액 계산이 필요한 질문은 규칙을 추출한 뒤 계산기로 직접 계산해 숫자 오류를 줄였고, 경조사 친족 관계는 별도 코드로 풀이합니다. 숫자가 틀리면 안 되는 접수 판정, 재정렬, 규칙 추출에는 Sonnet을, 검색어 변환, 일반 대화, 답변에는 Haiku를 사용해 비용을 나눴습니다. 모든 AI 호출은 LiteLLM을 거쳐 사용자별 사용량이 기록됩니다.\n[운영과 남은 과제]\n사내에 배포한 뒤 기능을 개선하며 사용 비용을 모니터링하고 있습니다. 문서 읽기와 자르기(1500자 단위, 100자 겹침)는 LibreChat 기본값 그대로라서 표 처리나 조각 방식을 바꾸려면 해당 구성요소를 직접 고쳐야 하며, 품질 평가 결과를 보고 개선 방향을 정할 예정입니다.",
-        en: "[Reusing LibreChat's document handling, building query handling in-house]\nDocument upload and vector storage reuse LibreChat's document-processing component (rag_api), with only the embedding model set to Amazon Bedrock Titan. The vector store is pgvector. For everything after a question arrives, I built a LangGraph-based service and connected the LibreChat agent to answer through it. By default the model itself decides whether to call a search tool, but in this structure an intake step classifies each question as general chat, policy question, candidate selection, or calculation, and always searches for policy questions.\n[Improving search accuracy]\nThe question is rewritten into a query suited to policy search, low-relevance chunks and revision-history tables are filtered out, and the number of chunks taken from one document is capped. The remaining 16 candidates are re-ranked with Sonnet and only 5 are used in the answer; if the result is insufficient, the query is revised and searched once more.\n[Table correction]\nExtracting only text from a PDF loses table cell boundaries and runs the contents together on one line, so pages where tables break are replaced with hand-transcribed table text before answering.\n[Source checking and candidate selection]\nWhen a question matches several documents, the answers are not blended; candidate document buttons are shown so the user chooses. But since being asked every time was the biggest complaint in real use, code — not a model — now decides to answer directly when there is only one candidate, when the top candidate is clearly ahead, or when the document chosen in the previous turn is among the candidates. When the question omits a qualifying condition, the answer leads with the values per case instead of only asking back. Answers carry the document name and page number as the source, and a source panel lets users preview the matching page as a PDF. Because this is a custom integration, LibreChat's built-in citation feature is unavailable, so source data is passed as invisible comments at the end of the answer and a front-end script draws the panel.\n[Calculation and model routing]\nFor questions that need amounts, rules are extracted and then computed with a calculator to reduce numeric errors, and family-relationship rules for condolence and congratulatory events are resolved by separate code. Sonnet handles intake classification, re-ranking, and rule extraction, where wrong numbers are unacceptable, while Haiku handles query rewriting, general chat, and answers, splitting the cost. All AI calls go through LiteLLM so usage is recorded per user.\n[Operations and remaining work]\nAfter internal deployment, I keep improving features and monitoring usage cost. Document reading and splitting (1,500-character chunks with 100-character overlap) use LibreChat's defaults, so changing table handling or chunking requires modifying that component directly; the direction will be decided after a quality evaluation."
+        ko: "[LangGraph 기반 Coordinator]\nLibreChat의 rag_api를 활용해 문서를 처리하고, 질의 처리는 FastAPI와 LangGraph로 별도 개발했습니다. Coordinator에서 질문 유형을 분류하고 처리 흐름을 제어했으며, 규정 관련 질문은 반드시 문서 검색을 거치도록 구성했습니다.\n[LLM 기반 Reranking 및 검색 개선]\n질문을 검색에 적합한 Query로 변환하고, 관련성이 낮은 청크와 개정 이력 표를 필터링했습니다. 이후 Claude Sonnet이 검색 결과의 관련성을 평가해 답변에 사용할 근거를 선별하도록 했으며, 결과가 부족하면 재검색하도록 구성했습니다.\n[문서 자동 선택 및 근거 확인]\n여러 규정이 검색될 때 답변이 섞이는 문제를 해결하기 위해 문서 선택 로직을 구현했습니다. 관련도가 명확하거나 이전에 선택한 문서가 있으면 자동으로 선택하고, 판단이 어려울 때만 사용자에게 선택지를 제공했습니다.\nPDF 표 추출 과정에서 깨진 데이터는 원본과 비교해 보정했습니다. 또한 문서명과 페이지 정보를 LibreChat 화면으로 전달해 원본 PDF를 확인할 수 있는 근거 패널을 구현했습니다.\n[모델 분리 및 운영 개선]\n정확한 판단이 필요한 질문 분류와 Reranking에는 Claude Sonnet을, Query 변환과 답변 생성에는 Claude Haiku를 사용했습니다. LiteLLM으로 사용자별 사용량과 비용을 관리하고, 사내 PoC에서 접수된 오답 사례를 바탕으로 기능을 개선했습니다.",
+        en: "[LangGraph coordinator]\nDocuments are processed through LibreChat's rag_api, while the query handling was built separately with FastAPI and LangGraph. A coordinator classifies the question type and controls the processing flow, and policy-related questions always go through a document search.\n[LLM-based reranking and search improvements]\nThe question is converted into a query suited to search, and low-relevance chunks and revision-history tables are filtered out. Claude Sonnet then assesses how relevant the search results are and selects the evidence to use in the answer, searching again when the results fall short.\n[Automatic document selection and source checking]\nTo stop answers from blending together when several policies match, I implemented document selection logic. It picks a document automatically when the relevance is clear or when one was chosen earlier, and offers the user a choice only when the call is genuinely ambiguous.\nData broken during PDF table extraction was corrected against the original. I also passed the document name and page information through to the LibreChat screen, building a source panel where the original PDF can be checked.\n[Model split and operational improvements]\nClaude Sonnet handles question classification and reranking, where accurate judgement matters, while Claude Haiku handles query conversion and answer generation. LiteLLM manages per-user usage and cost, and features were improved from the wrong answers reported during the internal PoC."
       },
       test: {
         ko: "실무자들이 확인하고 싶은 부분만 채팅으로 확인하는 작업이 대부분이었고, 코드를 구현하거나 같은 질문과 꼬리 질문을 반복하는 일이 예상보다 적어서 비용은 Claude Code PoC 때보다 현저히 낮았습니다. 하지만 다중 질문과 단답형 질문, 실제 친족 관계 질문 등에서 잘못된 답변이 나온다는 Q&A가 들어왔고, 이 이슈들을 해결하는 작업이 필요했습니다.",
@@ -281,22 +281,20 @@ const portfolioProjects = [
     },
     role: {
       ko: [
-        "레거시 홈페이지의 실무 규정문서 112개를 최신 버전 44개로 정리, 초기 테스트용 6개 선정",
-        "LibreChat 문서 처리(rag_api)는 활용하고, 질의 처리는 FastAPI·LangGraph 기반 서비스로 직접 개발",
-        "질문을 일반 대화, 규정 질문, 후보 선택, 계산으로 나누는 접수 분류 구현",
-        "검색어 변환, 저관련 조각 및 개정 이력 표 필터링, Sonnet 재정렬(후보 16개 중 5개 사용) 구현",
-        "PDF 표 깨짐 보정, 금액 계산기, 경조사 친족 관계 풀이 구현",
-        "문서 후보 버튼, 문서명·쪽 번호 출처 표시, PDF 미리보기 근거 패널 구현",
-        "Sonnet·Haiku 모델 분기와 LiteLLM 사용량 기록 적용, 사내 배포 후 기능 개선과 비용 모니터링"
+        "LibreChat에 FastAPI 기반 자체 Agent 서비스 연동",
+        "LangGraph를 활용한 질의 처리 흐름 개발",
+        "일반 대화에는 Haiku, 규정 검색 및 결과 재정렬에는 Sonnet을 적용하는 모델 분기 구조 구현",
+        "Sonnet 기반 리랭킹으로 관련 규정문서 후보 최대 3개를 제시하고 사용자가 선택하는 흐름 구현",
+        "PDF 페이지 미리보기 및 인용 구간 강조 UI 구현",
+        "사내 배포 후 기능 개선과 사용 비용 모니터링"
       ],
       en: [
-        "Narrowed the legacy site's work-related policy documents from 112 to 44 latest versions and chose 6 for initial testing",
-        "Reused LibreChat's document handling (rag_api) and built the query handling in-house as a FastAPI/LangGraph service",
-        "Implemented intake classification into general chat, policy question, candidate selection, and calculation",
-        "Implemented query rewriting, filtering of low-relevance chunks and revision-history tables, and Sonnet re-ranking (16 candidates down to 5 used)",
-        "Implemented PDF table correction, an amount calculator, and kinship resolution for condolence and congratulatory leave",
-        "Built candidate document buttons, document-name and page-number citations, and a PDF preview source panel",
-        "Applied Sonnet/Haiku model routing with LiteLLM usage logging; improved features and monitored cost after internal deployment"
+        "Connected a FastAPI-based custom agent service to LibreChat",
+        "Built the query-handling flow with LangGraph",
+        "Implemented model routing: Haiku for general chat, Sonnet for policy search and result re-ranking",
+        "Implemented Sonnet-based reranking that offers up to 3 candidate policy documents for the user to choose",
+        "Built a PDF page preview with the cited passage highlighted",
+        "Improved features and monitored usage cost after internal deployment"
       ]
     },
     outcome: {
@@ -743,8 +741,8 @@ const portfolioProjects = [
     id: "aws-migration",
     story: {
       situation: {
-        ko: "당시 회사에서는 여러 부서가 하나의 분석 서버를 공유하고 있었으며, 부서별로 서버를 사용할 수 있는 날짜가 정해져 있었습니다. 이 때문에 일주일에 처리할 수 있는 분석은 최대 10~12건 정도였습니다.\n그러던 중 마케팅과 영업 부서에서 200건 이상의 신규 분석 계약이 가능하다는 이야기가 나왔습니다. 기존 서버로는 늘어나는 분석 물량을 처리하기 어려웠고, 분석 일정도 지연될 수 있어 AWS로 분석 환경을 전환하기로 했습니다. 저는 신입으로 입사한 직후 해당 프로젝트에 팀원으로 참여했습니다.",
-        en: "At the time several departments shared a single analysis server, with set days for each department to use it. That limited throughput to roughly 10 to 12 analyses a week.\nThen marketing and sales reported that more than 200 new analysis contracts were possible. The existing server could not absorb the rising volume and schedules were likely to slip, so we decided to move the analysis environment to AWS. I joined the project as a team member right after starting as a new graduate."
+        ko: "당시 회사에서는 여러 부서가 하나의 분석 서버를 공유하고 있었으며, 부서별로 서버를 사용할 수 있는 날짜가 정해져 있었습니다. 이 때문에 온프레미스 서버에서 일주일에 처리할 수 있는 분석은 최대 10~12건 정도였습니다.\n그러던 중 마케팅과 영업 부서에서 200건 이상의 신규 분석 계약이 가능하다는 이야기가 나왔습니다. 수주 물량은 주 100~300건 수준이어서 기존 서버의 처리 한계를 크게 넘었고, 분석 일정도 지연될 수 있어 AWS로 분석 환경을 전환하기로 했습니다. 저는 신입으로 입사한 직후 해당 프로젝트에 팀원으로 참여했습니다.",
+        en: "At the time several departments shared a single analysis server, with set days for each department to use it. That limited the on-premise server to roughly 10 to 12 analyses a week.\nThen marketing and sales reported that more than 200 new analysis contracts were possible. The contracted volume ran at 100 to 300 analyses a week, well past what the existing server could take, and schedules were likely to slip, so we decided to move the analysis environment to AWS. I joined the project as a team member right after starting as a new graduate."
       },
       task: {
         ko: "기존 사내 서버에서 운영하던 WGS, WES, WTS 연구용 분석 파이프라인을 AWS로 이전하고, 증가하는 분석 물량을 처리할 수 있는 환경을 구축해야 했습니다.\n당시 여러 부서에서 분석 파이프라인을 개별적으로 운영하고 있었기 때문에, 이를 분석 유형별로 대표 파이프라인 하나씩으로 정리해야 했습니다. 기존 분석 모듈은 Docker 이미지로 제작하고, 여러 분석 작업을 병렬로 실행할 수 있도록 워크플로를 구축하는 것도 필요했습니다.\n또한 부서별로 분산된 분석 데이터를 정리하고, 장기 보관할 데이터를 구분해야 했습니다. 특히 AWS 전환 이후 스토리지 비용이 증가할 수 있어, S3 Glacier를 활용한 장기 보관과 미사용 리소스 정리도 주요 과제였습니다.",
